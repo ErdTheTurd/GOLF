@@ -9,52 +9,53 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0d1a0f; --panel:#162019; --panel2:#1c2b1e;
+  --bg:#0d1a0f;--panel:#162019;--panel2:#1c2b1e;
   --border:rgba(255,255,255,0.08);
-  --green:#2ea855; --green2:#1d7a3a; --green-pale:rgba(46,168,85,0.12);
-  --gold:#d4a832; --gold2:#f0c84a; --cream:#f0ead8; --white:#fff;
-  --muted:rgba(240,234,216,0.5); --faint:rgba(240,234,216,0.22); --red:#e05555;
-  --fd:'Bebas Neue',sans-serif; --fc:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
+  --green:#2ea855;--green2:#1d7a3a;--gp:rgba(46,168,85,0.12);
+  --gold:#d4a832;--gold2:#f0c84a;--cream:#f0ead8;--white:#fff;
+  --muted:rgba(240,234,216,0.5);--faint:rgba(240,234,216,0.22);--red:#e05555;
+  --fd:'Bebas Neue',sans-serif;--fc:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
   --r:12px;
 }
 html,body{min-height:100vh;background:var(--bg);color:var(--cream);font-family:var(--fb);}
 body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,0.09) 0%,transparent 60%);}
-
 .screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.25rem 3rem;animation:fi .4s ease;}
 .screen.active{display:flex;}
-@keyframes fi{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
+@keyframes fi{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 .logo-wrap{text-align:center;margin-bottom:2rem;}
 .logo-eye{font-family:var(--fc);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
 .logo-title{font-family:var(--fd);font-size:clamp(52px,12vw,96px);line-height:1;}
 .logo-title span{color:var(--green);}
 .logo-sub{font-family:var(--fc);font-size:13px;letter-spacing:2px;color:var(--muted);margin-top:6px;}
-
 .step-lbl{font-family:var(--fc);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;text-align:center;}
 .step-title{font-family:var(--fd);font-size:clamp(26px,7vw,50px);text-align:center;margin-bottom:24px;line-height:1.1;}
-
 .hand-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:420px;}
 .hcard{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .2s;}
-.hcard:hover,.hcard.sel{background:var(--green-pale);border-color:var(--green);}
+.hcard:hover,.hcard.sel{background:var(--gp);border-color:var(--green);}
 .hc-icon{font-size:44px;margin-bottom:8px;}
 .hc-lbl{font-family:var(--fd);font-size:28px;letter-spacing:1px;}
 .hc-sub{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--fc);}
-
-.club-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:560px;}
+/* CLUB GRID — now with Putter */
+.club-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:580px;}
 .cbtn{background:var(--panel);border:1.5px solid var(--border);border-radius:8px;padding:13px 6px;text-align:center;cursor:pointer;transition:all .18s;}
-.cbtn:hover,.cbtn.sel{background:var(--green-pale);border-color:var(--green);}
+.cbtn:hover,.cbtn.sel{background:var(--gp);border-color:var(--green);}
+.cbtn.putt-btn{border-color:rgba(74,159,212,0.4);background:rgba(74,159,212,0.06);}
+.cbtn.putt-btn:hover,.cbtn.putt-btn.sel{background:rgba(74,159,212,0.15);border-color:#4a9fd4;}
 .cb-num{font-family:var(--fd);font-size:26px;}
 .cb-name{font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--fc);letter-spacing:1px;}
-
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:480px;}
-.mcard{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:1.75rem 1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.mcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-pale),transparent);opacity:0;transition:opacity .2s;}
+/* MODE GRID — 3 modes now */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:560px;}
+.mcard{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.mcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gp),transparent);opacity:0;transition:opacity .2s;}
 .mcard:hover::before,.mcard.sel::before{opacity:1;}
 .mcard:hover,.mcard.sel{border-color:var(--green);}
-.mi{font-size:32px;margin-bottom:8px;}
-.mn{font-family:var(--fd);font-size:22px;letter-spacing:1px;margin-bottom:5px;}
+.mcard.putt-mode{border-color:rgba(74,159,212,0.3);}
+.mcard.putt-mode::before{background:linear-gradient(135deg,rgba(74,159,212,0.12),transparent);}
+.mcard.putt-mode:hover,.mcard.putt-mode.sel{border-color:#4a9fd4;}
+.mi{font-size:30px;margin-bottom:8px;}
+.mn{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-bottom:5px;}
 .md{font-size:12px;color:var(--muted);line-height:1.5;font-family:var(--fc);}
-
+/* BUTTONS */
 .btn{font-family:var(--fc);font-size:15px;letter-spacing:1.5px;padding:11px 28px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;}
 .btn-gold{background:var(--gold);color:#0d1a0f;border-color:var(--gold);font-weight:600;}
 .btn-gold:hover{background:var(--gold2);}
@@ -64,21 +65,22 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 .btn-green{background:var(--green2);color:var(--white);border-color:var(--green);}
 .btn-green:hover{background:var(--green);}
 .btn-green:disabled{opacity:.35;cursor:default;}
+.btn-blue{background:#1a4a6a;color:var(--white);border-color:#4a9fd4;}
+.btn-blue:hover{background:#1f5a7a;}
+.btn-blue:disabled{opacity:.35;cursor:default;}
 .btn-sm{padding:7px 14px;font-size:12px;}
 .btn-row{display:flex;gap:12px;margin-top:20px;justify-content:center;flex-wrap:wrap;}
-
 .back-btn{position:fixed;top:14px;left:14px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:var(--fc);font-size:12px;letter-spacing:1px;color:var(--muted);cursor:pointer;z-index:200;transition:all .15s;}
 .back-btn:hover{border-color:var(--green);color:var(--cream);}
-
-/* GAME */
-.glayout{width:100%;max-width:740px;}
+/* GAME LAYOUT */
+.glayout{width:100%;max-width:760px;}
 .ghdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .gtitle{font-family:var(--fd);font-size:22px;letter-spacing:1px;}
 .tags{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
 .tag{font-family:var(--fc);font-size:11px;letter-spacing:1.5px;padding:3px 9px;border-radius:4px;background:var(--panel2);border:1px solid var(--border);color:var(--muted);}
 .tag.hi{border-color:var(--green);color:var(--green);}
 .tag.gd{border-color:var(--gold);color:var(--gold);}
-
+.tag.bl{border-color:#4a9fd4;color:#4a9fd4;}
 /* CAMERA */
 .camwrap{position:relative;width:100%;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#050f07;border:1px solid var(--border);box-shadow:0 6px 32px rgba(0,0,0,.4);}
 #video{width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);}
@@ -86,12 +88,10 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 #overlayCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 #camOverlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.8);backdrop-filter:blur(3px);gap:14px;}
 #camOverlay.hide{display:none;}
-#camMsg{font-size:14px;color:var(--muted);text-align:center;max-width:260px;line-height:1.65;font-family:var(--fc);letter-spacing:.5px;}
+#camMsg{font-size:14px;color:var(--muted);text-align:center;max-width:280px;line-height:1.65;font-family:var(--fc);letter-spacing:.5px;}
 #camMsg b{color:var(--cream);}
 #camMsg.err{color:var(--red);}
-
-/* HUD badges */
-#ballBadge{position:absolute;top:10px;left:10px;background:rgba(5,15,7,.8);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--fc);letter-spacing:1px;color:var(--muted);display:none;transition:all .3s;}
+#ballBadge{position:absolute;top:10px;left:10px;background:rgba(5,15,7,.8);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--fc);letter-spacing:1px;color:var(--muted);display:none;transition:all .3s;max-width:200px;}
 #ballBadge.locked{border-color:var(--green);color:var(--green);}
 #ballBadge.searching{border-color:var(--gold);color:var(--gold);}
 #speedBadge{position:absolute;top:10px;right:10px;width:66px;height:66px;border-radius:50%;background:rgba(5,15,7,.8);border:2px solid var(--border);display:none;flex-direction:column;align-items:center;justify-content:center;}
@@ -99,47 +99,44 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 #speedLbl{font-size:9px;color:var(--muted);font-family:var(--fc);letter-spacing:1px;}
 #swingBar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(0,0,0,.5);}
 #swingFill{height:100%;width:0%;background:var(--green);transition:width .1s;border-radius:2px;}
-
+/* Putt alignment guide overlay */
+#puttGuide{position:absolute;inset:0;pointer-events:none;display:none;}
+#puttGuide.show{display:block;}
+#swingPrompt{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.65);gap:10px;}
+#swingPrompt.show{display:flex;}
+#swingCountdown{font-family:var(--fd);font-size:72px;color:var(--gold2);line-height:1;}
+#swingMsg{font-family:var(--fc);font-size:14px;color:var(--cream);letter-spacing:1px;}
 /* CONTROLS */
-.camctrl{display:flex;gap:10px;margin-top:12px;align-items:center;}
+.camctrl{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;}
 #thumb{width:60px;height:45px;border-radius:6px;object-fit:cover;border:1px solid var(--border);display:none;flex-shrink:0;}
 .camhint{font-size:11px;color:var(--faint);text-align:center;margin-top:6px;font-family:var(--fc);letter-spacing:.4px;line-height:1.5;}
-
-/* BALL STATUS ROW */
 #ballRow{display:none;margin-top:8px;align-items:center;gap:8px;flex-wrap:wrap;}
 #ballRow.show{display:flex;}
 #ballStatusTxt{font-family:var(--fc);font-size:12px;letter-spacing:.5px;color:var(--muted);flex:1;min-width:0;}
 #scanLog{display:none;margin-top:6px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;font-family:var(--fc);letter-spacing:.4px;color:var(--muted);line-height:1.8;max-height:72px;overflow-y:auto;}
-
-/* STATS */
+/* STATS — changes labels for putting */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
 .sbox{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;transition:border-color .4s;}
 .sbox.flash{border-color:var(--green);}
+.sbox.putt{border-color:rgba(74,159,212,0.3);}
+.sbox.putt.flash{border-color:#4a9fd4;}
 .sv{font-family:var(--fd);font-size:26px;color:var(--gold2);}
 .su{font-size:10px;color:var(--muted);font-family:var(--fc);letter-spacing:1px;}
 .sl{font-size:10px;color:var(--faint);font-family:var(--fc);letter-spacing:1px;margin-top:2px;}
-
-/* FEEDBACK */
-.fbcard{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-top:14px;}
-.fbtitle{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-.fbsum{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
-.fbmeta{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.checks{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
-.crow{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:7px;font-size:13px;border:1px solid transparent;}
-.crow.good{background:rgba(46,168,85,.09);border-color:rgba(46,168,85,.22);}
-.crow.warn{background:rgba(212,168,50,.09);border-color:rgba(212,168,50,.22);}
-.crow.bad{background:rgba(224,85,85,.09);border-color:rgba(224,85,85,.22);}
-.cico{flex-shrink:0;font-size:13px;margin-top:1px;}
-.clbl{font-weight:600;min-width:125px;flex-shrink:0;font-family:var(--fc);letter-spacing:.5px;font-size:13px;}
-.cnote{color:var(--muted);line-height:1.45;font-size:12px;}
-.topfix{background:rgba(212,168,50,.08);border:1px solid rgba(212,168,50,.28);border-left:3px solid var(--gold);border-radius:8px;padding:10px 14px;margin-bottom:10px;}
-.tflbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:var(--fc);margin-bottom:4px;}
-.tftxt{font-size:13px;color:var(--cream);line-height:1.5;}
-.enc{font-size:12px;color:var(--faint);font-style:italic;text-align:center;padding-top:10px;border-top:1px solid var(--border);}
-.perf{background:var(--green2);border:1px solid var(--green);border-radius:8px;padding:14px;text-align:center;margin-bottom:12px;}
-.perf-big{font-family:var(--fd);font-size:26px;letter-spacing:2px;color:var(--gold2);}
-.perf-sub{font-size:12px;color:rgba(240,234,216,.7);font-family:var(--fc);letter-spacing:1px;margin-top:3px;}
-
+/* PUTTING GREEN */
+.greenwrap{margin-top:14px;}
+.greensvgwrap{width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);}
+#greenSvg{display:block;width:100%;}
+.putt-info{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.putt-history{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-top:10px;}
+.ph-title{font-family:var(--fd);font-size:16px;letter-spacing:1px;margin-bottom:8px;}
+.ph-list{display:flex;flex-direction:column;gap:5px;max-height:150px;overflow-y:auto;}
+.ph-row{display:flex;gap:8px;align-items:center;font-size:12px;font-family:var(--fc);padding:5px 8px;background:var(--panel2);border-radius:6px;}
+.ph-num{color:var(--gold);min-width:24px;}
+.ph-dist{color:var(--cream);min-width:50px;}
+.ph-result{flex:1;color:var(--muted);}
+.ph-made{color:var(--green)!important;font-weight:600;}
+.ph-miss{color:var(--red)!important;}
 /* COURSE */
 .coursesec{margin-top:14px;}
 .holehdr{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
@@ -157,21 +154,41 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 .scc.bogey{background:rgba(224,85,85,.15);color:#e07878;}
 .scc.dbl{background:rgba(224,85,85,.28);color:var(--red);}
 .sctot{background:var(--panel2);border-radius:4px;padding:5px 4px;color:var(--cream);font-weight:600;}
-
+/* FEEDBACK */
+.fbcard{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-top:14px;}
+.fbcard.putt-fb{border-color:rgba(74,159,212,0.25);}
+.fbtitle{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.fbsum{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.fbmeta{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.checks{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.crow{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:7px;font-size:13px;border:1px solid transparent;}
+.crow.good{background:rgba(46,168,85,.09);border-color:rgba(46,168,85,.22);}
+.crow.warn{background:rgba(212,168,50,.09);border-color:rgba(212,168,50,.22);}
+.crow.bad{background:rgba(224,85,85,.09);border-color:rgba(224,85,85,.22);}
+.cico{flex-shrink:0;font-size:13px;margin-top:1px;}
+.clbl{font-weight:600;min-width:130px;flex-shrink:0;font-family:var(--fc);letter-spacing:.5px;font-size:13px;}
+.cnote{color:var(--muted);line-height:1.45;font-size:12px;}
+.topfix{background:rgba(212,168,50,.08);border:1px solid rgba(212,168,50,.28);border-left:3px solid var(--gold);border-radius:8px;padding:10px 14px;margin-bottom:10px;}
+.tflbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:var(--fc);margin-bottom:4px;}
+.tftxt{font-size:13px;color:var(--cream);line-height:1.5;}
+.enc{font-size:12px;color:var(--faint);font-style:italic;text-align:center;padding-top:10px;border-top:1px solid var(--border);}
+.perf{background:var(--green2);border:1px solid var(--green);border-radius:8px;padding:14px;text-align:center;margin-bottom:12px;}
+.perf.putt-perf{background:#1a3a5a;border-color:#4a9fd4;}
+.perf-big{font-family:var(--fd);font-size:26px;letter-spacing:2px;color:var(--gold2);}
+.perf-sub{font-size:12px;color:rgba(240,234,216,.7);font-family:var(--fc);letter-spacing:1px;margin-top:3px;}
+/* DRILLS panel */
+.drills{margin-top:12px;background:rgba(74,159,212,0.06);border:1px solid rgba(74,159,212,0.2);border-radius:8px;padding:12px;}
+.drills-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#4a9fd4;font-family:var(--fc);margin-bottom:8px;}
+.drill-item{font-size:12px;color:var(--muted);line-height:1.7;}
+.drill-item::before{content:'▸ ';color:#4a9fd4;}
+/* MISC */
 .spinner{display:inline-block;width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
 #toast{position:fixed;top:20px;right:20px;background:var(--panel);border:1px solid var(--green);border-radius:10px;padding:12px 18px;font-family:var(--fd);font-size:22px;letter-spacing:1px;color:var(--gold2);z-index:500;display:none;animation:tia .3s ease;}
-@keyframes tia{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
-
-/* SWING PROMPT */
-#swingPrompt{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.6);gap:10px;}
-#swingPrompt.show{display:flex;}
-#swingCountdown{font-family:var(--fd);font-size:72px;color:var(--gold2);line-height:1;}
-#swingMsg{font-family:var(--fc);font-size:14px;color:var(--cream);letter-spacing:1px;}
-
+@keyframes tia{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:none;}}
 @media(max-width:480px){
-  .hand-grid,.mode-grid{grid-template-columns:1fr;}
+  .hand-grid{grid-template-columns:1fr;}
+  .mode-grid{grid-template-columns:1fr;}
   .club-grid{grid-template-columns:repeat(3,1fr);}
   .stats-row{grid-template-columns:repeat(2,1fr);}
 }
@@ -185,7 +202,7 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
   <div class="logo-wrap">
     <div class="logo-eye">Titleist Pro V1</div>
     <div class="logo-title">Golf<span>Sim</span></div>
-    <div class="logo-sub">Computer Vision · Physics Engine · Virtual Course</div>
+    <div class="logo-sub">Computer Vision · Physics Engine · Putting Mode</div>
   </div>
   <div class="step-lbl">Step 1 of 3 · Your stance</div>
   <div class="step-title">Which hand do you play?</div>
@@ -211,6 +228,7 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
     <div class="cbtn" onclick="selClub('pw','Pitching Wedge',this)"><div class="cb-num">PW</div><div class="cb-name">Pitching</div></div>
     <div class="cbtn" onclick="selClub('sw','Sand Wedge',this)"><div class="cb-num">SW</div><div class="cb-name">Sand</div></div>
     <div class="cbtn" onclick="selClub('dr','Driver',this)" style="grid-column:span 2"><div class="cb-num">DR</div><div class="cb-name">Driver</div></div>
+    <div class="cbtn putt-btn" onclick="selClub('pt','Putter',this)" style="grid-column:span 4"><div class="cb-num">⛳ PT</div><div class="cb-name">Putter · switches to putting mode</div></div>
   </div>
   <div class="btn-row"><button class="btn btn-gold" id="btn-c" disabled onclick="goTo('s-mode')">Continue →</button></div>
 </section>
@@ -220,9 +238,11 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
   <button class="back-btn" onclick="goTo('s-club')">← Back</button>
   <div class="step-lbl">Step 3 of 3 · Mode</div>
   <div class="step-title">How do you want to play?</div>
-  <div class="mode-grid">
-    <div class="mcard" onclick="selMode('practice',this)"><div class="mi">🎯</div><div class="mn">Practice</div><div class="md">Swing analysis, spin detection, distance &amp; trajectory. AI coaching after every shot.</div></div>
-    <div class="mcard" onclick="selMode('course',this)"><div class="mi">⛳</div><div class="mn">Virtual Course</div><div class="md">Play 9 holes. Your shot data moves the ball on screen. Track score vs par.</div></div>
+  <div class="mode-grid" id="modeGrid">
+    <div class="mcard" onclick="selMode('practice',this)"><div class="mi">🎯</div><div class="mn">Practice</div><div class="md">Full shot analysis, spin detection, distance &amp; trajectory. Detailed AI coaching after every shot.</div></div>
+    <div class="mcard" onclick="selMode('course',this)"><div class="mi">⛳</div><div class="mn">Virtual Course</div><div class="md">Play 9 holes. Shot data drives the ball on screen. Track score vs par with scorecard.</div></div>
+    <div class="mcard putt-mode" id="mcard-putt" onclick="selMode('putting',this)" style="display:none"><div class="mi">🕳️</div><div class="mn">Putting Green</div><div class="md">Practice putts of varying distances. AI tracks tempo, face angle, stroke path and distance control.</div></div>
+    <div class="mcard putt-mode" id="mcard-putt2" onclick="selMode('putt-course',this)" style="display:none"><div class="mi">🏆</div><div class="mn">18-Hole Putt</div><div class="md">Putt every hole of a virtual course. Compete against par on each green. Full scoring.</div></div>
   </div>
   <div class="btn-row"><button class="btn btn-gold" id="btn-m" disabled onclick="startGame()">Tee Off →</button></div>
 </section>
@@ -231,7 +251,6 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 <section class="screen" id="s-game">
   <button class="back-btn" onclick="quitGame()">← Menu</button>
   <div class="glayout">
-
     <div class="ghdr">
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="gtitle">GolfSim</div>
@@ -259,9 +278,10 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
         <div id="speedVal">—</div>
         <div id="speedLbl">MPH</div>
       </div>
+      <!-- Putting guide lines drawn on overlayCanvas -->
       <div id="swingPrompt">
         <div id="swingCountdown">3</div>
-        <div id="swingMsg">GET READY TO SWING</div>
+        <div id="swingMsg">GET READY</div>
       </div>
       <div id="swingBar"><div id="swingFill"></div></div>
     </div>
@@ -277,15 +297,24 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
       <button class="btn btn-ghost btn-sm" id="btnRescan" onclick="rescan()" style="display:none;">↺ Rescan</button>
     </div>
     <div id="scanLog"></div>
-    <div class="camhint">Place Titleist Pro V1 in frame → AI locks the ball angle → click Ready to Swing → swing normally</div>
+    <div class="camhint" id="camHint">Place Titleist Pro V1 logo facing lens → AI locks ball angle → click Ready to Swing → swing normally</div>
 
-    <div class="stats-row">
-      <div class="sbox" id="sb0"><div class="sv" id="sv0">—</div><div class="su">mph</div><div class="sl">Club Speed</div></div>
-      <div class="sbox" id="sb1"><div class="sv" id="sv1">—</div><div class="su">rpm</div><div class="sl">Ball Spin</div></div>
-      <div class="sbox" id="sb2"><div class="sv" id="sv2">—</div><div class="su">yds</div><div class="sl">Distance</div></div>
-      <div class="sbox" id="sb3"><div class="sv" id="sv3">—</div><div class="su">°</div><div class="sl">Launch Angle</div></div>
+    <!-- STATS ROW (labels change for putting) -->
+    <div class="stats-row" id="statsRow">
+      <div class="sbox" id="sb0"><div class="sv" id="sv0">—</div><div class="su" id="su0">mph</div><div class="sl" id="sl0">Club Speed</div></div>
+      <div class="sbox" id="sb1"><div class="sv" id="sv1">—</div><div class="su" id="su1">rpm</div><div class="sl" id="sl1">Spin</div></div>
+      <div class="sbox" id="sb2"><div class="sv" id="sv2">—</div><div class="su" id="su2">ft</div><div class="sl" id="sl2">Distance</div></div>
+      <div class="sbox" id="sb3"><div class="sv" id="sv3">—</div><div class="su" id="su3">°</div><div class="sl" id="sl3">Face Angle</div></div>
     </div>
 
+    <!-- PUTTING GREEN (putting modes) -->
+    <div id="greenSec" class="greenwrap" style="display:none;">
+      <div class="putt-info" id="puttInfo"></div>
+      <div class="greensvgwrap"><svg id="greenSvg" viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;"></svg></div>
+      <div class="putt-history"><div class="ph-title">Putt History</div><div class="ph-list" id="puttHistory"></div></div>
+    </div>
+
+    <!-- COURSE -->
     <div id="courseSec" class="coursesec" style="display:none;">
       <div class="holehdr" id="holeHdr"></div>
       <div class="csvgwrap"><svg id="csvg" viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;"></svg></div>
@@ -298,46 +327,47 @@ body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,
 
 <script>
 // ================================================================
-//  GOLF SIMULATOR — no API key needed
-//  Uses: canvas pixel analysis for ball detection
-//        motion detection for swing speed
-//        physics engine for shot calculation
-//        rule-based AI for coaching feedback
+//  GOLF SIMULATOR — No API key needed
+//  Computer vision ball detection + physics engine + rule-based AI
 // ================================================================
-
-// ---- STATE ----
 const G = {
   hand:null, club:null, clubName:null, mode:null,
   stream:null, rafId:null, scanTimer:null,
   ballLocked:false, ballX:0, ballY:0, ballR:0, ballAngleDeg:0,
-  prevFrame:null, motionHistory:[], maxMotion:0, swingActive:false,
+  prevFrame:null, motionHistory:[], motionTimestamps:[], maxMotion:0, swingActive:false,
+  isPutting:false,
+  // Putting state
+  puttHistory:[], puttTarget:15, puttMade:0, puttTotal:0,
+  puttHole:1, puttScores:Array(18).fill(null), puttShotOnHole:0,
+  // Course state
   currentHole:1, shotCount:0, scores:Array(9).fill(null),
   bX:38, bY:120,
   PARS:[4,3,5,4,3,4,5,4,3],
   YARDS:[385,155,510,420,175,390,490,410,160],
   SHAPES:['straight','dogleg-right','dogleg-left','straight','straight','dogleg-left','straight','dogleg-right','straight'],
   CLUBS:{
-    '4i':{loft:20,maxDist:205,spinBase:4200,speedBase:88},
-    '5i':{loft:24,maxDist:190,spinBase:4600,speedBase:85},
-    '6i':{loft:28,maxDist:175,spinBase:5000,speedBase:82},
-    '7i':{loft:32,maxDist:160,spinBase:5500,speedBase:79},
-    '8i':{loft:37,maxDist:145,spinBase:6200,speedBase:76},
-    '9i':{loft:41,maxDist:130,spinBase:7000,speedBase:73},
-    'pw':{loft:46,maxDist:115,spinBase:8500,speedBase:68},
-    'sw':{loft:56,maxDist:80, spinBase:10000,speedBase:60},
-    'dr':{loft:10.5,maxDist:280,spinBase:2400,speedBase:105}
+    '4i':{loft:20,maxDist:205,spinBase:4200,speedBase:88,smash:1.35,rollF:1.0},
+    '5i':{loft:24,maxDist:190,spinBase:4600,speedBase:85,smash:1.35,rollF:1.0},
+    '6i':{loft:28,maxDist:175,spinBase:5000,speedBase:82,smash:1.35,rollF:1.0},
+    '7i':{loft:32,maxDist:160,spinBase:5500,speedBase:79,smash:1.34,rollF:1.0},
+    '8i':{loft:37,maxDist:145,spinBase:6200,speedBase:76,smash:1.33,rollF:1.0},
+    '9i':{loft:41,maxDist:130,spinBase:7000,speedBase:73,smash:1.32,rollF:0.95},
+    'pw':{loft:46,maxDist:115,spinBase:8500,speedBase:68,smash:1.28,rollF:0.88},
+    'sw':{loft:56,maxDist:80, spinBase:10000,speedBase:60,smash:1.20,rollF:0.80},
+    'dr':{loft:10.5,maxDist:280,spinBase:2400,speedBase:105,smash:1.48,rollF:1.15},
+    'pt':{loft:4,maxDist:0,spinBase:100,speedBase:8,smash:1.0,rollF:1.0}
   }
 };
 
-// ---- NAV ----
-function goTo(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
 function ge(id){return document.getElementById(id);}
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));ge(id).classList.add('active');window.scrollTo(0,0);}
+function rand(min,max){return min+Math.random()*(max-min);}
+function stdDev(arr){if(!arr.length)return 0;const m=arr.reduce((a,b)=>a+b,0)/arr.length;return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);}
+function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
 
-// ---- MENU ----
+// ================================================================
+// MENU
+// ================================================================
 function selHand(h){
   G.hand=h;
   ge('hc-L').classList.toggle('sel',h==='left');
@@ -345,10 +375,19 @@ function selHand(h){
   ge('btn-h').disabled=false;
 }
 function selClub(id,name,el){
-  G.club=id; G.clubName=name;
+  G.club=id; G.clubName=name; G.isPutting=(id==='pt');
   document.querySelectorAll('.cbtn').forEach(b=>b.classList.remove('sel'));
   el.classList.add('sel');
   ge('btn-c').disabled=false;
+  // Show/hide putting modes
+  const isPutt=id==='pt';
+  ge('mcard-putt').style.display=isPutt?'block':'none';
+  ge('mcard-putt2').style.display=isPutt?'block':'none';
+  if(isPutt){
+    // Auto-deselect non-putting modes
+    document.querySelectorAll('.mcard:not(.putt-mode)').forEach(c=>c.classList.remove('sel'));
+    G.mode=null; ge('btn-m').disabled=true;
+  }
 }
 function selMode(m,el){
   G.mode=m;
@@ -356,37 +395,75 @@ function selMode(m,el){
   el.classList.add('sel');
   ge('btn-m').disabled=false;
 }
+
 function startGame(){
-  ge('t-hand').textContent = G.hand==='left'?'Left-handed':'Right-handed';
-  ge('t-club').textContent = G.clubName;
-  ge('t-mode').textContent = G.mode==='course'?'Virtual Course':'Practice';
+  ge('t-hand').textContent=G.hand==='left'?'Left-handed':'Right-handed';
+  ge('t-club').textContent=G.clubName;
+  const modeLabels={practice:'Practice',course:'Virtual Course',putting:'Putting Practice','putt-course':'18-Hole Putt'};
+  ge('t-mode').textContent=modeLabels[G.mode]||G.mode;
+  ge('t-mode').className='tag '+(G.isPutting?'bl':'gd');
+
+  // Configure stats row for putting vs full shots
+  configureStatsUI();
+
+  ge('courseSec').style.display='none';
+  ge('greenSec').style.display='none';
+
   if(G.mode==='course'){
-    G.currentHole=1; G.scores=Array(9).fill(null); G.shotCount=0; G.bX=38; G.bY=120;
-    ge('courseSec').style.display='block';
-    drawHole(); renderSC();
-  } else { ge('courseSec').style.display='none'; }
+    G.currentHole=1;G.scores=Array(9).fill(null);G.shotCount=0;G.bX=38;G.bY=120;
+    ge('courseSec').style.display='block'; drawHole(); renderSC();
+  } else if(G.mode==='putting'){
+    G.puttHistory=[]; G.puttMade=0; G.puttTotal=0;
+    G.puttTarget=getRandomPuttDist();
+    ge('greenSec').style.display='block'; drawGreen(); renderPuttHistory();
+  } else if(G.mode==='putt-course'){
+    G.puttHole=1; G.puttScores=Array(18).fill(null); G.puttShotOnHole=0;
+    G.puttTarget=PUTT_HOLES[0].dist;
+    ge('greenSec').style.display='block'; drawGreen(); renderPuttHistory();
+  }
+
   ge('fbArea').innerHTML='';
   resetStats();
+  // Update button label for putting
+  ge('btnSwing').textContent=G.isPutting?'⛳ Ready to Putt':'⛳ Ready to Swing';
+  ge('camHint').textContent=G.isPutting
+    ? 'Place Titleist Pro V1 behind the ball marker → AI locks logo angle → click Ready to Putt → stroke normally'
+    : 'Place Titleist Pro V1 logo facing lens → AI locks ball angle → click Ready to Swing → swing normally';
   goTo('s-game');
 }
-function quitGame(){ stopCam(); goTo('s-hand'); }
+
+function configureStatsUI(){
+  const isPutt=G.isPutting;
+  const sboxes=document.querySelectorAll('.sbox');
+  sboxes.forEach(b=>{b.classList.toggle('putt',isPutt);});
+  if(isPutt){
+    ge('su0').textContent='mph'; ge('sl0').textContent='Stroke Speed';
+    ge('su1').textContent='deg'; ge('sl1').textContent='Face Angle';
+    ge('su2').textContent='ft';  ge('sl2').textContent='Est. Distance';
+    ge('su3').textContent='%';   ge('sl3').textContent='Make %';
+  } else {
+    ge('su0').textContent='mph'; ge('sl0').textContent='Club Speed';
+    ge('su1').textContent='rpm'; ge('sl1').textContent='Ball Spin';
+    ge('su2').textContent='yds'; ge('sl2').textContent='Distance';
+    ge('su3').textContent='°';   ge('sl3').textContent='Launch Angle';
+  }
+}
+
+function quitGame(){stopCam();goTo('s-hand');}
 
 // ================================================================
-//  CAMERA
+// CAMERA
 // ================================================================
 async function toggleCam(){
-  if(G.stream){ stopCam(); return; }
+  if(G.stream){stopCam();return;}
   const btn=ge('btnCam');
   btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Starting...';
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
-    showCamErr('Camera not available. Open in Chrome/Edge over HTTPS or localhost.');
-    btn.disabled=false; btn.textContent='▶ Start Camera'; return;
+    showCamErr('Camera not available. Open in Chrome/Edge over HTTPS or localhost.'); btn.disabled=false; btn.textContent='▶ Start Camera'; return;
   }
   try{
-    G.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:960}}});
-    const vid=ge('video');
-    vid.srcObject=G.stream;
-    await vid.play();
+    G.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:960}}});
+    const vid=ge('video'); vid.srcObject=G.stream; await vid.play();
     ge('camOverlay').classList.add('hide');
     ge('ballBadge').style.display='block';
     ge('speedBadge').style.display='flex';
@@ -394,14 +471,12 @@ async function toggleCam(){
     ge('scanLog').style.display='block';
     btn.disabled=false; btn.textContent='⏹ Stop Camera';
     ge('btnSwing').disabled=false;
-    startMotionLoop();
-    startBallScan();
+    startMotionLoop(); startBallScan();
+    if(G.isPutting) drawPuttingGuide();
   } catch(e){
-    const m = e.name==='NotAllowedError'?'Permission denied — click the camera icon in your address bar and allow, then retry.'
-      : e.name==='NotFoundError'?'No camera found on this device.'
-      : 'Camera error: '+e.message;
-    showCamErr(m);
-    btn.disabled=false; btn.textContent='▶ Start Camera';
+    const m=e.name==='NotAllowedError'?'Permission denied — click the camera icon in your address bar and allow, then retry.'
+      :e.name==='NotFoundError'?'No camera found on this device.':'Camera error: '+e.message;
+    showCamErr(m); btn.disabled=false; btn.textContent='▶ Start Camera';
   }
 }
 
@@ -409,32 +484,27 @@ function stopCam(){
   if(G.stream){G.stream.getTracks().forEach(t=>t.stop());G.stream=null;}
   if(G.rafId){cancelAnimationFrame(G.rafId);G.rafId=null;}
   if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
-  G.ballLocked=false; G.swingActive=false; G.motionHistory=[];
+  G.ballLocked=false; G.swingActive=false; G.motionHistory=[]; G.motionTimestamps=[];
   ge('camOverlay').classList.remove('hide');
   ge('camMsg').className=''; ge('camMsg').innerHTML='Click <b>Start Camera</b> below.<br>Allow camera access when prompted.';
-  ge('ballBadge').style.display='none';
-  ge('speedBadge').style.display='none';
-  ge('ballRow').classList.remove('show');
-  ge('scanLog').style.display='none'; ge('scanLog').innerHTML='';
+  ['ballBadge','speedBadge'].forEach(id=>ge(id).style.display='none');
+  ge('ballRow').classList.remove('show'); ge('scanLog').style.display='none'; ge('scanLog').innerHTML='';
   ge('swingFill').style.width='0%';
-  ge('btnCam').textContent='▶ Start Camera';
-  ge('btnSwing').disabled=true;
+  ge('btnCam').textContent='▶ Start Camera'; ge('btnSwing').disabled=true;
   clearOC();
 }
-function showCamErr(m){ ge('camOverlay').classList.remove('hide'); ge('camMsg').className='err'; ge('camMsg').textContent=m; }
+function showCamErr(m){ge('camOverlay').classList.remove('hide');ge('camMsg').className='err';ge('camMsg').textContent=m;}
 
 // ================================================================
-//  MOTION DETECTION LOOP (requestAnimationFrame)
-//  Measures pixel difference between frames to detect swing
+// MOTION DETECTION LOOP
 // ================================================================
 function startMotionLoop(){
-  const vid=ge('video'), mc=ge('motionCanvas'), oc=ge('overlayCanvas');
+  const vid=ge('video'),mc=ge('motionCanvas');
+  const W=160,H=120;
   function loop(){
     if(!G.stream){return;}
     G.rafId=requestAnimationFrame(loop);
     if(vid.readyState<2)return;
-    // Sample at low res for speed
-    const W=160,H=120;
     mc.width=W; mc.height=H;
     const ctx=mc.getContext('2d');
     ctx.drawImage(vid,0,0,W,H);
@@ -442,45 +512,48 @@ function startMotionLoop(){
     if(G.prevFrame){
       let diff=0;
       for(let i=0;i<cur.length;i+=4){
-        const dr=cur[i]-G.prevFrame[i], dg=cur[i+1]-G.prevFrame[i+1], db=cur[i+2]-G.prevFrame[i+2];
-        diff+=Math.abs(dr)+Math.abs(dg)+Math.abs(db);
+        diff+=Math.abs(cur[i]-G.prevFrame[i])+Math.abs(cur[i+1]-G.prevFrame[i+1])+Math.abs(cur[i+2]-G.prevFrame[i+2]);
       }
-      const motionScore = diff/(W*H*3); // 0-255 scale
-      G.motionHistory.push(motionScore);
-      if(G.motionHistory.length>30)G.motionHistory.shift();
-      if(G.swingActive && motionScore>G.maxMotion) G.maxMotion=motionScore;
-      // Update speed badge live
-      const mph = motionToMPH(motionScore);
-      ge('speedVal').textContent = mph>0?mph:'—';
-      // Swing bar
-      ge('swingFill').style.width = Math.min(motionScore/8*100,100)+'%';
+      const score=diff/(W*H*3);
+      const now=Date.now();
+      G.motionHistory.push(score);
+      G.motionTimestamps.push(now);
+      if(G.motionHistory.length>60){G.motionHistory.shift();G.motionTimestamps.shift();}
+      if(G.swingActive&&score>G.maxMotion)G.maxMotion=score;
+      const mph=G.isPutting?motionToPuttMPH(score):motionToMPH(score);
+      ge('speedVal').textContent=mph>0?mph:'—';
+      ge('speedLbl').textContent=G.isPutting?'MPH':'MPH';
+      ge('swingFill').style.width=clamp(score/(G.isPutting?3:8)*100,0,100)+'%';
     }
-    G.prevFrame = new Uint8ClampedArray(cur);
+    G.prevFrame=new Uint8ClampedArray(cur);
   }
   loop();
 }
 
 function motionToMPH(score){
-  // score ~0-30+ for realistic swings; calibrate to club speed range
-  const club = G.CLUBS[G.club]||G.CLUBS['pw'];
-  if(score<1) return 0;
-  // Map score to realistic club speed range ±25%
-  const base = club.speedBase;
-  const raw = Math.min(score/12, 1.5); // normalized 0-1.5
-  return Math.round(base * 0.7 + raw * base * 0.5);
+  const club=G.CLUBS[G.club]||G.CLUBS['pw'];
+  if(score<0.5)return 0;
+  const base=club.speedBase;
+  const raw=clamp(score/12,0,1.5);
+  return Math.round(base*0.65+raw*base*0.55);
+}
+function motionToPuttMPH(score){
+  // Putting strokes are much smaller — typically 2-6 mph
+  if(score<0.3)return 0;
+  return Math.round(clamp(score/2,0.5,7)*10)/10;
 }
 
 // ================================================================
-//  BALL DETECTION — canvas pixel analysis
-//  Looks for a white circular region (the ball)
-//  Then samples for the Titleist script logo (dark curved region)
+// BALL DETECTION — canvas pixel analysis
+// Looks for the largest white circular blob, then detects
+// the Titleist cursive script (dark ink on white sphere)
+// NOTE: front camera image is mirrored — logo appears backward
 // ================================================================
 let scanAttempt=0;
 function startBallScan(){
   scanAttempt=0; G.ballLocked=false;
   setBadge('searching','⬤ Scanning for ball...');
-  ge('btnRescan').style.display='none';
-  ge('btnManual').style.display='';
+  ge('btnRescan').style.display='none'; ge('btnManual').style.display='';
   addLog('Camera active — place Titleist Pro V1 with logo facing lens');
   G.scanTimer=setInterval(scanFrame,1800);
   setTimeout(scanFrame,600);
@@ -488,466 +561,709 @@ function startBallScan(){
 
 function scanFrame(){
   if(!G.stream||G.ballLocked)return;
-  const vid=ge('video'), cnv=ge('canvas');
+  const vid=ge('video'),cnv=ge('canvas');
   if(vid.readyState<2)return;
   scanAttempt++;
-  // Scan at medium res
   const W=320,H=240;
   cnv.width=W; cnv.height=H;
   const ctx=cnv.getContext('2d');
-  // Draw WITHOUT flipping — raw front camera (logo appears mirrored)
-  ctx.drawImage(vid,0,0,W,H);
+  ctx.drawImage(vid,0,0,W,H); // raw, no flip — logo appears mirrored
   const img=ctx.getImageData(0,0,W,H);
   const result=detectBall(img,W,H);
   if(result.found){
     G.ballX=result.cx; G.ballY=result.cy; G.ballR=result.r; G.ballAngleDeg=result.angle;
     G.ballLocked=true;
     if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
-    setBadge('locked',`✓ Ball locked · logo ~${result.angle}° · r=${result.r}px`);
-    addLog(`#${scanAttempt}: ✓ Found white sphere at (${result.cx},${result.cy}) r=${result.r} logo=${result.angle}°`);
-    ge('ballStatusTxt').textContent=`Ball locked — logo angle ${result.angle}°. Ready to swing!`;
-    ge('btnRescan').style.display='';
-    ge('btnManual').style.display='none';
+    setBadge('locked',`✓ Ball locked · ${result.angle}° · r=${result.r}px`);
+    addLog(`#${scanAttempt}: ✓ Sphere at (${result.cx},${result.cy}) r=${result.r} logo=${result.angle}° circ=${result.circularity}%`);
+    ge('ballStatusTxt').textContent=`Ball locked — logo angle ${result.angle}°. Ready!`;
+    ge('btnRescan').style.display=''; ge('btnManual').style.display='none';
     drawBallBox(result);
   } else {
-    addLog(`#${scanAttempt}: ✗ ${result.reason} — try moving ball closer or improving lighting`);
+    addLog(`#${scanAttempt}: ✗ ${result.reason}`);
     ge('ballStatusTxt').textContent=result.reason;
-    if(scanAttempt===3) addLog('Tip: Ball should be 1-2 ft from camera, logo facing lens');
-    if(scanAttempt===5) addLog('Tip: Ensure good front lighting, avoid backlighting');
+    if(scanAttempt===3) addLog('Tip: Move ball 1-2 ft from camera, ensure good front lighting');
+    if(scanAttempt===5) addLog('Tip: Avoid backlighting — light should come from in front of ball');
     if(scanAttempt>=4) ge('btnManual').style.display='';
   }
 }
 
-// Core ball detection algorithm
 function detectBall(img,W,H){
   const d=img.data;
-  // Step 1: find bright white circular cluster
-  // Build whiteness map — pixel is "white-ball white" if R,G,B all >210 and close to each other
+  // Step 1: whiteness map — golf ball white: R>200, G>195, B>190, low saturation
   const white=new Uint8Array(W*H);
   let wCount=0;
   for(let i=0;i<d.length;i+=4){
     const r=d[i],g=d[i+1],b=d[i+2];
-    const bright=r>200&&g>195&&b>190;
-    const neutral=Math.max(r,g,b)-Math.min(r,g,b)<40; // not too colorful
-    if(bright&&neutral){white[i>>2]=1;wCount++;}
+    if(r>198&&g>193&&b>188&&(Math.max(r,g,b)-Math.min(r,g,b))<45){white[i>>2]=1;wCount++;}
   }
-  if(wCount<80){return{found:false,reason:'No bright white area found (need more light?)'};}
-
-  // Step 2: find largest connected white blob
+  if(wCount<80)return{found:false,reason:'No bright white area found — needs more light or ball closer'};
+  // Step 2: largest connected blob
   const blob=largestBlob(white,W,H);
-  if(!blob||blob.size<60){return{found:false,reason:'White area too small — move ball closer'};}
-
-  // Step 3: check blob is roughly circular
-  const cx=blob.cx, cy=blob.cy;
-  // Estimate radius from area: A=πr²
+  if(!blob||blob.size<50)return{found:false,reason:'White area too small — move ball 1-2 ft closer to camera'};
+  const cx=blob.cx,cy=blob.cy;
   const r=Math.round(Math.sqrt(blob.size/Math.PI));
-  if(r<5){return{found:false,reason:'Ball too small in frame — move closer'};}
-
-  // Circularity check: count white pixels in bounding circle
-  let inCircle=0, inBbox=0;
+  if(r<4)return{found:false,reason:'Ball too small — move closer'};
+  // Step 3: circularity check
+  let inCircle=0,white_in=0;
   const r2=r*1.3;
-  for(let y=Math.max(0,cy-r2);y<Math.min(H,cy+r2);y++){
-    for(let x=Math.max(0,cx-r2);x<Math.min(W,cx+r2);x++){
-      const dx=x-cx, dy=y-cy;
-      if(dx*dx+dy*dy<=r2*r2){
-        inCircle++;
-        if(white[y*W+x])inBbox++;
-      }
+  for(let y=Math.max(0,Math.floor(cy-r2));y<Math.min(H,Math.ceil(cy+r2));y++){
+    for(let x=Math.max(0,Math.floor(cx-r2));x<Math.min(W,Math.ceil(cx+r2));x++){
+      const dx=x-cx,dy=y-cy;
+      if(dx*dx+dy*dy<=r2*r2){inCircle++;if(white[y*W+x])white_in++;}
     }
   }
-  const circularity=inBbox/inCircle;
-  if(circularity<0.35){return{found:false,reason:'Shape not circular enough — is that a golf ball?'};}
-
+  const circ=inCircle>0?white_in/inCircle:0;
+  if(circ<0.32)return{found:false,reason:'Shape not circular enough — ensure full ball is in frame'};
   // Step 4: detect Titleist cursive script logo angle
-  // Logo = dark (non-white) curved stripe on the white sphere
-  // Look for dark pixels inside the ball region and find their angular cluster
+  // The Titleist logo is a CURSIVE/SCRIPT font — dark ink forming a curved baseline
+  // Since camera is mirrored, the script appears backward but the ink pixels are still detectable
   const logoPix=[];
-  const rSearch=r*0.9;
-  for(let y=Math.max(0,cy-rSearch);y<Math.min(H,cy+rSearch);y++){
-    for(let x=Math.max(0,cx-rSearch);x<Math.min(W,cx+rSearch);x++){
-      const dx=x-cx, dy=y-cy;
-      if(dx*dx+dy*dy>rSearch*rSearch)continue;
-      const idx=(y*W+x)*4;
-      const pr=d[idx],pg=d[idx+1],pb=d[idx+2];
-      // Dark ink pixel on the ball: darker than surroundings but still "inside" ball
-      if(pr<160&&pg<160&&pb<160){
-        logoPix.push({x,y,angle:Math.atan2(dy,dx)*180/Math.PI});
-      }
+  const rs=r*0.88;
+  for(let y=Math.max(0,Math.floor(cy-rs));y<Math.min(H,Math.ceil(cy+rs));y++){
+    for(let x=Math.max(0,Math.floor(cx-rs));x<Math.min(W,Math.ceil(cx+rs));x++){
+      const dx=x-cx,dy=y-cy;
+      if(dx*dx+dy*dy>rs*rs)continue;
+      const idx=(y*W+x)<<2;
+      // Titleist script ink: dark, slightly warm (black or dark navy)
+      if(d[idx]<150&&d[idx+1]<150&&d[idx+2]<160)logoPix.push({x,y});
     }
   }
-
   let logoAngle=0;
-  if(logoPix.length>8){
-    // Find the dominant angle band of the logo stripe
-    // The Titleist script runs roughly horizontally — find the mean Y offset
-    const meanY=logoPix.reduce((s,p)=>s+p.y,0)/logoPix.length;
-    const offY=meanY-cy;
-    // Angle of logo baseline relative to ball center
-    const meanX=logoPix.reduce((s,p)=>s+p.x,0)/logoPix.length;
-    const offX=meanX-cx;
-    logoAngle=Math.round(Math.atan2(offY,offX)*180/Math.PI);
-    if(logoAngle<0)logoAngle+=360;
+  if(logoPix.length>=6){
+    // Fit a line through the logo pixels to find the baseline angle of the cursive script
+    // Using least-squares linear regression on the dark pixel cluster
+    const n=logoPix.length;
+    const mx=logoPix.reduce((s,p)=>s+p.x,0)/n;
+    const my=logoPix.reduce((s,p)=>s+p.y,0)/n;
+    let num=0,den=0;
+    logoPix.forEach(p=>{const dx=p.x-mx,dy=p.y-my;num+=dx*dy;den+=dx*dx;});
+    if(Math.abs(den)>0.1){
+      const slope=num/den;
+      logoAngle=Math.round(Math.atan(slope)*180/Math.PI);
+      if(logoAngle<0)logoAngle+=180; // normalize to 0-179
+    }
   }
-
-  return{found:true,cx:Math.round(cx),cy:Math.round(cy),r,angle:logoAngle,circularity:Math.round(circularity*100)};
+  return{found:true,cx:Math.round(cx),cy:Math.round(cy),r,angle:logoAngle,circularity:Math.round(circ*100)};
 }
 
-// Simple flood-fill largest blob finder
 function largestBlob(white,W,H){
   const visited=new Uint8Array(W*H);
   let best=null;
   for(let i=0;i<W*H;i++){
     if(white[i]&&!visited[i]){
-      const blob=floodFill(white,visited,W,H,i%W,Math.floor(i/W));
-      if(!best||blob.size>best.size)best=blob;
+      const b=ff(white,visited,W,H,i%W,Math.floor(i/W));
+      if(!best||b.size>best.size)best=b;
     }
   }
   return best;
 }
-function floodFill(white,visited,W,H,sx,sy){
-  const stack=[{x:sx,y:sy}]; let size=0, sumX=0, sumY=0;
+function ff(white,visited,W,H,sx,sy){
+  const stack=[sy*W+sx]; let sz=0,sx2=0,sy2=0;
   while(stack.length){
-    const{x,y}=stack.pop();
-    if(x<0||x>=W||y<0||y>=H)continue;
-    const idx=y*W+x;
-    if(visited[idx]||!white[idx])continue;
-    visited[idx]=1; size++; sumX+=x; sumY+=y;
-    stack.push({x:x+1,y},{x:x-1,y},{x,y:y+1},{x,y:y-1});
+    const idx=stack.pop(); if(visited[idx]||!white[idx])continue;
+    visited[idx]=1; sz++; sx2+=idx%W; sy2+=Math.floor(idx/W);
+    const x=idx%W,y=Math.floor(idx/W);
+    if(x>0)stack.push(idx-1); if(x<W-1)stack.push(idx+1);
+    if(y>0)stack.push(idx-W); if(y<H-1)stack.push(idx+W);
   }
-  return{size,cx:sumX/size,cy:sumY/size};
+  return{size:sz,cx:sx2/sz,cy:sy2/sz};
 }
 
 function drawBallBox(b){
-  const oc=ge('overlayCanvas'), vid=ge('video');
+  const oc=ge('overlayCanvas'),vid=ge('video');
   oc.width=vid.clientWidth; oc.height=vid.clientHeight;
   const ctx=oc.getContext('2d');
   ctx.clearRect(0,0,oc.width,oc.height);
-  // Scale from detection res (320x240) to display size
-  const sx=oc.width/320, sy=oc.height/240;
-  // Mirror X because video is CSS-flipped
-  const dx=(320-b.cx)*sx, dy=b.cy*sy, dr=b.r*sx*1.3;
+  const sx=oc.width/320,sy=oc.height/240;
+  const dx=(320-b.cx)*sx,dy=b.cy*sy,dr=b.r*sx*1.35;
   ctx.strokeStyle='#2ea855'; ctx.lineWidth=2;
   ctx.beginPath(); ctx.arc(dx,dy,dr,0,Math.PI*2); ctx.stroke();
-  // Corner brackets
-  const off=dr+6, cs=12;
+  const cs=14,off=dr+5;
   [[dx-off,dy-off,1,1],[dx+off,dy-off,-1,1],[dx-off,dy+off,1,-1],[dx+off,dy+off,-1,-1]].forEach(([bx,by,mx,my])=>{
-    ctx.beginPath(); ctx.moveTo(bx,by+my*cs); ctx.lineTo(bx,by); ctx.lineTo(bx+mx*cs,by);
+    ctx.beginPath(); ctx.moveTo(bx+mx*cs,by); ctx.lineTo(bx,by); ctx.lineTo(bx,by+my*cs);
     ctx.strokeStyle='#2ea855'; ctx.lineWidth=3; ctx.stroke();
   });
+  // Logo angle indicator line through ball
+  if(b.angle!==undefined){
+    const rad=b.angle*Math.PI/180;
+    ctx.beginPath();
+    ctx.moveTo(dx-Math.cos(rad)*dr*0.8,dy-Math.sin(rad)*dr*0.8);
+    ctx.lineTo(dx+Math.cos(rad)*dr*0.8,dy+Math.sin(rad)*dr*0.8);
+    ctx.strokeStyle='rgba(212,168,50,0.7)'; ctx.lineWidth=1.5; ctx.stroke();
+  }
   ctx.font='bold 11px Barlow Condensed'; ctx.fillStyle='#2ea855';
-  ctx.fillText(`Titleist · ${b.angle}°`, dx-dr, dy-dr-6);
+  ctx.fillText(`Titleist script · ${b.angle}°`,(dx-dr),dy-dr-6);
 }
 
-function clearOC(){
-  const oc=ge('overlayCanvas');
-  if(oc.getContext)oc.getContext('2d').clearRect(0,0,oc.width,oc.height);
+function drawPuttingGuide(){
+  const oc=ge('overlayCanvas'),vid=ge('video');
+  oc.width=vid.clientWidth||640; oc.height=vid.clientHeight||480;
+  const ctx=oc.getContext('2d');
+  ctx.clearRect(0,0,oc.width,oc.height);
+  const cx=oc.width/2, cy=oc.height*0.75;
+  // Center alignment line (target line)
+  ctx.setLineDash([8,6]);
+  ctx.strokeStyle='rgba(74,159,212,0.5)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,oc.height); ctx.stroke();
+  // Stance width guides
+  ctx.strokeStyle='rgba(46,168,85,0.3)';
+  ctx.beginPath(); ctx.moveTo(cx-60,cy-30); ctx.lineTo(cx-60,cy+30); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx+60,cy-30); ctx.lineTo(cx+60,cy+30); ctx.stroke();
+  // Ball position marker
+  ctx.setLineDash([]);
+  ctx.strokeStyle='rgba(212,168,50,0.6)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(cx,cy,18,0,Math.PI*2); ctx.stroke();
+  ctx.font='11px Barlow Condensed'; ctx.fillStyle='rgba(240,234,216,0.5)';
+  ctx.textAlign='center'; ctx.fillText('BALL HERE',cx,cy+35);
+  ctx.fillText('↑ ALIGN TO TARGET',cx,30);
 }
 
-function manualLock(){
-  G.ballLocked=true; G.ballAngleDeg=0;
-  if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
-  setBadge('locked','✓ Ball locked manually (angle=0°)');
-  addLog('Manual lock — spin estimated from swing path');
-  ge('ballStatusTxt').textContent='Manually locked. Ready to swing!';
-  ge('btnRescan').style.display='';
-  ge('btnManual').style.display='none';
-}
-function rescan(){
-  G.ballLocked=false; clearOC();
-  ge('btnRescan').style.display='none';
-  startBallScan();
-}
-
-function setBadge(state,txt){
-  const b=ge('ballBadge'); b.textContent=txt;
-  b.className=state==='locked'?'locked':state==='searching'?'searching':'';
-}
-function addLog(line){
-  const el=ge('scanLog');
-  el.innerHTML+=line+'<br>'; el.scrollTop=el.scrollHeight;
-}
+function clearOC(){const oc=ge('overlayCanvas');if(oc&&oc.getContext)oc.getContext('2d').clearRect(0,0,oc.width,oc.height);}
+function manualLock(){G.ballLocked=true;G.ballAngleDeg=0;if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}setBadge('locked','✓ Ball locked manually');addLog('Manual lock — spin estimated from stroke path');ge('ballStatusTxt').textContent='Manually locked. Ready!';ge('btnRescan').style.display='';ge('btnManual').style.display='none';}
+function rescan(){G.ballLocked=false;clearOC();ge('btnRescan').style.display='none';if(G.isPutting)drawPuttingGuide();startBallScan();}
+function setBadge(state,txt){const b=ge('ballBadge');b.textContent=txt;b.className=state==='locked'?'locked':state==='searching'?'searching':'';}
+function addLog(line){const el=ge('scanLog');el.innerHTML+=line+'<br>';el.scrollTop=el.scrollHeight;}
 
 // ================================================================
-//  SWING CAPTURE
-//  Countdown → monitor motion peak → calculate shot physics
+// SWING / STROKE CAPTURE
 // ================================================================
 function startSwingCapture(){
   ge('btnSwing').disabled=true;
-  G.maxMotion=0; G.swingActive=false;
-  G.motionHistory=[];
-  // Countdown
+  G.maxMotion=0; G.swingActive=false; G.motionHistory=[];
   const sp=ge('swingPrompt'); sp.classList.add('show');
   const cd=ge('swingCountdown'), sm=ge('swingMsg');
+  sm.textContent=G.isPutting?'STROKE WHEN READY':'GET READY TO SWING';
   let n=3;
   cd.textContent=n;
   const tick=setInterval(()=>{
     n--;
     if(n>0){cd.textContent=n;}
-    else if(n===0){cd.textContent='SWING!';sm.textContent='';
-      G.swingActive=true;
-    } else {
-      clearInterval(tick);
-      sp.classList.remove('show');
-      // Collect swing data for 1.2s after "SWING"
-      setTimeout(()=>{
-        G.swingActive=false;
-        captureFrame();
-        processShot();
-      },1200);
+    else if(n===0){cd.textContent=G.isPutting?'PUTT!':'SWING!'; sm.textContent='';G.swingActive=true;}
+    else{
+      clearInterval(tick); sp.classList.remove('show');
+      setTimeout(()=>{G.swingActive=false;captureThumb();G.isPutting?processPutt():processShot();},G.isPutting?1400:1200);
     }
   },1000);
 }
 
-function captureFrame(){
-  const vid=ge('video'), cnv=ge('canvas');
+function captureThumb(){
+  const vid=ge('video'),cnv=ge('canvas');
   cnv.width=vid.videoWidth||640; cnv.height=vid.videoHeight||480;
   cnv.getContext('2d').drawImage(vid,0,0);
-  ge('thumb').src=cnv.toDataURL('image/jpeg',0.82);
-  ge('thumb').style.display='block';
+  ge('thumb').src=cnv.toDataURL('image/jpeg',0.82); ge('thumb').style.display='block';
 }
 
 // ================================================================
-//  PHYSICS ENGINE — calculates shot result without API
+// FULL SHOT PHYSICS ENGINE
 // ================================================================
 function processShot(){
   const club=G.CLUBS[G.club]||G.CLUBS['pw'];
   const isLefty=G.hand==='left';
-
-  // --- Club speed from motion ---
   const peakMotion=G.maxMotion||G.motionHistory.reduce((a,b)=>Math.max(a,b),0)||5;
   const speedRaw=motionToMPH(peakMotion);
-  const speedFactor=speedRaw/club.speedBase; // ratio vs typical
-  const clubSpeed=Math.max(30,Math.min(speedRaw,club.speedBase*1.3));
+  const speedFactor=clamp(speedRaw/club.speedBase,0.5,1.4);
+  const clubSpeed=clamp(speedRaw,30,club.speedBase*1.35);
+  const ballSpeed=clubSpeed*club.smash;
 
-  // --- Ball speed (smash factor varies by club) ---
-  const smash=G.club==='dr'?1.48:G.club==='sw'?1.2:1.35;
-  const ballSpeed=clubSpeed*smash;
+  // Dynamic loft: shaft lean reduces effective loft
+  // Aggressive/fast swings = more forward lean = lower launch
+  // Weak/slow = scooping = higher launch
+  const leanCorr=speedFactor>1.1?-4:speedFactor<0.75?+4:speedFactor>1.05?-2:0;
+  const launchAngle=clamp(Math.round(club.loft*0.63+leanCorr+rand(-1.5,1.5)),2,45);
 
-  // --- Launch angle (loft - dynamic loft reduction) ---
-  // Shaft lean affects dynamic loft — estimate from speed (aggressive swings = more lean)
-  const shaftLeanCorr=speedFactor>1.1?-3:speedFactor<0.8?2:0;
-  const launchAngle=Math.round(club.loft*0.65+shaftLeanCorr+rand(-2,2));
+  // Spin: backspin from smash + variance; contact quality affects it
+  const recentM=G.motionHistory.slice(-15);
+  const motionStd=stdDev(recentM);
+  // Clean impact = tighter spin window; inconsistent = wild variance
+  const spinVariance=motionStd>8?rand(-2500,2500):motionStd>4?rand(-1200,1200):rand(-500,500);
+  const spinRPM=clamp(Math.round(club.spinBase*(0.82+speedFactor*0.18)+spinVariance),500,15000);
 
-  // --- Spin from logo angle + contact variance ---
-  const contactVariance=rand(-1200,1200);
-  const spinRPM=Math.round(club.spinBase*(0.85+speedFactor*0.15)+contactVariance);
-
-  // --- Spin axis from logo angle ---
-  // Logo angle tells us how the ball was oriented — spin axis derived from angle deviation
-  const angle=G.ballAngleDeg||0;
-  // Neutral is ~0° or 180°; deviation causes draw/fade
-  const axisDev=(angle>90&&angle<270)?angle-180:angle; // -90 to +90
+  // Spin axis from ball logo angle
+  // The Titleist script baseline angle tells us spin axis:
+  //   ~0° or ~90° (script horizontal/vertical) = fairly neutral
+  //   angled = indicates pre-set side spin
+  const ang=G.ballAngleDeg||0;
+  // Map logo angle to spin axis deviation: cursive baseline ~30° is "neutral" for a teed ball
+  const neutralAngle=G.club==='dr'?30:0;
+  const axisDev=((ang-neutralAngle+180)%180)-90; // -90 to +90
   let spinAxis;
-  if(Math.abs(axisDev)<15) spinAxis='straight';
-  else if(axisDev>0) spinAxis=isLefty?'fade':'draw';
+  const absAx=Math.abs(axisDev);
+  if(absAx<12)spinAxis='straight';
+  else if(axisDev>0)spinAxis=isLefty?'fade':'draw';
   else spinAxis=isLefty?'draw':'fade';
-  if(Math.abs(axisDev)>45) spinAxis=spinAxis==='draw'?'hook':'slice';
+  if(absAx>40)spinAxis=spinAxis==='draw'?'hook':'slice';
 
-  // --- Distance (Trackman-style formula) ---
-  const v=ballSpeed*0.44704; // to m/s
-  const a=launchAngle*Math.PI/180;
-  const g=9.81, cd=0.23, cl=0.18, rho=1.225, m=0.0459, A=0.00143;
-  // Simplified carry distance
-  const vx=v*Math.cos(a), vy=v*Math.sin(a);
-  const t=(vy+Math.sqrt(vy*vy+2*g*0))/g*1.8; // flight time approx
-  const carry=Math.round((v*v*Math.sin(2*a)/g)*0.7*(1+spinRPM/50000));
-  const rollFactor=G.club==='dr'?1.15:G.club==='sw'?0.85:1.0;
-  const estimatedDistance=Math.round(carry*rollFactor*(0.9+speedFactor*0.1));
+  // Contact point from motion consistency
+  const contactPoint=motionStd>9?'thin':motionStd<1.5?'fat':absAx>40?'heel':'center';
 
-  // --- Contact quality (affects coaching) ---
-  const recentMotion=G.motionHistory.slice(-10);
-  const motionStd=stdDev(recentMotion);
-  const contactPoint=motionStd>8?'thin':motionStd<2?'fat':speedFactor>1.1?'toe':'center';
+  // Distance: proper ballistics formula
+  // v = ball speed in m/s, a = launch angle in rad
+  const v=ballSpeed*0.44704;
+  const a=launchAngle*(Math.PI/180);
+  const g=9.81;
+  // Carry: simplified with backspin lift correction
+  const liftCoeff=1+(spinRPM/80000); // backspin adds lift
+  const carry=Math.round((v*v*Math.sin(2*a)/g)*0.73*liftCoeff);
+  // Total distance with roll
+  const spinSlowdown=spinRPM>8000?0.88:spinRPM>5000?0.93:1.0; // high spin = less roll
+  const estimatedDistance=Math.round(carry*club.rollF*spinSlowdown*(0.88+speedFactor*0.12));
+
+  const result={clubSpeed,spinRPM,estimatedDistance,launchAngle,spinAxis,contactPoint,speedFactor,motionStd,peakMotion,ballSpeed,axisDev};
+  updateStats([clubSpeed,spinRPM,estimatedDistance,launchAngle],['mph','rpm','yds','°']);
+  ge('speedVal').textContent=clubSpeed;
+  const fb=generateShotFeedback(result);
+  renderFeedback(fb,result,false);
+  if(G.mode==='course')processCourseShot(result);
+  resetForNextShot();
+}
+
+// ================================================================
+// PUTTING PHYSICS ENGINE
+// ================================================================
+// 18 holes of varying putt distances
+const PUTT_HOLES=[
+  {dist:4,break:'flat',name:'Tap-in'},
+  {dist:8,break:'slight left',name:'Short putt'},
+  {dist:12,break:'right to left',name:'Mid-range'},
+  {dist:15,break:'flat',name:'15-footer'},
+  {dist:20,break:'left to right',name:'Lag putt'},
+  {dist:6,break:'uphill',name:'Uphill 6'},
+  {dist:10,break:'downhill',name:'Downhill 10'},
+  {dist:18,break:'double break',name:'Double break'},
+  {dist:25,break:'slight right',name:'Long lag'},
+  {dist:5,break:'flat',name:'Birdie putt'},
+  {dist:30,break:'left to right',name:'Long putt'},
+  {dist:9,break:'right to left',name:'9-footer'},
+  {dist:14,break:'uphill',name:'Uphill 14'},
+  {dist:7,break:'downhill',name:'Downhill 7'},
+  {dist:22,break:'flat',name:'20+ footer'},
+  {dist:11,break:'slight left',name:'11-footer'},
+  {dist:16,break:'right to left',name:'16-footer'},
+  {dist:3,break:'flat',name:'Final tap-in'},
+];
+function getRandomPuttDist(){return [4,6,8,10,12,15,18,20,25][Math.floor(Math.random()*9)];}
+
+function processPutt(){
+  const peakMotion=G.maxMotion||G.motionHistory.reduce((a,b)=>Math.max(a,b),0)||1;
+  const recentM=G.motionHistory.slice(-20);
+  const motionStd=stdDev(recentM);
+  const strokeSpeed=motionToPuttMPH(peakMotion);
+
+  // Distance: stroke speed maps to distance on green
+  // Tour average ~1.4 mph per foot of putt (varies by green speed: Stimp 10-12)
+  // We assume Stimp 10 (medium-fast, like Drive Chip & Putt greens)
+  const stimp=10;
+  const feetPerMph=stimp*0.85;
+  const estimatedFeet=clamp(Math.round(strokeSpeed*feetPerMph*10)/10,0.5,50);
+  const target=G.puttTarget;
+
+  // Face angle from ball logo angle deviation
+  // Putter face angle: each degree = ~17" off-line per 10 feet (Pelz)
+  const ang=G.ballAngleDeg||0;
+  const neutralPutt=90; // putter face should be perpendicular to target line
+  let faceAngle=((ang-neutralPutt+180)%180)-90; // -90 to +90 degrees
+  faceAngle=clamp(Math.round(faceAngle*10)/10,-45,45);
+
+  // Tempo: ratio of backswing to follow-through motion
+  // We split the motion window: first half = backswing, second half = follow-through
+  const half=Math.floor(recentM.length/2);
+  const backswingMotion=recentM.slice(0,half).reduce((a,b)=>a+b,0);
+  const followMotion=recentM.slice(half).reduce((a,b)=>a+b,0);
+  const tempoRatio=backswingMotion>0?followMotion/backswingMotion:1;
+  // Good putting tempo: follow-through ~1.2-2.0x backswing
+  const tempoGood=tempoRatio>=1.1&&tempoRatio<=2.2;
+
+  // Make probability: based on distance + face angle + tempo
+  // Tour make % by distance (approximately):
+  // 3ft=96%, 5ft=77%, 8ft=50%, 10ft=40%, 15ft=25%, 20ft=16%, 25ft=11%, 30ft=7%
+  const distanceMakeProb = 3 / (3 + Math.pow(target/5, 1.8));
+  const faceAnglePenalty=Math.abs(faceAngle)>5?0.4:Math.abs(faceAngle)>2?0.75:1.0;
+  const tempoPenalty=tempoGood?1.0:0.80;
+  const distanceError=Math.abs(estimatedFeet-target);
+  const distancePenalty=distanceError>3?0.5:distanceError>1.5?0.75:1.0;
+  const makeProbability=clamp(distanceMakeProb*faceAnglePenalty*tempoPenalty*distancePenalty,0.01,0.99);
+  const madeIt=Math.random()<makeProbability;
+
+  // Make % display (as the coached expectation for this stroke quality)
+  const makePercent=Math.round(makeProbability*100);
 
   const result={
-    clubSpeed,spinRPM,estimatedDistance,launchAngle,
-    spinAxis,contactPoint,speedFactor,motionStd,peakMotion
+    strokeSpeed,estimatedFeet,faceAngle,makePercent,
+    madeIt,target,motionStd,tempoRatio,tempoGood,
+    distanceError:Math.abs(estimatedFeet-target)
   };
 
-  updateStats(result);
-  ge('speedVal').textContent=clubSpeed;
-  const feedback=generateFeedback(result);
-  renderFeedback(feedback,result);
-  if(G.mode==='course') processCourseShot(result);
+  updateStats([strokeSpeed,faceAngle,estimatedFeet,makePercent],['mph','°','ft','%']);
+  ge('speedVal').textContent=strokeSpeed;
 
-  // Reset for next shot
-  G.ballLocked=false; clearOC();
-  ge('btnSwing').disabled=false;
-  ge('btnRescan').style.display='none';
-  ge('btnManual').style.display='';
-  rescan();
+  const fb=generatePuttFeedback(result);
+  renderFeedback(fb,result,true);
+
+  // Update putting history
+  G.puttHistory.unshift({n:G.puttTotal+1,target,feet:estimatedFeet,made:madeIt,faceAngle});
+  G.puttTotal++; if(madeIt)G.puttMade++;
+  renderPuttHistory();
+
+  if(G.mode==='putt-course') processPuttCourseShot(result);
+  else {
+    // Practice mode: get new random target
+    setTimeout(()=>{G.puttTarget=getRandomPuttDist(); drawGreen(); updatePuttInfo();},1200);
+  }
+  resetForNextShot();
 }
 
-function rand(min,max){return min+Math.random()*(max-min);}
-function stdDev(arr){
-  if(!arr.length)return 0;
-  const m=arr.reduce((a,b)=>a+b,0)/arr.length;
-  return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);
+function processPuttCourseShot(r){
+  G.puttShotOnHole++;
+  const hIdx=G.puttHole-1;
+  if(r.madeIt){
+    G.puttScores[hIdx]=G.puttShotOnHole;
+    showToast(G.puttShotOnHole===1?'⛳ Hole in One!':G.puttShotOnHole===2?'🐦 Two-Putt':'😬 '+G.puttShotOnHole+'-Putt');
+    setTimeout(()=>{
+      if(G.puttHole<18){
+        G.puttHole++;G.puttShotOnHole=0;
+        G.puttTarget=PUTT_HOLES[G.puttHole-1].dist;
+        drawGreen(); updatePuttInfo();
+        ge('fbArea').innerHTML=`<div class="fbcard putt-fb"><div class="fbtitle">🕳️ Hole ${G.puttHole-1} done!</div><div class="fbsum">Moving to Hole ${G.puttHole}: ${PUTT_HOLES[G.puttHole-1].name} — ${G.puttTarget} ft ${PUTT_HOLES[G.puttHole-1].break} break.</div></div>`;
+      } else {showPuttFinal();}
+    },1500);
+  } else {
+    drawGreen(); updatePuttInfo();
+  }
 }
+function showPuttFinal(){
+  const tot=G.puttScores.reduce((a,b)=>a+(b||0),0);
+  const par=18*2; // 2 putts per hole = par
+  const diff=tot-par;
+  ge('fbArea').innerHTML=`<div class="fbcard putt-fb"><div class="perf putt-perf"><div class="perf-big">🏆 18-Hole Putt Complete!</div><div class="perf-sub">Total putts: ${tot} (${diff>=0?'+':''}${diff} vs 36) · ${diff<-4?'Phenomenal putting!':diff<0?'Under par — great round!':diff===0?'Even par!':'Keep working on distance control'}</div></div><div class="btn-row"><button class="btn btn-blue" onclick="restartPuttCourse()">Play Again</button><button class="btn btn-ghost" onclick="quitGame()">Main Menu</button></div></div>`;
+}
+function restartPuttCourse(){G.puttHole=1;G.puttScores=Array(18).fill(null);G.puttShotOnHole=0;G.puttTarget=PUTT_HOLES[0].dist;G.puttHistory=[];G.puttMade=0;G.puttTotal=0;drawGreen();updatePuttInfo();renderPuttHistory();resetStats();ge('fbArea').innerHTML='';}
 
 // ================================================================
-//  RULE-BASED AI COACHING
-//  Analyzes physics result and generates human-sounding feedback
+// RULE-BASED AI COACHING — SHOT
 // ================================================================
-function generateFeedback(r){
-  const {clubSpeed,spinRPM,launchAngle,spinAxis,contactPoint,speedFactor} = r;
+function generateShotFeedback(r){
+  const {clubSpeed,spinRPM,launchAngle,spinAxis,contactPoint,speedFactor,motionStd,axisDev} = r;
   const club=G.CLUBS[G.club]||G.CLUBS['pw'];
   const isLefty=G.hand==='left';
-  const checks=[];
-  let issues=0;
+  const checks=[]; let issues=0;
 
-  // --- Stance check (inferred from speed consistency) ---
-  if(r.motionStd>9){
-    checks.push({label:'Stance/Balance',status:'bad',note:'High motion variance — try a wider stance and keep weight centered through impact'});
-    issues++;
-  } else if(r.motionStd>5){
-    checks.push({label:'Stance/Balance',status:'warn',note:'Slight balance wobble detected — focus on keeping lower body stable'});
-    issues++;
-  } else {
-    checks.push({label:'Stance/Balance',status:'good',note:'Steady motion through impact — great balance'});
-  }
+  // 1. SETUP / BALANCE — inferred from pre-swing motion stability
+  const preSwingMotion=G.motionHistory.slice(0,10);
+  const preStd=stdDev(preSwingMotion);
+  if(preStd>3){checks.push({label:'Address Stability',status:'bad',note:'Movement detected before swing — freeze at address for 1 second before starting backswing'});issues++;}
+  else if(motionStd>8){checks.push({label:'Balance',status:'bad',note:'High body movement during swing — keep weight on the balls of your feet and rotate around your spine angle'});issues++;}
+  else if(motionStd>5){checks.push({label:'Balance',status:'warn',note:'Some lateral sway detected — focus on rotating, not sliding. Keep your head still'});issues++;}
+  else{checks.push({label:'Balance & Tempo',status:'good',note:'Steady base through impact — great stability'});}
 
-  // --- Contact quality ---
+  // 2. CONTACT POINT — more specific per club
   if(contactPoint==='thin'){
-    checks.push({label:'Contact Point',status:'bad',note:'Thin strike — ball struck too high on face. Try keeping your head down longer'});
-    issues++;
+    const note=G.club==='dr'?'Thin driver hit — tee height too low, or early extension. Tee the ball so equator is at top of driver face'
+      :G.club==='pw'||G.club==='sw'?'Thin wedge — stopping body rotation or flipping wrists. Drive through the turf, don\'t pick it clean'
+      :'Thin contact — likely early extension. Feel like you\'re hitting down into the ball, not sweeping it';
+    checks.push({label:'Contact Quality',status:'bad',note});issues++;
   } else if(contactPoint==='fat'){
-    checks.push({label:'Contact Point',status:'warn',note:'Slightly heavy contact — club may be bottoming out early. Forward press the handle slightly'});
-    issues++;
-  } else if(contactPoint==='toe'){
-    checks.push({label:'Contact Point',status:'warn',note:'Toe contact — move slightly closer to the ball at address'});
-    issues++;
+    const note=G.club==='dr'?'Heavy driver contact — ball position too far back or hitting down on driver. Move ball opposite lead heel'
+      :G.club==='sw'?'Fat sand wedge — weight staying back. Shift ~60% to lead foot at address, hold it through impact'
+      :'Heavy contact — weight not shifting to lead side. Focus on leading with the handle, not the clubhead';
+    checks.push({label:'Contact Quality',status:'bad',note});issues++;
+  } else if(contactPoint==='heel'){
+    checks.push({label:'Contact Quality',status:'warn',note:`Heel contact — standing too close or early release. ${isLefty?'Move 1 inch further from ball at address':'Move 1 inch further from ball at address'}`});issues++;
   } else {
-    checks.push({label:'Contact Point',status:'good',note:'Center-face contact — Pro V1 spin should be predictable'});
+    const spinNote=spinRPM>club.spinBase*1.15?'high spin (aggressive hit)':spinRPM<club.spinBase*0.85?'lower spin (smooth contact)':'ideal spin range';
+    checks.push({label:'Contact Quality',status:'good',note:`Center-face — ${spinNote} at ${spinRPM} rpm`});
   }
 
-  // --- Launch angle ---
-  const idealLaunch=club.loft*0.6;
-  if(launchAngle<idealLaunch-5){
-    checks.push({label:'Launch Angle',status:'bad',note:`Low launch (${launchAngle}°) — too much shaft lean. Let the club loft do the work`});
-    issues++;
-  } else if(launchAngle>idealLaunch+6){
-    checks.push({label:'Launch Angle',status:'warn',note:`High launch (${launchAngle}°) — ball position may be too far forward`});
-    issues++;
+  // 3. LAUNCH ANGLE — club-specific ideal windows
+  const idealMin=club.loft*0.55, idealMax=club.loft*0.72;
+  if(launchAngle<idealMin){
+    const note=G.club==='dr'?`Low launch (${launchAngle}°) — move ball forward in stance (opposite lead heel) and tilt spine away from target to add dynamic loft`
+      :G.club==='pw'||G.club==='sw'?`Low launch (${launchAngle}°) on wedge — too much shaft lean killing loft. For chips: keep hands only slightly ahead of ball`
+      :`Low launch (${launchAngle}°) — too much forward shaft lean or ball too far back. Move ball one ball-width forward`;
+    checks.push({label:'Launch Angle',status:'bad',note});issues++;
+  } else if(launchAngle>idealMax){
+    const note=G.club==='dr'?`High launch (${launchAngle}°) — too much upward angle of attack, risking ballooning. Level out your swing with driver`
+      :`High launch (${launchAngle}°) — ball may be too far forward or scooping. Hands slightly ahead of ball at impact`;
+    checks.push({label:'Launch Angle',status:'warn',note});issues++;
   } else {
-    checks.push({label:'Launch Angle',status:'good',note:`Good launch angle (${launchAngle}°) for this club`});
+    checks.push({label:'Launch Angle',status:'good',note:`${launchAngle}° is in the ideal window (${Math.round(idealMin)}-${Math.round(idealMax)}°) for ${G.clubName}`});
   }
 
-  // --- Spin axis (draw/fade/hook/slice) ---
-  if(spinAxis==='hook'||spinAxis==='slice'){
-    checks.push({label:'Spin Axis',status:'bad',note:`${spinAxis==='hook'?'Hook':'Slice'} spin detected from ball rotation — check grip and swing path`});
-    issues++;
-  } else if(spinAxis==='draw'||spinAxis==='fade'){
-    checks.push({label:'Spin Axis',status:'warn',note:`Slight ${spinAxis} — intentional? For straight shots keep logo vertical`});
+  // 4. SPIN & SPIN AXIS — with specific ball flight shape advice
+  if(spinAxis==='hook'){
+    checks.push({label:'Ball Flight',status:'bad',note:isLefty?'Hook — clubface closing too fast. Feel like you hold the face open longer through impact':'Hook — inside-out path with closed face. Check grip (neutral, not too strong) and slow the release'});issues++;
+  } else if(spinAxis==='slice'){
+    checks.push({label:'Ball Flight',status:'bad',note:isLefty?'Slice — clubface open at impact. Strengthen left-hand grip one knuckle, or close face at setup':'Slice — over-the-top or outside-in path with open face. Start downswing with hips, not shoulders'});issues++;
+  } else if(spinAxis==='draw'){
+    checks.push({label:'Ball Flight',status:'warn',note:`Draw spin detected (${Math.abs(Math.round(axisDev))}° axis) — ${G.club==='dr'?'a power draw is great for driver!':'slight right-to-left curve. Intentional? Rotate ball logo to 90° for straight shots'}`});
+  } else if(spinAxis==='fade'){
+    checks.push({label:'Ball Flight',status:'warn',note:`Fade spin (${Math.abs(Math.round(axisDev))}° axis) — ${G.club==='dr'?'a controlled fade is fine but costs distance':'slight left-to-right curve. Intentional? Square the face slightly earlier'}`});
   } else {
-    checks.push({label:'Spin Axis',status:'good',note:'Straight spin axis — good clubface alignment at impact'});
+    checks.push({label:'Ball Flight',status:'good',note:`Straight spin axis — Pro V1\'s ${spinRPM} rpm backspin should hold the line all the way`});
   }
 
-  // --- Club speed vs expectation ---
-  if(speedFactor<0.7){
-    checks.push({label:'Swing Speed',status:'warn',note:'Slower than typical — make sure to accelerate through the ball, not to it'});
-    issues++;
-  } else if(speedFactor>1.25){
-    checks.push({label:'Swing Speed',status:'warn',note:'Very fast swing — make sure you\'re not sacrificing accuracy for power'});
+  // 5. CLUB-SPECIFIC CHECK
+  if(G.club==='dr'){
+    const atkLabel=speedFactor>1.1?'aggressive':'smooth';
+    const note=speedFactor<0.8?`At ${clubSpeed} mph you're leaving distance on the table — relax grip pressure and let the club accelerate through impact`
+      :speedFactor>1.2?`${clubSpeed} mph — big swing! Make sure you're staying in your posture. Power without balance loses accuracy`
+      :`${clubSpeed} mph with ${atkLabel} tempo — ${r.estimatedDistance} yards is solid`;
+    checks.push({label:'Driver Power',status:speedFactor<0.8?'warn':speedFactor>1.2?'warn':'good',note});
+    if(speedFactor<0.8)issues++;
+  } else if(G.club==='pw'||G.club==='sw'){
+    const note=spinRPM>9500?`${spinRPM} rpm — excellent wedge spin! Pro V1 will check up on green`
+      :spinRPM>8000?`${spinRPM} rpm — good spin for control`
+      :`Only ${spinRPM} rpm on wedge — a cleaner downward strike will produce more spin. Descend into the ball`;
+    checks.push({label:'Wedge Spin',status:spinRPM>8000?'good':spinRPM>6500?'warn':'bad',note});
+    if(spinRPM<6500)issues++;
   } else {
-    checks.push({label:'Swing Speed',status:'good',note:`Good tempo — ${r.clubSpeed} mph is solid for this club`});
+    const gapNote=Math.abs(r.estimatedDistance-club.maxDist)>30?`${r.estimatedDistance} yds is ${r.estimatedDistance<club.maxDist?'short of':'over'} typical ${G.clubName} distance (${club.maxDist} yds) — ${r.estimatedDistance<club.maxDist?'accelerate through impact':'check that you\'re not overcooking it'}`:`${r.estimatedDistance} yds — right in the ${G.clubName}'s normal range`;
+    checks.push({label:'Distance Control',status:Math.abs(r.estimatedDistance-club.maxDist)<25?'good':'warn',note:gapNote});
+    if(Math.abs(r.estimatedDistance-club.maxDist)>35)issues++;
   }
 
-  // --- Perfect shot? ---
   const perfect=issues===0;
+  const summary=perfect
+    ?`Textbook ${G.clubName} shot — ${r.estimatedDistance} yards, straight flight, ${spinRPM} rpm. That's Pro V1-level performance.`
+    :issues>=3
+    ?`${r.estimatedDistance}-yard ${G.clubName} needs work in ${issues} areas. The ball doesn't lie — start with the top fix below.`
+    :`Solid ${r.estimatedDistance}-yard ${G.clubName}. ${spinAxis!=='straight'?`The ${spinAxis} is the main thing to address.`:'Good straight flight.'}`;
 
-  // --- Summary ---
-  const summaries={
-    perfect:`Clean ${r.estimatedDistance}-yard ${G.clubName} shot — everything checks out. Pro V1 spin at ${spinRPM} rpm is exactly where you want it.`,
-    good:`Solid ${r.estimatedDistance}-yard shot with ${G.clubName}. ${spinAxis!=='straight'?`A little ${spinAxis} spin, but manageable.`:'Good straight flight.'}`,
-    bad:`${r.estimatedDistance}-yard shot needs work. ${contactPoint!=='center'?`${contactPoint} contact is hurting distance and control.`:''} Focus on the top fix below.`
-  };
-  const summary=perfect?summaries.perfect:issues>=3?summaries.bad:summaries.good;
-
-  // --- Top fix ---
   const badCheck=checks.find(c=>c.status==='bad');
   const warnCheck=checks.find(c=>c.status==='warn');
-  const topFix=badCheck?badCheck.note:warnCheck?warnCheck.note:'Keep doing what you\'re doing — your mechanics look solid!';
+  const topFix=badCheck?badCheck.note:warnCheck?warnCheck.note:'Mechanics look solid — work on repeating this swing!';
 
-  // --- Encouragement (leftie-aware) ---
-  const encs=[
-    `${isLefty?'Left-handed golfers often have a natural draw — use it!':'Good fundamentals.'}`,
-    `The Pro V1 rewards clean contact — you're ${perfect?'nailing it':'getting there'}.`,
-    `Drive, Chip & Putt is all about repeatability — ${issues<2?'you\'re building good habits':'keep practicing this motion'}.`,
-    `Titleist spin at ${spinRPM} rpm — ${spinRPM>7000?'nice stopping power on the green':'good distance spin for this club'}.`
+  const encArr=[
+    isLefty?'Left-handed players often have a naturally strong grip — check it isn\'t contributing to that draw.':'Right-handed fundamentals look good.',
+    `Pro V1 at ${spinRPM} rpm — ${spinRPM>club.spinBase*1.1?'high spin: great for stopping on greens':'in the right range for this club'}.`,
+    `Drive Chip & Putt demands repeatability — ${issues<2?'you\'re building the right habits.':'every rep with correct mechanics counts.'}`,
+    `${r.estimatedDistance} yards with ${G.clubName} at ${clubSpeed} mph — ${Math.abs(r.estimatedDistance-club.maxDist)<20?'right on the money.':'keep working on solid contact.'}`
   ];
-  const encouragement=encs[Math.floor(Math.random()*encs.length)];
-
+  const encouragement=encArr[Math.floor(Math.random()*encArr.length)];
   return{perfect,summary,checks,topFix,encouragement};
 }
 
 // ================================================================
-//  RENDER FEEDBACK
+// RULE-BASED AI COACHING — PUTTING
 // ================================================================
-function updateStats(r){
-  const vals=[r.clubSpeed,r.spinRPM,r.estimatedDistance,r.launchAngle];
+function generatePuttFeedback(r){
+  const {strokeSpeed,estimatedFeet,faceAngle,madeIt,target,motionStd,tempoRatio,tempoGood,distanceError} = r;
+  const isLefty=G.hand==='left';
+  const checks=[]; let issues=0;
+
+  // 1. DISTANCE CONTROL — most important putt skill
+  if(distanceError>5){
+    const dir=estimatedFeet>target?'long':'short';
+    checks.push({label:'Distance Control',status:'bad',note:`${Math.round(distanceError)} ft ${dir} — ${dir==='short'?'accelerate through the ball; the putter decelerating is the #1 distance error':'ease off; backswing too long relative to the putt length. Match backswing length to distance'}. At ${target} ft aim for ~${Math.round(target/feetPerStimP(10))} mph stroke speed`});issues++;
+  } else if(distanceError>2.5){
+    checks.push({label:'Distance Control',status:'warn',note:`${Math.round(distanceError)} ft off — ${estimatedFeet>target?'slightly too hard':'slightly short'}. Fine-tune stroke length. Your Pro V1 rolls true — trust the speed`});issues++;
+  } else {
+    checks.push({label:'Distance Control',status:'good',note:`Excellent distance — only ${Math.round(distanceError*10)/10} ft off the ${target}-ft target. That's tour-level speed control`});
+  }
+
+  // 2. FACE ANGLE — biggest factor in direction (83% of starting line)
+  if(Math.abs(faceAngle)>5){
+    const dir=faceAngle>0?(isLefty?'left':'right'):(isLefty?'right':'left');
+    checks.push({label:'Face Angle',status:'bad',note:`Face ${Math.abs(Math.round(faceAngle))}° open to the ${dir} — on a ${target}-ft putt this misses by ~${Math.round(Math.abs(faceAngle)*target*0.017)} inches. Check your setup alignment to target`});issues++;
+  } else if(Math.abs(faceAngle)>2){
+    checks.push({label:'Face Angle',status:'warn',note:`Face ${Math.abs(Math.round(faceAngle))}° open — a fraction offline. Place the Titleist logo perpendicular to your target line at address`});issues++;
+  } else {
+    checks.push({label:'Face Angle',status:'good',note:`Face angle within ${Math.abs(Math.round(faceAngle))}° — nearly perfect alignment. The Pro V1 logo reads true`});
+  }
+
+  // 3. PUTTING TEMPO — 2:1 backswing:follow-through ratio is gold standard
+  const tempoDisplay=Math.round(tempoRatio*10)/10;
+  if(tempoRatio<0.8){
+    checks.push({label:'Tempo (BS:FT)',status:'bad',note:`Follow-through (${tempoDisplay}x backswing) is too short — deceleration causes fat strikes and direction errors. Commit through the ball`});issues++;
+  } else if(tempoRatio>2.8){
+    checks.push({label:'Tempo (BS:FT)',status:'warn',note:`Follow-through (${tempoDisplay}x backswing) is too long — long follow-through often means jabbing at the ball. Let the pendulum die naturally`});issues++;
+  } else if(!tempoGood){
+    checks.push({label:'Tempo (BS:FT)',status:'warn',note:`Tempo ratio ${tempoDisplay}:1 — ideal is 1.2-2.0:1 (backswing:follow-through). Metronome drill at 72bpm helps build this`});issues++;
+  } else {
+    checks.push({label:'Tempo (BS:FT)',status:'good',note:`Tempo ${tempoDisplay}:1 — in the ideal zone. This pendulum stroke will hold up under pressure`});
+  }
+
+  // 4. STROKE CONSISTENCY
+  if(motionStd>4){
+    checks.push({label:'Stroke Path',status:'bad',note:'Inconsistent stroke — head may be moving, or wrists breaking down. Eyes directly over ball, use shoulder rock only, no wrist hinge'});issues++;
+  } else if(motionStd>2.5){
+    checks.push({label:'Stroke Path',status:'warn',note:'Slight wobble in stroke path — keep elbows tucked close to body. Light grip pressure (4/10) helps'});
+  } else {
+    checks.push({label:'Stroke Path',status:'good',note:'Clean, repeatable stroke path — no wrist breakdown detected'});
+  }
+
+  // 5. OVERALL RESULT
+  checks.push({label:'Result',status:madeIt?'good':'warn',note:madeIt?`Made it! 🎉 At ${target} ft with this stroke quality, you\'d make this ~${r.makePercent}% of the time on tour`:`Missed — expected make rate was ${r.makePercent}% for this stroke quality. ${distanceError>3?'Distance control is the priority fix':'Face angle cost you this one'}`});
+
+  const perfect=madeIt&&issues===0;
+  const summary=perfect
+    ?`Perfect ${target}-ft putt — straight face, ideal tempo, perfect distance. That's how you compete at Drive Chip & Putt.`
+    :madeIt
+    ?`Made the ${target}-footer despite some ${distanceError>3?'distance':'alignment'} issues — good touch saves mistakes!`
+    :`${target}-ft putt narrowly missed. ${Math.abs(faceAngle)>4?`Face angle (${Math.round(faceAngle)}°) was the primary miss factor.`:`Distance was ${Math.round(distanceError)} ft off.`}`;
+
+  const badCheck=checks.find(c=>c.status==='bad');
+  const warnCheck=checks.find(c=>c.status==='warn');
+  const topFix=badCheck?badCheck.note:warnCheck?warnCheck.note:'Stroke mechanics look great — focus on reading break';
+
+  // Putting drills
+  const drills=[];
+  if(Math.abs(faceAngle)>3) drills.push('Gate drill: put two tees 1 putter-width apart in front of ball, putt through without hitting either');
+  if(!tempoGood) drills.push('Metronome drill: set metronome to 72 bpm, back on beat 1, through on beat 2');
+  if(distanceError>3) drills.push('Ladder drill: 5 balls at 5, 10, 15, 20, 25 ft — focus on each rolling to the hole or 18 inches past');
+  if(drills.length===0) drills.push('Circle drill: 8 balls around the hole at 3 ft — make all 8 before moving to 4 ft');
+
+  return{perfect,summary,checks,topFix,drills,encouragement:`${isLefty?'Left-handed putters often align well — trust your read.':'Good putting posture.'} ${madeIt?'Made putts build confidence — keep that routine going.':'Every missed putt is data. Adjust and go again.'}`};
+}
+function feetPerStimP(stimp){return stimp*0.85;}
+
+// ================================================================
+// RENDER FEEDBACK
+// ================================================================
+function updateStats(vals,units){
   vals.forEach((v,i)=>{
-    ge('sv'+i).textContent=v||'—';
-    const box=ge('sb'+i);
-    box.classList.add('flash');
-    setTimeout(()=>box.classList.remove('flash'),1500);
+    ge('sv'+i).textContent=v!==undefined?v:'—';
+    if(units&&units[i])ge('su'+i).textContent=units[i];
+    const box=ge('sb'+i); box.classList.add('flash'); setTimeout(()=>box.classList.remove('flash'),1500);
   });
 }
 function resetStats(){[0,1,2,3].forEach(i=>ge('sv'+i).textContent='—');}
 
-function renderFeedback(fb,r){
-  let h='<div class="fbcard">';
+function renderFeedback(fb,r,isPutt){
+  let h=`<div class="fbcard${isPutt?' putt-fb':''}">`;
   if(fb.perfect){
-    h+=`<div class="perf"><div class="perf-big">🏆 Perfect Shot!</div><div class="perf-sub">${r.estimatedDistance} yds · ${r.spinRPM} rpm · ${r.launchAngle}° launch</div></div>`;
+    h+=`<div class="perf${isPutt?' putt-perf':''}"><div class="perf-big">${isPutt?'🕳️ Perfect Putt!':'🏆 Perfect Shot!'}</div><div class="perf-sub">${fb.summary}</div></div>`;
   } else {
-    h+=`<div class="fbtitle">⛳ Shot Analysis</div>`;
+    h+=`<div class="fbtitle">${isPutt?'🕳️':'⛳'} ${isPutt?'Putt Analysis':'Shot Analysis'}</div>`;
+    h+=`<div class="fbsum">${fb.summary}</div>`;
   }
-  h+=`<div class="fbsum">${fb.summary}</div>`;
-  h+=`<div class="fbmeta"><span class="tag">Contact: ${r.contactPoint}</span><span class="tag">Spin: ${r.spinAxis}</span><span class="tag">${r.clubSpeed} mph club speed</span></div>`;
-  if(fb.checks.length){
+  if(!fb.perfect){
+    if(isPutt){
+      h+=`<div class="fbmeta"><span class="tag">${r.estimatedFeet}ft est</span><span class="tag">Face: ${r.faceAngle>0?'+':''}${r.faceAngle}°</span><span class="tag">${r.makePercent}% make%</span><span class="tag">${r.madeIt?'✓ Made':'✗ Missed'}</span></div>`;
+    } else {
+      h+=`<div class="fbmeta"><span class="tag">Contact: ${r.contactPoint}</span><span class="tag">Spin: ${r.spinAxis}</span><span class="tag">${r.clubSpeed}mph</span><span class="tag">${r.spinRPM}rpm</span></div>`;
+    }
+  }
+  if(fb.checks&&fb.checks.length){
     h+='<div class="checks">';
-    fb.checks.forEach(c=>{
-      const ico=c.status==='good'?'✓':c.status==='warn'?'~':'✗';
-      h+=`<div class="crow ${c.status}"><span class="cico">${ico}</span><span class="clbl">${c.label}</span><span class="cnote">${c.note}</span></div>`;
-    });
+    fb.checks.forEach(c=>{const ico=c.status==='good'?'✓':c.status==='warn'?'~':'✗';h+=`<div class="crow ${c.status}"><span class="cico">${ico}</span><span class="clbl">${c.label}</span><span class="cnote">${c.note}</span></div>`;});
     h+='</div>';
   }
   if(fb.topFix) h+=`<div class="topfix"><div class="tflbl">★ Top Fix</div><div class="tftxt">${fb.topFix}</div></div>`;
+  if(isPutt&&fb.drills&&fb.drills.length){
+    h+=`<div class="drills"><div class="drills-lbl">Recommended Drills</div>`;
+    fb.drills.forEach(d=>h+=`<div class="drill-item">${d}</div>`);
+    h+='</div>';
+  }
   if(fb.encouragement) h+=`<div class="enc">${fb.encouragement}</div>`;
   h+='</div>';
   ge('fbArea').innerHTML=h;
 }
 
+function resetForNextShot(){
+  G.ballLocked=false; clearOC();
+  ge('btnSwing').disabled=false;
+  ge('btnRescan').style.display='none';
+  ge('btnManual').style.display='';
+  if(G.isPutting)drawPuttingGuide();
+  rescan();
+}
+
 // ================================================================
-//  VIRTUAL COURSE
+// PUTTING GREEN VISUALIZATION
+// ================================================================
+function drawGreen(){
+  const target=G.mode==='putt-course'?PUTT_HOLES[G.puttHole-1].dist:G.puttTarget;
+  const breakInfo=G.mode==='putt-course'?PUTT_HOLES[G.puttHole-1].break:'flat';
+  const W=640,H=260;
+  const holeCX=580, holeCY=130;
+  const ballCX=30+Math.max(0,40-target*1.5), ballCY=130;
+
+  let s=`<rect width="${W}" height="${H}" fill="#0a2e10"/>`;
+  // Green surface
+  s+=`<ellipse cx="320" cy="130" rx="295" ry="115" fill="#1a6b2a"/>`;
+  // Grain direction indicator (subtle stripes)
+  for(let i=0;i<8;i++){const x=30+i*80;s+=`<line x1="${x}" y1="20" x2="${x+20}" y2="240" stroke="rgba(255,255,255,0.03)" stroke-width="10"/>`;}
+  // Fringe
+  s+=`<ellipse cx="320" cy="130" rx="296" ry="116" fill="none" stroke="#2a8a3a" stroke-width="10"/>`;
+  // Hole
+  s+=`<circle cx="${holeCX}" cy="${holeCY}" r="9" fill="#000"/>`;
+  s+=`<circle cx="${holeCX}" cy="${holeCY}" r="8" fill="#111"/>`;
+  // Flag
+  s+=`<line x1="${holeCX}" y1="${holeCY-8}" x2="${holeCX}" y2="${holeCY-40}" stroke="white" stroke-width="1.5"/>`;
+  s+=`<polygon points="${holeCX},${holeCY-40} ${holeCX+16},${holeCY-33} ${holeCX},${holeCY-26}" fill="#e05555"/>`;
+  // Break line (dotted suggested read)
+  if(breakInfo.includes('right')){
+    s+=`<path d="M${ballCX+20},${ballCY} Q${320},${ballCY-20} ${holeCX-10},${holeCY}" stroke="rgba(212,168,50,0.4)" stroke-width="1.5" stroke-dasharray="6,5" fill="none"/>`;
+  } else if(breakInfo.includes('left')){
+    s+=`<path d="M${ballCX+20},${ballCY} Q${320},${ballCY+20} ${holeCX-10},${holeCY}" stroke="rgba(212,168,50,0.4)" stroke-width="1.5" stroke-dasharray="6,5" fill="none"/>`;
+  } else {
+    s+=`<line x1="${ballCX+20}" y1="${ballCY}" x2="${holeCX-10}" y2="${holeCY}" stroke="rgba(212,168,50,0.35)" stroke-width="1.5" stroke-dasharray="6,5"/>`;
+  }
+  // Distance markers
+  const pixPerFt=(holeCX-ballCX-20)/target;
+  for(let ft=5;ft<target;ft+=5){
+    const mx=ballCX+20+ft*pixPerFt;
+    s+=`<line x1="${mx}" y1="${holeCY-8}" x2="${mx}" y2="${holeCY+8}" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>`;
+    s+=`<text x="${mx}" y="${holeCY-12}" font-size="8" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="Barlow Condensed">${ft}ft</text>`;
+  }
+  // Ball
+  s+=`<circle cx="${ballCX}" cy="${ballCY}" r="7" fill="white" stroke="rgba(0,0,0,.2)" stroke-width=".5"/>`;
+  s+=`<circle cx="${ballCX}" cy="${ballCY}" r="10" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width=".5"/>`;
+  // Labels
+  s+=`<text x="12" y="22" font-size="14" fill="rgba(255,255,255,.8)" font-family="Bebas Neue" letter-spacing="1">${G.mode==='putt-course'?`HOLE ${G.puttHole}/18`:''}</text>`;
+  s+=`<text x="12" y="35" font-size="9" fill="rgba(212,168,50,.8)" font-family="Barlow Condensed" letter-spacing="1">${target} FT · ${breakInfo.toUpperCase()}</text>`;
+  // Make % ring at hole
+  const makeColor=target<=5?'rgba(46,168,85,0.7)':target<=10?'rgba(212,168,50,0.7)':'rgba(224,85,85,0.5)';
+  s+=`<circle cx="${holeCX}" cy="${holeCY}" r="20" fill="none" stroke="${makeColor}" stroke-width="1" stroke-dasharray="3,3"/>`;
+  ge('greenSvg').innerHTML=s;
+  updatePuttInfo();
+}
+
+function updatePuttInfo(){
+  const target=G.mode==='putt-course'?PUTT_HOLES[G.puttHole-1].dist:G.puttTarget;
+  const breakInfo=G.mode==='putt-course'?PUTT_HOLES[G.puttHole-1].break:'varies';
+  const makeGuide=target<=5?'96%':target<=8?'50%':target<=15?'25%':target<=25?'11%':'<7%';
+  const infoParts=[
+    `<span class="tag bl">${target} ft</span>`,
+    `<span class="tag">Break: ${breakInfo}</span>`,
+    `<span class="tag">Tour make: ${makeGuide}</span>`,
+    G.mode==='putting'?`<span class="tag gd">${G.puttMade}/${G.puttTotal} made (${G.puttTotal>0?Math.round(G.puttMade/G.puttTotal*100):0}%)</span>`:'',
+    G.mode==='putt-course'?`<span class="tag gd">Hole ${G.puttHole}/18 · Shot ${G.puttShotOnHole+1}</span>`:''
+  ];
+  ge('puttInfo').innerHTML=infoParts.filter(Boolean).join('');
+}
+
+function renderPuttHistory(){
+  const el=ge('puttHistory');
+  if(!G.puttHistory.length){el.innerHTML='<div style="font-size:12px;color:var(--faint);font-family:var(--fc)">No putts yet</div>';return;}
+  el.innerHTML=G.puttHistory.slice(0,10).map(p=>`
+    <div class="ph-row">
+      <span class="ph-num">#${p.n}</span>
+      <span class="ph-dist">${p.target}ft target</span>
+      <span class="ph-result ${p.made?'ph-made':'ph-miss'}">${p.made?'✓ Made':'✗ Missed'} · ${p.feet}ft · face ${p.faceAngle>0?'+':''}${p.faceAngle}°</span>
+    </div>`).join('');
+}
+
+// ================================================================
+// COURSE VISUALIZATION
 // ================================================================
 function drawHole(){
-  const h=G.currentHole-1, par=G.PARS[h], yards=G.YARDS[h], shape=G.SHAPES[h];
-  let s=`<rect width="640" height="240" fill="#091a0b"/>`;
-  s+=`<rect width="640" height="240" fill="#0e3018" opacity="0.5"/>`;
-  if(shape==='straight'){
-    s+=`<path d="M10,88 Q320,68 630,90 L630,152 Q320,168 10,152 Z" fill="#1a5e28"/>`;
-  } else if(shape==='dogleg-right'){
-    s+=`<path d="M10,88 Q220,72 370,95 Q490,108 620,62 L620,112 Q490,158 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;
-  } else {
-    s+=`<path d="M10,88 Q220,72 370,95 Q490,72 620,105 L620,155 Q490,122 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;
-  }
+  const h=G.currentHole-1,par=G.PARS[h],yards=G.YARDS[h],shape=G.SHAPES[h];
+  let s=`<rect width="640" height="240" fill="#091a0b"/><rect width="640" height="240" fill="#0e3018" opacity="0.5"/>`;
+  if(shape==='straight'){s+=`<path d="M10,88 Q320,68 630,90 L630,152 Q320,168 10,152 Z" fill="#1a5e28"/>`;}
+  else if(shape==='dogleg-right'){s+=`<path d="M10,88 Q220,72 370,95 Q490,108 620,62 L620,112 Q490,158 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;}
+  else{s+=`<path d="M10,88 Q220,72 370,95 Q490,72 620,105 L620,155 Q490,122 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;}
   s+=`<ellipse cx="440" cy="130" rx="26" ry="13" fill="#8a7832" opacity="0.9"/>`;
-  if(par>=4) s+=`<ellipse cx="210" cy="100" rx="18" ry="9" fill="#8a7832" opacity="0.75"/>`;
-  if(par===5){
-    s+=`<path d="M270,105 Q315,93 365,108 Q340,138 285,132 Z" fill="#1a3d6a" opacity="0.85"/>`;
-  }
+  if(par>=4)s+=`<ellipse cx="210" cy="100" rx="18" ry="9" fill="#8a7832" opacity="0.75"/>`;
+  if(par===5)s+=`<path d="M270,105 Q315,93 365,108 Q340,138 285,132 Z" fill="#1a3d6a" opacity="0.85"/>`;
   s+=`<ellipse cx="598" cy="118" rx="30" ry="18" fill="#22a84a"/>`;
   s+=`<line x1="598" y1="100" x2="598" y2="72" stroke="white" stroke-width="1.5"/>`;
   s+=`<polygon points="598,72 614,79 598,86" fill="#e05555"/>`;
   s+=`<rect x="8" y="106" width="18" height="12" rx="3" fill="#2a7a3a" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>`;
   s+=`<text x="17" y="116" font-size="6" fill="rgba(255,255,255,.7)" text-anchor="middle" font-family="Bebas Neue">TEE</text>`;
-  for(let i=1;i*50<yards;i++){
-    const x=18+(i/(yards/50))*590*0.93;
-    if(x<580) s+=`<line x1="${x}" y1="108" x2="${x}" y2="118" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>`;
-    if(x<580&&i%2===0) s+=`<text x="${x}" y="106" font-size="7" fill="rgba(255,255,255,.25)" text-anchor="middle" font-family="Barlow Condensed">${i*50}</text>`;
-  }
-  s+=`<circle id="bdot" cx="${G.bX}" cy="${G.bY}" r="5" fill="white" stroke="rgba(0,0,0,.3)" stroke-width=".5"/>`;
+  for(let i=1;i*50<yards;i++){const x=18+(i/(yards/50))*590*0.93;if(x<580){s+=`<line x1="${x}" y1="108" x2="${x}" y2="118" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>`;if(i%2===0)s+=`<text x="${x}" y="106" font-size="7" fill="rgba(255,255,255,.25)" text-anchor="middle" font-family="Barlow Condensed">${i*50}</text>`;}}
+  s+=`<circle cx="${G.bX}" cy="${G.bY}" r="5" fill="white" stroke="rgba(0,0,0,.3)" stroke-width=".5"/>`;
   s+=`<circle cx="${G.bX}" cy="${G.bY}" r="8" fill="none" stroke="rgba(255,255,255,.2)" stroke-width=".5"/>`;
   s+=`<text x="12" y="22" font-size="15" fill="rgba(255,255,255,.85)" font-family="Bebas Neue" letter-spacing="1">HOLE ${G.currentHole}</text>`;
   s+=`<text x="12" y="34" font-size="9" fill="rgba(212,168,50,.85)" font-family="Barlow Condensed" letter-spacing="1">PAR ${par} · ${yards} YDS</text>`;
@@ -957,55 +1273,36 @@ function drawHole(){
 
 function processCourseShot(r){
   G.shotCount++;
-  const h=G.currentHole-1, yards=G.YARDS[h];
-  const prog=Math.min((r.estimatedDistance||80)/yards,1);
-  G.bX=Math.min(28+prog*570,595);
+  const h=G.currentHole-1,yards=G.YARDS[h];
+  const prog=clamp((r.estimatedDistance||80)/yards,0,1);
+  G.bX=clamp(28+prog*570,28,595);
   let dy=0;
-  if(r.spinAxis==='draw'||r.spinAxis==='hook') dy=G.hand==='left'?14:-14;
-  else if(r.spinAxis==='fade'||r.spinAxis==='slice') dy=G.hand==='left'?-14:14;
-  G.bY=Math.max(88,Math.min(150,120+dy));
-  const onGreen=G.bX>=565;
-  drawHole();
+  if(r.spinAxis==='draw'||r.spinAxis==='hook')dy=G.hand==='left'?14:-14;
+  else if(r.spinAxis==='fade'||r.spinAxis==='slice')dy=G.hand==='left'?-14:14;
+  G.bY=clamp(120+dy,88,150);
+  const onGreen=G.bX>=565; drawHole();
   if(onGreen){
-    const score=G.shotCount, par=G.PARS[h], diff=score-par;
+    const score=G.shotCount,par=G.PARS[h],diff=score-par;
     G.scores[h]=score;
     const lbl=diff<=-2?'🦅 Eagle!':diff===-1?'🐦 Birdie!':diff===0?'Par 🤝':diff===1?'Bogey':'Double+';
-    showToast(lbl);
-    renderSC();
+    showToast(lbl); renderSC();
     setTimeout(()=>{
-      if(G.currentHole<9){
-        G.currentHole++; G.shotCount=0; G.bX=38; G.bY=120;
-        drawHole(); renderSC();
-        ge('fbArea').innerHTML=`<div class="fbcard"><div class="fbtitle">⛳ Hole ${G.currentHole-1} — ${lbl}</div><div class="fbsum">Moving to Hole ${G.currentHole}. ${G.YARDS[G.currentHole-1]>380?'Big hole — blend power with accuracy.':'Shorter hole — control wins.'}</div></div>`;
-      } else { showFinal(); }
+      if(G.currentHole<9){G.currentHole++;G.shotCount=0;G.bX=38;G.bY=120;drawHole();renderSC();ge('fbArea').innerHTML=`<div class="fbcard"><div class="fbtitle">⛳ Hole ${G.currentHole-1} — ${lbl}</div><div class="fbsum">Hole ${G.currentHole}: ${G.YARDS[G.currentHole-1]} yards, Par ${G.PARS[G.currentHole-1]}.</div></div>`;}
+      else{const tot=G.scores.reduce((a,b)=>a+(b||0),0),par=G.PARS.reduce((a,b)=>a+b,0),diff=tot-par;ge('fbArea').innerHTML=`<div class="fbcard"><div class="perf"><div class="perf-big">🏆 Round Complete!</div><div class="perf-sub">Shot ${tot} (${diff>=0?'+':''}${diff} vs par) · ${diff<0?'Under par!':diff===0?'Even par!':'Keep at it!'}</div></div><div class="btn-row"><button class="btn btn-gold" onclick="restart()">Play Again</button><button class="btn btn-ghost" onclick="quitGame()">Menu</button></div></div>`;}
     },1500);
-  } else { renderSC(); }
+  } else {renderSC();}
 }
 
 function renderSC(){
-  let h='<div class="scrl">Hole</div>';
-  for(let i=1;i<=9;i++) h+=`<div class="sch">${i}</div>`;
-  h+='<div class="sch">TOT</div>';
-  h+='<div class="scrl" style="color:var(--gold)">Par</div>';
-  G.PARS.forEach(p=>h+=`<div class="scc">${p}</div>`);
-  h+=`<div class="sctot">${G.PARS.reduce((a,b)=>a+b,0)}</div>`;
-  h+='<div class="scrl" style="color:var(--green)">Score</div>';
-  let tot=0;
-  G.scores.forEach((s,i)=>{
-    let cls=(i+1===G.currentHole&&s===null)?'cur':'';
-    if(s!==null){ tot+=s; const d=s-G.PARS[i]; if(d<=-2)cls='eagle';else if(d===-1)cls='birdie';else if(d===1)cls='bogey';else if(d>=2)cls='dbl'; }
-    h+=`<div class="scc ${cls}">${s!==null?s:'—'}</div>`;
-  });
-  h+=`<div class="sctot">${tot||'—'}</div>`;
-  ge('scorecard').innerHTML=h;
+  let h='<div class="scrl">Hole</div>';for(let i=1;i<=9;i++)h+=`<div class="sch">${i}</div>`;h+='<div class="sch">TOT</div>';
+  h+='<div class="scrl" style="color:var(--gold)">Par</div>';G.PARS.forEach(p=>h+=`<div class="scc">${p}</div>`);h+=`<div class="sctot">${G.PARS.reduce((a,b)=>a+b,0)}</div>`;
+  h+='<div class="scrl" style="color:var(--green)">Score</div>';let tot=0;
+  G.scores.forEach((s,i)=>{let cls=(i+1===G.currentHole&&s===null)?'cur':'';if(s!==null){tot+=s;const d=s-G.PARS[i];if(d<=-2)cls='eagle';else if(d===-1)cls='birdie';else if(d===1)cls='bogey';else if(d>=2)cls='dbl';}h+=`<div class="scc ${cls}">${s!==null?s:'—'}</div>`;});
+  h+=`<div class="sctot">${tot||'—'}</div>`;ge('scorecard').innerHTML=h;
 }
 
-function showFinal(){
-  const tot=G.scores.reduce((a,b)=>a+(b||0),0), par=G.PARS.reduce((a,b)=>a+b,0), diff=tot-par;
-  ge('fbArea').innerHTML=`<div class="fbcard"><div class="perf"><div class="perf-big">🏆 Round Complete!</div><div class="perf-sub">Shot ${tot} (${diff>=0?'+':''}${diff} vs par ${par}) · ${diff<0?'Under par — excellent!':diff===0?'Even par — solid!':'Keep practicing!'}</div></div><div class="btn-row"><button class="btn btn-gold" onclick="restart()">Play Again</button><button class="btn btn-ghost" onclick="quitGame()">Main Menu</button></div></div>`;
-}
-function restart(){ G.currentHole=1;G.scores=Array(9).fill(null);G.shotCount=0;G.bX=38;G.bY=120; drawHole();renderSC();resetStats();ge('fbArea').innerHTML=''; }
-function showToast(m){ const t=ge('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2400); }
+function restart(){G.currentHole=1;G.scores=Array(9).fill(null);G.shotCount=0;G.bX=38;G.bY=120;drawHole();renderSC();resetStats();ge('fbArea').innerHTML='';}
+function showToast(m){const t=ge('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2400);}
 </script>
 </body>
 </html>
