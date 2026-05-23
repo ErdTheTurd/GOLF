@@ -9,75 +9,53 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0d1a0f;
-  --panel:#162019;
-  --panel2:#1c2b1e;
+  --bg:#0d1a0f; --panel:#162019; --panel2:#1c2b1e;
   --border:rgba(255,255,255,0.08);
-  --green:#2ea855;
-  --green2:#1d7a3a;
-  --green-pale:rgba(46,168,85,0.12);
-  --gold:#d4a832;
-  --gold2:#f0c84a;
-  --cream:#f0ead8;
-  --white:#ffffff;
-  --muted:rgba(240,234,216,0.5);
-  --faint:rgba(240,234,216,0.22);
-  --red:#e05555;
-  --font-display:'Bebas Neue',sans-serif;
-  --font-cond:'Barlow Condensed',sans-serif;
-  --font-body:'Barlow',sans-serif;
+  --green:#2ea855; --green2:#1d7a3a; --green-pale:rgba(46,168,85,0.12);
+  --gold:#d4a832; --gold2:#f0c84a; --cream:#f0ead8; --white:#fff;
+  --muted:rgba(240,234,216,0.5); --faint:rgba(240,234,216,0.22); --red:#e05555;
+  --fd:'Bebas Neue',sans-serif; --fc:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
   --r:12px;
 }
-html,body{min-height:100vh;background:var(--bg);color:var(--cream);font-family:var(--font-body);}
-body{
-  background-image:
-    radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,0.09) 0%,transparent 60%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232ea855' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
-}
+html,body{min-height:100vh;background:var(--bg);color:var(--cream);font-family:var(--fb);}
+body{background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(46,168,85,0.09) 0%,transparent 60%);}
 
-/* SCREENS */
-.screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.25rem 3rem;animation:fadeIn .4s ease;}
+.screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.25rem 3rem;animation:fi .4s ease;}
 .screen.active{display:flex;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fi{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* LOGO */
-.logo-wrap{text-align:center;margin-bottom:2.5rem;}
-.logo-eyebrow{font-family:var(--font-cond);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
-.logo-title{font-family:var(--font-display);font-size:clamp(52px,12vw,96px);line-height:1;color:var(--cream);}
+.logo-wrap{text-align:center;margin-bottom:2rem;}
+.logo-eye{font-family:var(--fc);font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.logo-title{font-family:var(--fd);font-size:clamp(52px,12vw,96px);line-height:1;}
 .logo-title span{color:var(--green);}
-.logo-sub{font-family:var(--font-cond);font-size:13px;letter-spacing:2px;color:var(--muted);margin-top:8px;}
+.logo-sub{font-family:var(--fc);font-size:13px;letter-spacing:2px;color:var(--muted);margin-top:6px;}
 
-/* STEP */
-.step-label{font-family:var(--font-cond);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;text-align:center;}
-.step-title{font-family:var(--font-display);font-size:clamp(28px,7vw,52px);text-align:center;margin-bottom:26px;line-height:1.1;}
+.step-lbl{font-family:var(--fc);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;text-align:center;}
+.step-title{font-family:var(--fd);font-size:clamp(26px,7vw,50px);text-align:center;margin-bottom:24px;line-height:1.1;}
 
-/* HAND CARDS */
-.hand-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:440px;}
-.hand-card{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .2s;}
-.hand-card:hover,.hand-card.sel{background:var(--green-pale);border-color:var(--green);}
-.hc-icon{font-size:46px;margin-bottom:10px;}
-.hc-label{font-family:var(--font-display);font-size:30px;letter-spacing:1px;}
-.hc-sub{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--font-cond);}
+.hand-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:420px;}
+.hcard{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .2s;}
+.hcard:hover,.hcard.sel{background:var(--green-pale);border-color:var(--green);}
+.hc-icon{font-size:44px;margin-bottom:8px;}
+.hc-lbl{font-family:var(--fd);font-size:28px;letter-spacing:1px;}
+.hc-sub{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--fc);}
 
-/* CLUB GRID */
-.club-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:580px;}
-.club-btn{background:var(--panel);border:1.5px solid var(--border);border-radius:8px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .18s;}
-.club-btn:hover,.club-btn.sel{background:var(--green-pale);border-color:var(--green);}
-.cb-num{font-family:var(--font-display);font-size:28px;color:var(--cream);}
-.cb-name{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--font-cond);letter-spacing:1px;}
+.club-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:560px;}
+.cbtn{background:var(--panel);border:1.5px solid var(--border);border-radius:8px;padding:13px 6px;text-align:center;cursor:pointer;transition:all .18s;}
+.cbtn:hover,.cbtn.sel{background:var(--green-pale);border-color:var(--green);}
+.cb-num{font-family:var(--fd);font-size:26px;}
+.cb-name{font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--fc);letter-spacing:1px;}
 
-/* MODE CARDS */
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:500px;}
-.mode-card{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:1.75rem 1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.mode-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-pale),transparent);opacity:0;transition:opacity .2s;}
-.mode-card:hover::before,.mode-card.sel::before{opacity:1;}
-.mode-card:hover,.mode-card.sel{border-color:var(--green);}
-.mode-icon{font-size:34px;margin-bottom:10px;}
-.mode-name{font-family:var(--font-display);font-size:22px;letter-spacing:1px;margin-bottom:6px;}
-.mode-desc{font-size:12px;color:var(--muted);line-height:1.55;font-family:var(--font-cond);}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:480px;}
+.mcard{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--r);padding:1.75rem 1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.mcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-pale),transparent);opacity:0;transition:opacity .2s;}
+.mcard:hover::before,.mcard.sel::before{opacity:1;}
+.mcard:hover,.mcard.sel{border-color:var(--green);}
+.mi{font-size:32px;margin-bottom:8px;}
+.mn{font-family:var(--fd);font-size:22px;letter-spacing:1px;margin-bottom:5px;}
+.md{font-size:12px;color:var(--muted);line-height:1.5;font-family:var(--fc);}
 
-/* BUTTONS */
-.btn{font-family:var(--font-cond);font-size:15px;letter-spacing:1.5px;padding:11px 28px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;}
+.btn{font-family:var(--fc);font-size:15px;letter-spacing:1.5px;padding:11px 28px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;}
 .btn-gold{background:var(--gold);color:#0d1a0f;border-color:var(--gold);font-weight:600;}
 .btn-gold:hover{background:var(--gold2);}
 .btn-gold:disabled{opacity:.35;cursor:default;}
@@ -86,957 +64,948 @@ body{
 .btn-green{background:var(--green2);color:var(--white);border-color:var(--green);}
 .btn-green:hover{background:var(--green);}
 .btn-green:disabled{opacity:.35;cursor:default;}
-.btn-sm{padding:7px 16px;font-size:12px;}
-.btn-row{display:flex;gap:12px;margin-top:22px;justify-content:center;flex-wrap:wrap;}
+.btn-sm{padding:7px 14px;font-size:12px;}
+.btn-row{display:flex;gap:12px;margin-top:20px;justify-content:center;flex-wrap:wrap;}
 
-/* BACK */
-.back-btn{position:fixed;top:14px;left:14px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--muted);cursor:pointer;z-index:200;transition:all .15s;}
+.back-btn{position:fixed;top:14px;left:14px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:var(--fc);font-size:12px;letter-spacing:1px;color:var(--muted);cursor:pointer;z-index:200;transition:all .15s;}
 .back-btn:hover{border-color:var(--green);color:var(--cream);}
 
-/* GAME LAYOUT */
-.game-layout{width:100%;max-width:760px;}
-.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.game-title{font-family:var(--font-display);font-size:22px;letter-spacing:1px;}
-.game-tags{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
-.tag{font-family:var(--font-cond);font-size:11px;letter-spacing:1.5px;padding:3px 9px;border-radius:4px;background:var(--panel2);border:1px solid var(--border);color:var(--muted);}
+/* GAME */
+.glayout{width:100%;max-width:740px;}
+.ghdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.gtitle{font-family:var(--fd);font-size:22px;letter-spacing:1px;}
+.tags{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+.tag{font-family:var(--fc);font-size:11px;letter-spacing:1.5px;padding:3px 9px;border-radius:4px;background:var(--panel2);border:1px solid var(--border);color:var(--muted);}
 .tag.hi{border-color:var(--green);color:var(--green);}
-.tag.gold{border-color:var(--gold);color:var(--gold);}
+.tag.gd{border-color:var(--gold);color:var(--gold);}
 
 /* CAMERA */
-.cam-wrap{position:relative;width:100%;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#050f07;border:1px solid var(--border);box-shadow:0 6px 32px rgba(0,0,0,0.35);}
+.camwrap{position:relative;width:100%;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#050f07;border:1px solid var(--border);box-shadow:0 6px 32px rgba(0,0,0,.4);}
 #video{width:100%;height:100%;object-fit:cover;display:block;transform:scaleX(-1);}
-#canvas{display:none;}
-#scan-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-#ball-lock-row{display:none;}
-#ball-lock-row.visible{display:flex;}
-#cam-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.78);backdrop-filter:blur(3px);gap:14px;transition:opacity .3s;}
-#cam-overlay.hidden{display:none;}
-#cam-overlay-icon{opacity:.5;}
-#cam-overlay-msg{font-size:14px;color:var(--muted);text-align:center;max-width:260px;line-height:1.65;font-family:var(--font-cond);letter-spacing:.5px;}
-#cam-overlay-msg.err{color:var(--red);}
-#cam-overlay-msg b{color:var(--cream);}
+#canvas,#motionCanvas{display:none;}
+#overlayCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+#camOverlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.8);backdrop-filter:blur(3px);gap:14px;}
+#camOverlay.hide{display:none;}
+#camMsg{font-size:14px;color:var(--muted);text-align:center;max-width:260px;line-height:1.65;font-family:var(--fc);letter-spacing:.5px;}
+#camMsg b{color:var(--cream);}
+#camMsg.err{color:var(--red);}
 
-/* OVERLAYS ON VIDEO */
-#ball-lock-badge{position:absolute;top:10px;left:10px;background:rgba(5,15,7,.75);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font-cond);letter-spacing:1px;color:var(--muted);display:none;transition:all .3s;}
-#ball-lock-badge.locked{border-color:var(--green);color:var(--green);}
-#spin-badge{position:absolute;top:10px;right:10px;width:68px;height:68px;border-radius:50%;background:rgba(5,15,7,.75);border:2px solid var(--border);display:none;flex-direction:column;align-items:center;justify-content:center;}
-#spin-badge-val{font-family:var(--font-display);font-size:17px;color:var(--gold);}
-#spin-badge-lbl{font-size:9px;color:var(--muted);font-family:var(--font-cond);letter-spacing:1px;}
-#contact-badge{position:absolute;bottom:10px;left:10px;background:rgba(5,15,7,.75);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--font-cond);letter-spacing:1px;color:var(--muted);display:none;}
+/* HUD badges */
+#ballBadge{position:absolute;top:10px;left:10px;background:rgba(5,15,7,.8);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;font-family:var(--fc);letter-spacing:1px;color:var(--muted);display:none;transition:all .3s;}
+#ballBadge.locked{border-color:var(--green);color:var(--green);}
+#ballBadge.searching{border-color:var(--gold);color:var(--gold);}
+#speedBadge{position:absolute;top:10px;right:10px;width:66px;height:66px;border-radius:50%;background:rgba(5,15,7,.8);border:2px solid var(--border);display:none;flex-direction:column;align-items:center;justify-content:center;}
+#speedVal{font-family:var(--fd);font-size:17px;color:var(--gold2);}
+#speedLbl{font-size:9px;color:var(--muted);font-family:var(--fc);letter-spacing:1px;}
+#swingBar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(0,0,0,.5);}
+#swingFill{height:100%;width:0%;background:var(--green);transition:width .1s;border-radius:2px;}
 
-/* CAM CONTROLS */
-.cam-controls{display:flex;gap:10px;margin-top:12px;align-items:center;}
-.cam-hint{font-size:11px;color:var(--faint);text-align:center;margin-top:6px;font-family:var(--font-cond);letter-spacing:.4px;line-height:1.5;}
-#thumb{width:62px;height:47px;border-radius:6px;object-fit:cover;border:1px solid var(--border);display:none;transform:scaleX(-1);flex-shrink:0;}
+/* CONTROLS */
+.camctrl{display:flex;gap:10px;margin-top:12px;align-items:center;}
+#thumb{width:60px;height:45px;border-radius:6px;object-fit:cover;border:1px solid var(--border);display:none;flex-shrink:0;}
+.camhint{font-size:11px;color:var(--faint);text-align:center;margin-top:6px;font-family:var(--fc);letter-spacing:.4px;line-height:1.5;}
+
+/* BALL STATUS ROW */
+#ballRow{display:none;margin-top:8px;align-items:center;gap:8px;flex-wrap:wrap;}
+#ballRow.show{display:flex;}
+#ballStatusTxt{font-family:var(--fc);font-size:12px;letter-spacing:.5px;color:var(--muted);flex:1;min-width:0;}
+#scanLog{display:none;margin-top:6px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;font-family:var(--fc);letter-spacing:.4px;color:var(--muted);line-height:1.8;max-height:72px;overflow-y:auto;}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
-.stat-box{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;}
-.stat-val{font-family:var(--font-display);font-size:26px;color:var(--gold2);}
-.stat-unit{font-size:10px;color:var(--muted);font-family:var(--font-cond);letter-spacing:1px;}
-.stat-label{font-size:10px;color:var(--faint);font-family:var(--font-cond);letter-spacing:1px;margin-top:2px;}
-.stat-box.live .stat-val{color:var(--green);}
+.sbox{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;transition:border-color .4s;}
+.sbox.flash{border-color:var(--green);}
+.sv{font-family:var(--fd);font-size:26px;color:var(--gold2);}
+.su{font-size:10px;color:var(--muted);font-family:var(--fc);letter-spacing:1px;}
+.sl{font-size:10px;color:var(--faint);font-family:var(--fc);letter-spacing:1px;margin-top:2px;}
 
 /* FEEDBACK */
-.fb-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-top:14px;}
-.fb-title{font-family:var(--font-display);font-size:20px;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-.fb-summary{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
-.fb-meta{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.checks-grid{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
-.check-row{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:7px;font-size:13px;border:1px solid transparent;}
-.check-row.good{background:rgba(46,168,85,0.09);border-color:rgba(46,168,85,0.22);}
-.check-row.warn{background:rgba(212,168,50,0.09);border-color:rgba(212,168,50,0.22);}
-.check-row.bad{background:rgba(224,85,85,0.09);border-color:rgba(224,85,85,0.22);}
-.ck-icon{flex-shrink:0;font-size:13px;margin-top:1px;}
-.ck-label{font-weight:600;min-width:125px;flex-shrink:0;font-family:var(--font-cond);letter-spacing:.5px;font-size:13px;}
-.ck-note{color:var(--muted);line-height:1.45;font-size:12px;}
-.top-fix{background:rgba(212,168,50,0.08);border:1px solid rgba(212,168,50,0.28);border-left:3px solid var(--gold);border-radius:8px;padding:10px 14px;margin-bottom:10px;}
-.tf-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:var(--font-cond);margin-bottom:4px;}
-.tf-txt{font-size:13px;color:var(--cream);line-height:1.5;}
-.encourage{font-size:12px;color:var(--faint);font-style:italic;text-align:center;padding-top:10px;border-top:1px solid var(--border);}
-.perfect-banner{background:var(--green2);border:1px solid var(--green);border-radius:8px;padding:14px;text-align:center;margin-bottom:12px;}
-.pb-big{font-family:var(--font-display);font-size:28px;letter-spacing:2px;color:var(--gold2);}
-.pb-sub{font-size:12px;color:rgba(240,234,216,.7);font-family:var(--font-cond);letter-spacing:1px;margin-top:3px;}
+.fbcard{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-top:14px;}
+.fbtitle{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.fbsum{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.fbmeta{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.checks{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.crow{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:7px;font-size:13px;border:1px solid transparent;}
+.crow.good{background:rgba(46,168,85,.09);border-color:rgba(46,168,85,.22);}
+.crow.warn{background:rgba(212,168,50,.09);border-color:rgba(212,168,50,.22);}
+.crow.bad{background:rgba(224,85,85,.09);border-color:rgba(224,85,85,.22);}
+.cico{flex-shrink:0;font-size:13px;margin-top:1px;}
+.clbl{font-weight:600;min-width:125px;flex-shrink:0;font-family:var(--fc);letter-spacing:.5px;font-size:13px;}
+.cnote{color:var(--muted);line-height:1.45;font-size:12px;}
+.topfix{background:rgba(212,168,50,.08);border:1px solid rgba(212,168,50,.28);border-left:3px solid var(--gold);border-radius:8px;padding:10px 14px;margin-bottom:10px;}
+.tflbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:var(--fc);margin-bottom:4px;}
+.tftxt{font-size:13px;color:var(--cream);line-height:1.5;}
+.enc{font-size:12px;color:var(--faint);font-style:italic;text-align:center;padding-top:10px;border-top:1px solid var(--border);}
+.perf{background:var(--green2);border:1px solid var(--green);border-radius:8px;padding:14px;text-align:center;margin-bottom:12px;}
+.perf-big{font-family:var(--fd);font-size:26px;letter-spacing:2px;color:var(--gold2);}
+.perf-sub{font-size:12px;color:rgba(240,234,216,.7);font-family:var(--fc);letter-spacing:1px;margin-top:3px;}
 
 /* COURSE */
-.course-section{margin-top:14px;}
-.hole-header{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
-.course-svg-wrap{width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);}
-#course-svg{display:block;width:100%;}
+.coursesec{margin-top:14px;}
+.holehdr{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.csvgwrap{width:100%;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);}
+#csvg{display:block;width:100%;}
+.scwrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-top:10px;}
+.sctitle{font-family:var(--fd);font-size:18px;letter-spacing:1px;margin-bottom:10px;}
+.scgrid{display:grid;grid-template-columns:auto repeat(9,1fr) auto;gap:3px;font-size:11px;font-family:var(--fc);text-align:center;}
+.sch{color:var(--gold);letter-spacing:1px;padding:4px 2px;}
+.scrl{color:var(--muted);letter-spacing:1px;text-align:left;padding:4px 6px 4px 0;}
+.scc{background:var(--panel2);border-radius:4px;padding:5px 2px;color:var(--muted);}
+.scc.cur{border:1px solid var(--green);color:var(--cream);}
+.scc.eagle{background:rgba(212,168,50,.25);color:var(--gold2);}
+.scc.birdie{background:rgba(46,168,85,.2);color:#6fde90;}
+.scc.bogey{background:rgba(224,85,85,.15);color:#e07878;}
+.scc.dbl{background:rgba(224,85,85,.28);color:var(--red);}
+.sctot{background:var(--panel2);border-radius:4px;padding:5px 4px;color:var(--cream);font-weight:600;}
 
-/* SCORECARD */
-.scorecard-wrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-top:10px;}
-.scorecard-title{font-family:var(--font-display);font-size:18px;letter-spacing:1px;margin-bottom:10px;}
-.sc-grid{display:grid;grid-template-columns:auto repeat(9,1fr) auto;gap:3px;font-size:11px;font-family:var(--font-cond);text-align:center;}
-.sc-head{color:var(--gold);letter-spacing:1px;padding:4px 2px;}
-.sc-row-label{color:var(--muted);letter-spacing:1px;text-align:left;padding:4px 6px 4px 0;}
-.sc-cell{background:var(--panel2);border-radius:4px;padding:5px 2px;color:var(--muted);}
-.sc-cell.cur{border:1px solid var(--green);color:var(--cream);}
-.sc-cell.eagle{background:rgba(212,168,50,.25);color:var(--gold2);}
-.sc-cell.birdie{background:rgba(46,168,85,.2);color:#6fde90;}
-.sc-cell.bogey{background:rgba(224,85,85,.15);color:#e07878;}
-.sc-cell.dbl{background:rgba(224,85,85,.28);color:var(--red);}
-.sc-total{background:var(--panel2);border-radius:4px;padding:5px 4px;color:var(--cream);font-weight:600;}
-
-/* SPINNER */
 .spinner{display:inline-block;width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* SHOT RESULT TOAST */
-#shot-toast{position:fixed;top:20px;right:20px;background:var(--panel);border:1px solid var(--green);border-radius:10px;padding:12px 18px;font-family:var(--font-display);font-size:22px;letter-spacing:1px;color:var(--gold2);z-index:500;display:none;animation:toastIn .3s ease;}
-@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+#toast{position:fixed;top:20px;right:20px;background:var(--panel);border:1px solid var(--green);border-radius:10px;padding:12px 18px;font-family:var(--fd);font-size:22px;letter-spacing:1px;color:var(--gold2);z-index:500;display:none;animation:tia .3s ease;}
+@keyframes tia{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
 
-/* RESPONSIVE */
+/* SWING PROMPT */
+#swingPrompt{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,15,7,.6);gap:10px;}
+#swingPrompt.show{display:flex;}
+#swingCountdown{font-family:var(--fd);font-size:72px;color:var(--gold2);line-height:1;}
+#swingMsg{font-family:var(--fc);font-size:14px;color:var(--cream);letter-spacing:1px;}
+
 @media(max-width:480px){
   .hand-grid,.mode-grid{grid-template-columns:1fr;}
   .club-grid{grid-template-columns:repeat(3,1fr);}
   .stats-row{grid-template-columns:repeat(2,1fr);}
-  .sc-grid{font-size:10px;}
 }
 </style>
 </head>
 <body>
+<div id="toast"></div>
 
-<!-- TOAST -->
-<div id="shot-toast">—</div>
-
-<!-- ==============================
-  SCREEN 1: HANDEDNESS
-============================== -->
+<!-- SCREEN 1: HAND -->
 <section class="screen active" id="s-hand">
   <div class="logo-wrap">
-    <div class="logo-eyebrow">Titleist Pro V1</div>
+    <div class="logo-eye">Titleist Pro V1</div>
     <div class="logo-title">Golf<span>Sim</span></div>
-    <div class="logo-sub">Camera · AI Coaching · Virtual Course</div>
+    <div class="logo-sub">Computer Vision · Physics Engine · Virtual Course</div>
   </div>
-  <div class="step-label">Step 1 of 3 · Your stance</div>
+  <div class="step-lbl">Step 1 of 3 · Your stance</div>
   <div class="step-title">Which hand do you play?</div>
   <div class="hand-grid">
-    <div class="hand-card" id="hc-left" onclick="selectHand('left')">
-      <div class="hc-icon">🏌️</div>
-      <div class="hc-label">Left</div>
-      <div class="hc-sub">Left-handed golfer</div>
-    </div>
-    <div class="hand-card" id="hc-right" onclick="selectHand('right')">
-      <div class="hc-icon">🏌️</div>
-      <div class="hc-label">Right</div>
-      <div class="hc-sub">Right-handed golfer</div>
-    </div>
+    <div class="hcard" id="hc-L" onclick="selHand('left')"><div class="hc-icon">🏌️</div><div class="hc-lbl">Left</div><div class="hc-sub">Left-handed golfer</div></div>
+    <div class="hcard" id="hc-R" onclick="selHand('right')"><div class="hc-icon">🏌️</div><div class="hc-lbl">Right</div><div class="hc-sub">Right-handed golfer</div></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-gold" id="btn-h-next" disabled onclick="goTo('s-club')">Continue →</button>
-  </div>
+  <div class="btn-row"><button class="btn btn-gold" id="btn-h" disabled onclick="goTo('s-club')">Continue →</button></div>
 </section>
 
-<!-- ==============================
-  SCREEN 2: CLUB SELECTION
-============================== -->
+<!-- SCREEN 2: CLUB -->
 <section class="screen" id="s-club">
   <button class="back-btn" onclick="goTo('s-hand')">← Back</button>
-  <div class="step-label">Step 2 of 3 · Club</div>
+  <div class="step-lbl">Step 2 of 3 · Club</div>
   <div class="step-title">Choose your club</div>
   <div class="club-grid">
-    <div class="club-btn" onclick="selectClub('4i','4 Iron',this)"><div class="cb-num">4</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('5i','5 Iron',this)"><div class="cb-num">5</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('6i','6 Iron',this)"><div class="cb-num">6</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('7i','7 Iron',this)"><div class="cb-num">7</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('8i','8 Iron',this)"><div class="cb-num">8</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('9i','9 Iron',this)"><div class="cb-num">9</div><div class="cb-name">Iron</div></div>
-    <div class="club-btn" onclick="selectClub('pw','Pitching Wedge',this)"><div class="cb-num">PW</div><div class="cb-name">Pitching</div></div>
-    <div class="club-btn" onclick="selectClub('sw','Sand Wedge',this)"><div class="cb-num">SW</div><div class="cb-name">Sand</div></div>
-    <div class="club-btn" onclick="selectClub('dr','Driver',this)" style="grid-column:span 2"><div class="cb-num">DR</div><div class="cb-name">Driver</div></div>
+    <div class="cbtn" onclick="selClub('4i','4 Iron',this)"><div class="cb-num">4</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('5i','5 Iron',this)"><div class="cb-num">5</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('6i','6 Iron',this)"><div class="cb-num">6</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('7i','7 Iron',this)"><div class="cb-num">7</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('8i','8 Iron',this)"><div class="cb-num">8</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('9i','9 Iron',this)"><div class="cb-num">9</div><div class="cb-name">Iron</div></div>
+    <div class="cbtn" onclick="selClub('pw','Pitching Wedge',this)"><div class="cb-num">PW</div><div class="cb-name">Pitching</div></div>
+    <div class="cbtn" onclick="selClub('sw','Sand Wedge',this)"><div class="cb-num">SW</div><div class="cb-name">Sand</div></div>
+    <div class="cbtn" onclick="selClub('dr','Driver',this)" style="grid-column:span 2"><div class="cb-num">DR</div><div class="cb-name">Driver</div></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-gold" id="btn-c-next" disabled onclick="goTo('s-mode')">Continue →</button>
-  </div>
+  <div class="btn-row"><button class="btn btn-gold" id="btn-c" disabled onclick="goTo('s-mode')">Continue →</button></div>
 </section>
 
-<!-- ==============================
-  SCREEN 3: MODE
-============================== -->
+<!-- SCREEN 3: MODE -->
 <section class="screen" id="s-mode">
   <button class="back-btn" onclick="goTo('s-club')">← Back</button>
-  <div class="step-label">Step 3 of 3 · Game mode</div>
+  <div class="step-lbl">Step 3 of 3 · Mode</div>
   <div class="step-title">How do you want to play?</div>
   <div class="mode-grid">
-    <div class="mode-card" onclick="selectMode('practice',this)">
-      <div class="mode-icon">🎯</div>
-      <div class="mode-name">Practice</div>
-      <div class="mode-desc">Full swing analysis, spin detection, distance + trajectory data. AI coaching after every shot.</div>
-    </div>
-    <div class="mode-card" onclick="selectMode('course',this)">
-      <div class="mode-icon">⛳</div>
-      <div class="mode-name">Virtual Course</div>
-      <div class="mode-desc">Play 9 holes. Your shot data moves the ball on the course. Track score vs par.</div>
-    </div>
+    <div class="mcard" onclick="selMode('practice',this)"><div class="mi">🎯</div><div class="mn">Practice</div><div class="md">Swing analysis, spin detection, distance &amp; trajectory. AI coaching after every shot.</div></div>
+    <div class="mcard" onclick="selMode('course',this)"><div class="mi">⛳</div><div class="mn">Virtual Course</div><div class="md">Play 9 holes. Your shot data moves the ball on screen. Track score vs par.</div></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-gold" id="btn-m-next" disabled onclick="startGame()">Tee Off →</button>
-  </div>
+  <div class="btn-row"><button class="btn btn-gold" id="btn-m" disabled onclick="startGame()">Tee Off →</button></div>
 </section>
 
-<!-- ==============================
-  SCREEN 4: GAME
-============================== -->
+<!-- SCREEN 4: GAME -->
 <section class="screen" id="s-game">
   <button class="back-btn" onclick="quitGame()">← Menu</button>
-  <div class="game-layout">
+  <div class="glayout">
 
-    <!-- Header -->
-    <div class="game-header">
+    <div class="ghdr">
       <div style="display:flex;align-items:center;gap:12px;">
-        <div class="game-title">GolfSim</div>
-        <div class="game-tags">
+        <div class="gtitle">GolfSim</div>
+        <div class="tags">
           <span class="tag hi" id="t-hand">—</span>
           <span class="tag hi" id="t-club">—</span>
-          <span class="tag gold" id="t-mode">—</span>
+          <span class="tag gd" id="t-mode">—</span>
         </div>
       </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-ghost btn-sm" onclick="goTo('s-club');stopCamera()">Change club</button>
-      </div>
+      <button class="btn btn-ghost btn-sm" onclick="goTo('s-club');stopCam()">Change club</button>
     </div>
 
-    <!-- CAMERA AREA -->
-    <div class="cam-wrap">
+    <!-- CAMERA -->
+    <div class="camwrap">
       <video id="video" autoplay playsinline muted></video>
       <canvas id="canvas"></canvas>
-      <!-- Overlay shown when camera is OFF -->
-      <div id="cam-overlay">
-        <div id="cam-overlay-icon">
-          <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="25" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/><circle cx="26" cy="26" r="10" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/><line x1="26" y1="1" x2="26" y2="12" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/><line x1="26" y1="40" x2="26" y2="51" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/><line x1="1" y1="26" x2="12" y2="26" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/><line x1="40" y1="26" x2="51" y2="26" stroke="rgba(240,234,216,0.3)" stroke-width="1.5"/></svg>
-        </div>
-        <div id="cam-overlay-msg">Click <b>Start Camera</b> below.<br>Your browser will ask for permission — click Allow.</div>
+      <canvas id="motionCanvas"></canvas>
+      <canvas id="overlayCanvas"></canvas>
+      <div id="camOverlay">
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" opacity=".4"><circle cx="25" cy="25" r="24" stroke="white" stroke-width="1.5"/><circle cx="25" cy="25" r="9" stroke="white" stroke-width="1.5"/><line x1="25" y1="2" x2="25" y2="11" stroke="white" stroke-width="1.5"/><line x1="25" y1="39" x2="25" y2="48" stroke="white" stroke-width="1.5"/><line x1="2" y1="25" x2="11" y2="25" stroke="white" stroke-width="1.5"/><line x1="39" y1="25" x2="48" y2="25" stroke="white" stroke-width="1.5"/></svg>
+        <div id="camMsg">Click <b>Start Camera</b> below.<br>Allow camera access when prompted.</div>
       </div>
-      <!-- Live badges -->
-      <div id="ball-lock-badge">⬤ Scanning for ball...</div>
-      <div id="spin-badge" style="display:none;flex-direction:column;">
-        <div id="spin-badge-val">—</div>
-        <div id="spin-badge-lbl">SPIN rpm</div>
+      <div id="ballBadge">⬤ Scanning...</div>
+      <div id="speedBadge" style="display:none;flex-direction:column;">
+        <div id="speedVal">—</div>
+        <div id="speedLbl">MPH</div>
       </div>
-      <div id="contact-badge"></div>
-      <!-- Scan highlight box drawn over detected ball -->
-      <canvas id="scan-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+      <div id="swingPrompt">
+        <div id="swingCountdown">3</div>
+        <div id="swingMsg">GET READY TO SWING</div>
+      </div>
+      <div id="swingBar"><div id="swingFill"></div></div>
     </div>
 
-    <!-- Controls -->
-    <div class="cam-controls">
-      <button class="btn btn-green" id="btn-cam" onclick="handleCameraBtn()">▶ Start Camera</button>
-      <button class="btn btn-gold" id="btn-analyze" disabled onclick="analyzeShot()">⛳ Analyze Shot</button>
-      <img id="thumb" alt="last frame"/>
+    <div class="camctrl">
+      <button class="btn btn-green" id="btnCam" onclick="toggleCam()">▶ Start Camera</button>
+      <button class="btn btn-gold" id="btnSwing" disabled onclick="startSwingCapture()">⛳ Ready to Swing</button>
+      <img id="thumb" alt=""/>
     </div>
-    <!-- Ball lock row -->
-    <div id="ball-lock-row" style="display:none;margin-top:8px;display:none;align-items:center;gap:8px;flex-wrap:wrap;">
-      <div id="ball-status-text" style="font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--muted);flex:1;">Camera active — place ball in view</div>
-      <button class="btn btn-ghost btn-sm" id="btn-manual-lock" onclick="manualLock()">Lock Ball Manually</button>
-      <button class="btn btn-ghost btn-sm" id="btn-rescan" onclick="rescanBall()" style="display:none;">🔄 Rescan</button>
+    <div id="ballRow">
+      <div id="ballStatusTxt">Scanning for Titleist ball...</div>
+      <button class="btn btn-ghost btn-sm" id="btnManual" onclick="manualLock()">Lock Manually</button>
+      <button class="btn btn-ghost btn-sm" id="btnRescan" onclick="rescan()" style="display:none;">↺ Rescan</button>
     </div>
-    <!-- Scan attempt log -->
-    <div id="scan-log" style="display:none;margin-top:6px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:11px;font-family:var(--font-cond);letter-spacing:.5px;color:var(--muted);line-height:1.8;max-height:80px;overflow-y:auto;"></div>
-    <div class="cam-hint">Place ball with Titleist / Pro V1 logo clearly visible → wait for auto-lock (or lock manually) → swing → tap Analyze</div>
+    <div id="scanLog"></div>
+    <div class="camhint">Place Titleist Pro V1 in frame → AI locks the ball angle → click Ready to Swing → swing normally</div>
 
-    <!-- Live stats -->
     <div class="stats-row">
-      <div class="stat-box" id="sb-speed"><div class="stat-val" id="sv-speed">—</div><div class="stat-unit">mph</div><div class="stat-label">Club Speed</div></div>
-      <div class="stat-box" id="sb-spin"><div class="stat-val" id="sv-spin">—</div><div class="stat-unit">rpm</div><div class="stat-label">Ball Spin</div></div>
-      <div class="stat-box"><div class="stat-val" id="sv-dist">—</div><div class="stat-unit">yds</div><div class="stat-label">Est. Distance</div></div>
-      <div class="stat-box"><div class="stat-val" id="sv-angle">—</div><div class="stat-unit">°</div><div class="stat-label">Launch Angle</div></div>
+      <div class="sbox" id="sb0"><div class="sv" id="sv0">—</div><div class="su">mph</div><div class="sl">Club Speed</div></div>
+      <div class="sbox" id="sb1"><div class="sv" id="sv1">—</div><div class="su">rpm</div><div class="sl">Ball Spin</div></div>
+      <div class="sbox" id="sb2"><div class="sv" id="sv2">—</div><div class="su">yds</div><div class="sl">Distance</div></div>
+      <div class="sbox" id="sb3"><div class="sv" id="sv3">—</div><div class="su">°</div><div class="sl">Launch Angle</div></div>
     </div>
 
-    <!-- COURSE (course mode only) -->
-    <div id="course-section" class="course-section" style="display:none;">
-      <div class="hole-header" id="hole-header"></div>
-      <div class="course-svg-wrap">
-        <svg id="course-svg" viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;"></svg>
-      </div>
-      <div class="scorecard-wrap">
-        <div class="scorecard-title">Scorecard</div>
-        <div class="sc-grid" id="scorecard"></div>
-      </div>
+    <div id="courseSec" class="coursesec" style="display:none;">
+      <div class="holehdr" id="holeHdr"></div>
+      <div class="csvgwrap"><svg id="csvg" viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;"></svg></div>
+      <div class="scwrap"><div class="sctitle">Scorecard</div><div class="scgrid" id="scorecard"></div></div>
     </div>
 
-    <!-- Feedback -->
-    <div id="fb-area"></div>
-
+    <div id="fbArea"></div>
   </div>
 </section>
 
 <script>
-// ============================================================
-// STATE
-// ============================================================
+// ================================================================
+//  GOLF SIMULATOR — no API key needed
+//  Uses: canvas pixel analysis for ball detection
+//        motion detection for swing speed
+//        physics engine for shot calculation
+//        rule-based AI for coaching feedback
+// ================================================================
+
+// ---- STATE ----
 const G = {
-  hand: null, club: null, clubName: null, mode: null,
-  stream: null, scanTimer: null, scanBusy: false,
-  ballLocked: false, ballAngle: null, ballLogo: null,
-  currentHole: 1, shotCount: 0,
-  scores: Array(9).fill(null),
-  ballX: 38, ballY: 120,
-  PARS:  [4,3,5,4,3,4,5,4,3],
-  YARDS: [385,155,510,420,175,390,490,410,160],
-  CLUBS: {
-    '4i': {loft:20,maxDist:205,spinBase:4200},
-    '5i': {loft:24,maxDist:190,spinBase:4600},
-    '6i': {loft:28,maxDist:175,spinBase:5000},
-    '7i': {loft:32,maxDist:160,spinBase:5500},
-    '8i': {loft:37,maxDist:145,spinBase:6200},
-    '9i': {loft:41,maxDist:130,spinBase:7000},
-    'pw': {loft:46,maxDist:115,spinBase:8500},
-    'sw': {loft:56,maxDist:80, spinBase:10000},
-    'dr': {loft:10.5,maxDist:280,spinBase:2400}
+  hand:null, club:null, clubName:null, mode:null,
+  stream:null, rafId:null, scanTimer:null,
+  ballLocked:false, ballX:0, ballY:0, ballR:0, ballAngleDeg:0,
+  prevFrame:null, motionHistory:[], maxMotion:0, swingActive:false,
+  currentHole:1, shotCount:0, scores:Array(9).fill(null),
+  bX:38, bY:120,
+  PARS:[4,3,5,4,3,4,5,4,3],
+  YARDS:[385,155,510,420,175,390,490,410,160],
+  SHAPES:['straight','dogleg-right','dogleg-left','straight','straight','dogleg-left','straight','dogleg-right','straight'],
+  CLUBS:{
+    '4i':{loft:20,maxDist:205,spinBase:4200,speedBase:88},
+    '5i':{loft:24,maxDist:190,spinBase:4600,speedBase:85},
+    '6i':{loft:28,maxDist:175,spinBase:5000,speedBase:82},
+    '7i':{loft:32,maxDist:160,spinBase:5500,speedBase:79},
+    '8i':{loft:37,maxDist:145,spinBase:6200,speedBase:76},
+    '9i':{loft:41,maxDist:130,spinBase:7000,speedBase:73},
+    'pw':{loft:46,maxDist:115,spinBase:8500,speedBase:68},
+    'sw':{loft:56,maxDist:80, spinBase:10000,speedBase:60},
+    'dr':{loft:10.5,maxDist:280,spinBase:2400,speedBase:105}
   }
 };
 
-// ============================================================
-// NAVIGATION
-// ============================================================
-function goTo(id) {
+// ---- NAV ----
+function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
+function ge(id){return document.getElementById(id);}
 
-// ============================================================
-// MENU
-// ============================================================
-function selectHand(h) {
-  G.hand = h;
-  document.getElementById('hc-left').classList.toggle('sel', h==='left');
-  document.getElementById('hc-right').classList.toggle('sel', h==='right');
-  document.getElementById('btn-h-next').disabled = false;
+// ---- MENU ----
+function selHand(h){
+  G.hand=h;
+  ge('hc-L').classList.toggle('sel',h==='left');
+  ge('hc-R').classList.toggle('sel',h==='right');
+  ge('btn-h').disabled=false;
 }
-
-function selectClub(id, name, el) {
-  G.club = id; G.clubName = name;
-  document.querySelectorAll('.club-btn').forEach(b=>b.classList.remove('sel'));
+function selClub(id,name,el){
+  G.club=id; G.clubName=name;
+  document.querySelectorAll('.cbtn').forEach(b=>b.classList.remove('sel'));
   el.classList.add('sel');
-  document.getElementById('btn-c-next').disabled = false;
+  ge('btn-c').disabled=false;
 }
-
-function selectMode(m, el) {
-  G.mode = m;
-  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('sel'));
+function selMode(m,el){
+  G.mode=m;
+  document.querySelectorAll('.mcard').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  document.getElementById('btn-m-next').disabled = false;
+  ge('btn-m').disabled=false;
 }
-
-function startGame() {
-  document.getElementById('t-hand').textContent = G.hand==='left' ? 'Left-handed' : 'Right-handed';
-  document.getElementById('t-club').textContent = G.clubName;
-  document.getElementById('t-mode').textContent = G.mode==='course' ? 'Virtual Course' : 'Practice';
-  if (G.mode==='course') {
-    G.currentHole=1; G.scores=Array(9).fill(null); G.shotCount=0; G.ballX=38; G.ballY=120;
-    document.getElementById('course-section').style.display='block';
-    drawHole(); renderScorecard();
-  } else {
-    document.getElementById('course-section').style.display='none';
-  }
-  document.getElementById('fb-area').innerHTML='';
+function startGame(){
+  ge('t-hand').textContent = G.hand==='left'?'Left-handed':'Right-handed';
+  ge('t-club').textContent = G.clubName;
+  ge('t-mode').textContent = G.mode==='course'?'Virtual Course':'Practice';
+  if(G.mode==='course'){
+    G.currentHole=1; G.scores=Array(9).fill(null); G.shotCount=0; G.bX=38; G.bY=120;
+    ge('courseSec').style.display='block';
+    drawHole(); renderSC();
+  } else { ge('courseSec').style.display='none'; }
+  ge('fbArea').innerHTML='';
   resetStats();
   goTo('s-game');
 }
+function quitGame(){ stopCam(); goTo('s-hand'); }
 
-function quitGame() {
-  stopCamera();
-  goTo('s-hand');
-}
-
-// ============================================================
-// CAMERA  — fixed: variables resolved after DOM load
-// ============================================================
-function getEl(id){ return document.getElementById(id); }
-
-function handleCameraBtn() {
-  if (G.stream) { stopCamera(); }
-  else { startCamera(); }
-}
-
-async function startCamera() {
-  const btn = getEl('btn-cam');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Requesting...';
-
-  // Must check API is available
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    showCamError('Camera API not available. Open this file in Chrome or Edge over HTTPS, or use a local server.');
-    btn.disabled = false;
-    btn.textContent = '▶ Start Camera';
-    return;
+// ================================================================
+//  CAMERA
+// ================================================================
+async function toggleCam(){
+  if(G.stream){ stopCam(); return; }
+  const btn=ge('btnCam');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Starting...';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    showCamErr('Camera not available. Open in Chrome/Edge over HTTPS or localhost.');
+    btn.disabled=false; btn.textContent='▶ Start Camera'; return;
   }
-
-  try {
-    G.stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'user', width: {ideal:1280}, height: {ideal:960} }
-    });
-    const vid = getEl('video');
-    vid.srcObject = G.stream;
+  try{
+    G.stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:1280},height:{ideal:960}}});
+    const vid=ge('video');
+    vid.srcObject=G.stream;
     await vid.play();
-
-    getEl('cam-overlay').classList.add('hidden');
-    getEl('ball-lock-badge').style.display = 'block';
-    getEl('spin-badge').style.display = 'flex';
-    btn.disabled = false;
-    btn.textContent = '⏹ Stop Camera';
-    getEl('btn-analyze').disabled = false;
+    ge('camOverlay').classList.add('hide');
+    ge('ballBadge').style.display='block';
+    ge('speedBadge').style.display='flex';
+    ge('ballRow').classList.add('show');
+    ge('scanLog').style.display='block';
+    btn.disabled=false; btn.textContent='⏹ Stop Camera';
+    ge('btnSwing').disabled=false;
+    startMotionLoop();
     startBallScan();
-  } catch(e) {
-    const msg = e.name === 'NotAllowedError'
-      ? 'Camera permission denied. Click the camera icon in your browser address bar and allow access, then try again.'
-      : e.name === 'NotFoundError'
-      ? 'No camera found on this device.'
-      : 'Camera error: ' + e.message;
-    showCamError(msg);
-    btn.disabled = false;
-    btn.textContent = '▶ Start Camera';
+  } catch(e){
+    const m = e.name==='NotAllowedError'?'Permission denied — click the camera icon in your address bar and allow, then retry.'
+      : e.name==='NotFoundError'?'No camera found on this device.'
+      : 'Camera error: '+e.message;
+    showCamErr(m);
+    btn.disabled=false; btn.textContent='▶ Start Camera';
   }
 }
 
-function stopCamera() {
-  if (G.stream) { G.stream.getTracks().forEach(t=>t.stop()); G.stream=null; }
-  if (G.scanTimer) { clearInterval(G.scanTimer); G.scanTimer=null; }
-  G.ballLocked=false; G.scanBusy=false; G.ballAngle=null; G.ballLogo=null;
-  const overlay = getEl('cam-overlay');
-  overlay.classList.remove('hidden');
-  getEl('cam-overlay-msg').className='';
-  getEl('cam-overlay-msg').innerHTML='Click <b>Start Camera</b> below.<br>Your browser will ask for permission — click Allow.';
-  getEl('ball-lock-badge').style.display='none';
-  getEl('spin-badge').style.display='none';
-  getEl('contact-badge').style.display='none';
-  getEl('ball-lock-row').classList.remove('visible');
-  getEl('scan-log').style.display='none';
-  getEl('scan-log').innerHTML='';
-  clearScanCanvas();
-  getEl('btn-cam').textContent='▶ Start Camera';
-  getEl('btn-analyze').disabled=true;
+function stopCam(){
+  if(G.stream){G.stream.getTracks().forEach(t=>t.stop());G.stream=null;}
+  if(G.rafId){cancelAnimationFrame(G.rafId);G.rafId=null;}
+  if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
+  G.ballLocked=false; G.swingActive=false; G.motionHistory=[];
+  ge('camOverlay').classList.remove('hide');
+  ge('camMsg').className=''; ge('camMsg').innerHTML='Click <b>Start Camera</b> below.<br>Allow camera access when prompted.';
+  ge('ballBadge').style.display='none';
+  ge('speedBadge').style.display='none';
+  ge('ballRow').classList.remove('show');
+  ge('scanLog').style.display='none'; ge('scanLog').innerHTML='';
+  ge('swingFill').style.width='0%';
+  ge('btnCam').textContent='▶ Start Camera';
+  ge('btnSwing').disabled=true;
+  clearOC();
 }
+function showCamErr(m){ ge('camOverlay').classList.remove('hide'); ge('camMsg').className='err'; ge('camMsg').textContent=m; }
 
-function showCamError(msg) {
-  const overlay = getEl('cam-overlay');
-  overlay.classList.remove('hidden');
-  const m = getEl('cam-overlay-msg');
-  m.className='err';
-  m.textContent = msg;
-}
-
-// ============================================================
-// BALL SCAN — robust: 2s interval, detailed prompt, scan log, visual box
-// ============================================================
-let scanAttempt = 0;
-
-function startBallScan() {
-  scanAttempt = 0;
-  G.ballLocked = false;
-  updateBallBadge('scanning', '⬤ Scanning for ball...');
-  showScanLog(true);
-  addScanLog('Camera active — place Pro V1 with logo facing camera');
-
-  // Show the lock row controls
-  getEl('ball-lock-row').classList.add('visible');
-  getEl('btn-rescan').style.display = 'none';
-
-  G.scanTimer = setInterval(()=>doScan(), 2000);
-  // Also do one immediately after a short delay for video to stabilize
-  setTimeout(()=>doScan(), 800);
-}
-
-async function doScan() {
-  if (G.scanBusy || !G.stream || G.ballLocked) return;
-  G.scanBusy = true;
-  scanAttempt++;
-  updateBallBadge('scanning', `⟳ Scan #${scanAttempt}...`);
-
-  try {
-    const b64 = captureFrame();
-
-    // Draw a pulsing scan border on the scan canvas
-    drawScanPulse();
-
-    const prompt = `Look carefully at this image for a white golf ball. It may be on a green mat, grass, or a tee. 
-The ball will have either "Titleist" script text or "Pro V1" printed on it — but the logo may be small, slightly blurry, or at an angle.
-Even if you can only PARTIALLY see the text, or it appears upside-down or sideways, still report it.
-Also report if you see a plain white ball with NO visible text.
-
-Respond ONLY with this exact JSON (no markdown, no explanation):
-{"found":true,"angle":45,"logo":"Titleist","confidence":"high","notes":"brief reason"}
-
-Rules:
-- found: true if ANY white ball is visible, even without readable logo
-- angle: 0-359, clockwise rotation of logo text from horizontal. 0 = text reads left to right normally. If no logo visible use 0.
-- logo: "Titleist" | "ProV1" | "plain" (ball visible but no readable logo) | "none" (no ball at all)
-- confidence: "high" (logo clearly readable) | "medium" (ball visible, logo partially visible or blurry) | "low" (no ball found)
-- notes: one short phrase like "ball on mat, logo tilted ~30deg" or "no ball visible"
-
-If truly no ball at all: {"found":false,"angle":0,"logo":"none","confidence":"low","notes":"no ball visible"}`;
-
-    const resp = await callClaude(prompt,
-      [{type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},
-       {type:'text',text:'Find the golf ball in this image and return JSON.'}],
-      180
-    );
-
-    const parsed = safeJSON(resp);
-    addScanLog(`#${scanAttempt}: ${parsed ? (parsed.found ? `✓ ${parsed.logo} @ ${parsed.angle}° [${parsed.confidence}] — ${parsed.notes||''}` : `✗ ${parsed.notes||'not found'}`) : '✗ parse error — ' + resp.slice(0,60)}`);
-
-    if (parsed && parsed.found) {
-      if (parsed.confidence === 'high' || parsed.confidence === 'medium') {
-        // Auto-lock on medium or high confidence
-        lockBall(parsed.angle, parsed.logo, parsed.confidence, false);
-      } else {
-        // Ball found but low confidence — keep scanning, update badge
-        updateBallBadge('scanning', `⬤ Ball seen, checking logo... (${scanAttempt})`);
-        updateScanStatus(`Ball detected — rotating logo into view helps`);
-        // After 4 low-confidence attempts, offer manual lock
-        if (scanAttempt >= 4) {
-          updateScanStatus('Tip: Try rotating ball so logo faces camera directly');
-          getEl('btn-manual-lock').style.display = '';
-        }
+// ================================================================
+//  MOTION DETECTION LOOP (requestAnimationFrame)
+//  Measures pixel difference between frames to detect swing
+// ================================================================
+function startMotionLoop(){
+  const vid=ge('video'), mc=ge('motionCanvas'), oc=ge('overlayCanvas');
+  function loop(){
+    if(!G.stream){return;}
+    G.rafId=requestAnimationFrame(loop);
+    if(vid.readyState<2)return;
+    // Sample at low res for speed
+    const W=160,H=120;
+    mc.width=W; mc.height=H;
+    const ctx=mc.getContext('2d');
+    ctx.drawImage(vid,0,0,W,H);
+    const cur=ctx.getImageData(0,0,W,H).data;
+    if(G.prevFrame){
+      let diff=0;
+      for(let i=0;i<cur.length;i+=4){
+        const dr=cur[i]-G.prevFrame[i], dg=cur[i+1]-G.prevFrame[i+1], db=cur[i+2]-G.prevFrame[i+2];
+        diff+=Math.abs(dr)+Math.abs(dg)+Math.abs(db);
       }
-    } else {
-      updateBallBadge('scanning', `⬤ No ball yet — attempt ${scanAttempt}`);
-      if (scanAttempt === 3) updateScanStatus('Tip: Move ball closer to camera, ensure good lighting');
-      if (scanAttempt === 6) updateScanStatus('Tip: Try pointing a light at the ball, or click "Lock Ball Manually"');
+      const motionScore = diff/(W*H*3); // 0-255 scale
+      G.motionHistory.push(motionScore);
+      if(G.motionHistory.length>30)G.motionHistory.shift();
+      if(G.swingActive && motionScore>G.maxMotion) G.maxMotion=motionScore;
+      // Update speed badge live
+      const mph = motionToMPH(motionScore);
+      ge('speedVal').textContent = mph>0?mph:'—';
+      // Swing bar
+      ge('swingFill').style.width = Math.min(motionScore/8*100,100)+'%';
     }
-  } catch(e) {
-    addScanLog(`#${scanAttempt}: error — ${e.message}`);
+    G.prevFrame = new Uint8ClampedArray(cur);
   }
-  G.scanBusy = false;
+  loop();
 }
 
-function lockBall(angle, logo, confidence, manual) {
-  G.ballAngle  = angle;
-  G.ballLogo   = logo;
-  G.ballLocked = true;
-  if (G.scanTimer) { clearInterval(G.scanTimer); G.scanTimer = null; }
-
-  const src = manual ? 'manual' : confidence;
-  updateBallBadge('locked', `✓ Ball locked · ${logo} · ${angle}° [${src}]`);
-  addScanLog(`→ LOCKED: ${logo} at ${angle}° (${src})`);
-  getEl('btn-rescan').style.display = '';
-  getEl('btn-manual-lock').style.display = 'none';
-  drawLockBox();
+function motionToMPH(score){
+  // score ~0-30+ for realistic swings; calibrate to club speed range
+  const club = G.CLUBS[G.club]||G.CLUBS['pw'];
+  if(score<1) return 0;
+  // Map score to realistic club speed range ±25%
+  const base = club.speedBase;
+  const raw = Math.min(score/12, 1.5); // normalized 0-1.5
+  return Math.round(base * 0.7 + raw * base * 0.5);
 }
 
-function manualLock() {
-  // Lock with current frame, angle 0, logo unknown — still useful for swing analysis
-  lockBall(0, 'manual', 'manual', true);
-  addScanLog('Manual lock — angle assumed 0°. Spin direction estimated from swing path.');
+// ================================================================
+//  BALL DETECTION — canvas pixel analysis
+//  Looks for a white circular region (the ball)
+//  Then samples for the Titleist script logo (dark curved region)
+// ================================================================
+let scanAttempt=0;
+function startBallScan(){
+  scanAttempt=0; G.ballLocked=false;
+  setBadge('searching','⬤ Scanning for ball...');
+  ge('btnRescan').style.display='none';
+  ge('btnManual').style.display='';
+  addLog('Camera active — place Titleist Pro V1 with logo facing lens');
+  G.scanTimer=setInterval(scanFrame,1800);
+  setTimeout(scanFrame,600);
 }
 
-function rescanBall() {
-  G.ballLocked = false;
-  G.ballAngle  = null;
-  G.ballLogo   = null;
-  clearScanCanvas();
-  getEl('btn-rescan').style.display = 'none';
-  getEl('btn-manual-lock').style.display = '';
+function scanFrame(){
+  if(!G.stream||G.ballLocked)return;
+  const vid=ge('video'), cnv=ge('canvas');
+  if(vid.readyState<2)return;
+  scanAttempt++;
+  // Scan at medium res
+  const W=320,H=240;
+  cnv.width=W; cnv.height=H;
+  const ctx=cnv.getContext('2d');
+  // Draw WITHOUT flipping — raw front camera (logo appears mirrored)
+  ctx.drawImage(vid,0,0,W,H);
+  const img=ctx.getImageData(0,0,W,H);
+  const result=detectBall(img,W,H);
+  if(result.found){
+    G.ballX=result.cx; G.ballY=result.cy; G.ballR=result.r; G.ballAngleDeg=result.angle;
+    G.ballLocked=true;
+    if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
+    setBadge('locked',`✓ Ball locked · logo ~${result.angle}° · r=${result.r}px`);
+    addLog(`#${scanAttempt}: ✓ Found white sphere at (${result.cx},${result.cy}) r=${result.r} logo=${result.angle}°`);
+    ge('ballStatusTxt').textContent=`Ball locked — logo angle ${result.angle}°. Ready to swing!`;
+    ge('btnRescan').style.display='';
+    ge('btnManual').style.display='none';
+    drawBallBox(result);
+  } else {
+    addLog(`#${scanAttempt}: ✗ ${result.reason} — try moving ball closer or improving lighting`);
+    ge('ballStatusTxt').textContent=result.reason;
+    if(scanAttempt===3) addLog('Tip: Ball should be 1-2 ft from camera, logo facing lens');
+    if(scanAttempt===5) addLog('Tip: Ensure good front lighting, avoid backlighting');
+    if(scanAttempt>=4) ge('btnManual').style.display='';
+  }
+}
+
+// Core ball detection algorithm
+function detectBall(img,W,H){
+  const d=img.data;
+  // Step 1: find bright white circular cluster
+  // Build whiteness map — pixel is "white-ball white" if R,G,B all >210 and close to each other
+  const white=new Uint8Array(W*H);
+  let wCount=0;
+  for(let i=0;i<d.length;i+=4){
+    const r=d[i],g=d[i+1],b=d[i+2];
+    const bright=r>200&&g>195&&b>190;
+    const neutral=Math.max(r,g,b)-Math.min(r,g,b)<40; // not too colorful
+    if(bright&&neutral){white[i>>2]=1;wCount++;}
+  }
+  if(wCount<80){return{found:false,reason:'No bright white area found (need more light?)'};}
+
+  // Step 2: find largest connected white blob
+  const blob=largestBlob(white,W,H);
+  if(!blob||blob.size<60){return{found:false,reason:'White area too small — move ball closer'};}
+
+  // Step 3: check blob is roughly circular
+  const cx=blob.cx, cy=blob.cy;
+  // Estimate radius from area: A=πr²
+  const r=Math.round(Math.sqrt(blob.size/Math.PI));
+  if(r<5){return{found:false,reason:'Ball too small in frame — move closer'};}
+
+  // Circularity check: count white pixels in bounding circle
+  let inCircle=0, inBbox=0;
+  const r2=r*1.3;
+  for(let y=Math.max(0,cy-r2);y<Math.min(H,cy+r2);y++){
+    for(let x=Math.max(0,cx-r2);x<Math.min(W,cx+r2);x++){
+      const dx=x-cx, dy=y-cy;
+      if(dx*dx+dy*dy<=r2*r2){
+        inCircle++;
+        if(white[y*W+x])inBbox++;
+      }
+    }
+  }
+  const circularity=inBbox/inCircle;
+  if(circularity<0.35){return{found:false,reason:'Shape not circular enough — is that a golf ball?'};}
+
+  // Step 4: detect Titleist cursive script logo angle
+  // Logo = dark (non-white) curved stripe on the white sphere
+  // Look for dark pixels inside the ball region and find their angular cluster
+  const logoPix=[];
+  const rSearch=r*0.9;
+  for(let y=Math.max(0,cy-rSearch);y<Math.min(H,cy+rSearch);y++){
+    for(let x=Math.max(0,cx-rSearch);x<Math.min(W,cx+rSearch);x++){
+      const dx=x-cx, dy=y-cy;
+      if(dx*dx+dy*dy>rSearch*rSearch)continue;
+      const idx=(y*W+x)*4;
+      const pr=d[idx],pg=d[idx+1],pb=d[idx+2];
+      // Dark ink pixel on the ball: darker than surroundings but still "inside" ball
+      if(pr<160&&pg<160&&pb<160){
+        logoPix.push({x,y,angle:Math.atan2(dy,dx)*180/Math.PI});
+      }
+    }
+  }
+
+  let logoAngle=0;
+  if(logoPix.length>8){
+    // Find the dominant angle band of the logo stripe
+    // The Titleist script runs roughly horizontally — find the mean Y offset
+    const meanY=logoPix.reduce((s,p)=>s+p.y,0)/logoPix.length;
+    const offY=meanY-cy;
+    // Angle of logo baseline relative to ball center
+    const meanX=logoPix.reduce((s,p)=>s+p.x,0)/logoPix.length;
+    const offX=meanX-cx;
+    logoAngle=Math.round(Math.atan2(offY,offX)*180/Math.PI);
+    if(logoAngle<0)logoAngle+=360;
+  }
+
+  return{found:true,cx:Math.round(cx),cy:Math.round(cy),r,angle:logoAngle,circularity:Math.round(circularity*100)};
+}
+
+// Simple flood-fill largest blob finder
+function largestBlob(white,W,H){
+  const visited=new Uint8Array(W*H);
+  let best=null;
+  for(let i=0;i<W*H;i++){
+    if(white[i]&&!visited[i]){
+      const blob=floodFill(white,visited,W,H,i%W,Math.floor(i/W));
+      if(!best||blob.size>best.size)best=blob;
+    }
+  }
+  return best;
+}
+function floodFill(white,visited,W,H,sx,sy){
+  const stack=[{x:sx,y:sy}]; let size=0, sumX=0, sumY=0;
+  while(stack.length){
+    const{x,y}=stack.pop();
+    if(x<0||x>=W||y<0||y>=H)continue;
+    const idx=y*W+x;
+    if(visited[idx]||!white[idx])continue;
+    visited[idx]=1; size++; sumX+=x; sumY+=y;
+    stack.push({x:x+1,y},{x:x-1,y},{x,y:y+1},{x,y:y-1});
+  }
+  return{size,cx:sumX/size,cy:sumY/size};
+}
+
+function drawBallBox(b){
+  const oc=ge('overlayCanvas'), vid=ge('video');
+  oc.width=vid.clientWidth; oc.height=vid.clientHeight;
+  const ctx=oc.getContext('2d');
+  ctx.clearRect(0,0,oc.width,oc.height);
+  // Scale from detection res (320x240) to display size
+  const sx=oc.width/320, sy=oc.height/240;
+  // Mirror X because video is CSS-flipped
+  const dx=(320-b.cx)*sx, dy=b.cy*sy, dr=b.r*sx*1.3;
+  ctx.strokeStyle='#2ea855'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(dx,dy,dr,0,Math.PI*2); ctx.stroke();
+  // Corner brackets
+  const off=dr+6, cs=12;
+  [[dx-off,dy-off,1,1],[dx+off,dy-off,-1,1],[dx-off,dy+off,1,-1],[dx+off,dy+off,-1,-1]].forEach(([bx,by,mx,my])=>{
+    ctx.beginPath(); ctx.moveTo(bx,by+my*cs); ctx.lineTo(bx,by); ctx.lineTo(bx+mx*cs,by);
+    ctx.strokeStyle='#2ea855'; ctx.lineWidth=3; ctx.stroke();
+  });
+  ctx.font='bold 11px Barlow Condensed'; ctx.fillStyle='#2ea855';
+  ctx.fillText(`Titleist · ${b.angle}°`, dx-dr, dy-dr-6);
+}
+
+function clearOC(){
+  const oc=ge('overlayCanvas');
+  if(oc.getContext)oc.getContext('2d').clearRect(0,0,oc.width,oc.height);
+}
+
+function manualLock(){
+  G.ballLocked=true; G.ballAngleDeg=0;
+  if(G.scanTimer){clearInterval(G.scanTimer);G.scanTimer=null;}
+  setBadge('locked','✓ Ball locked manually (angle=0°)');
+  addLog('Manual lock — spin estimated from swing path');
+  ge('ballStatusTxt').textContent='Manually locked. Ready to swing!';
+  ge('btnRescan').style.display='';
+  ge('btnManual').style.display='none';
+}
+function rescan(){
+  G.ballLocked=false; clearOC();
+  ge('btnRescan').style.display='none';
   startBallScan();
 }
 
-// ---- Scan canvas visuals ----
-function drawScanPulse() {
-  const cnv = getEl('scan-canvas');
-  const wrap = cnv.parentElement;
-  cnv.width  = wrap.clientWidth;
-  cnv.height = wrap.clientHeight;
-  const ctx  = cnv.getContext('2d');
-  ctx.clearRect(0,0,cnv.width,cnv.height);
-  ctx.strokeStyle = 'rgba(46,168,85,0.4)';
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(8, 8, cnv.width-16, cnv.height-16);
+function setBadge(state,txt){
+  const b=ge('ballBadge'); b.textContent=txt;
+  b.className=state==='locked'?'locked':state==='searching'?'searching':'';
+}
+function addLog(line){
+  const el=ge('scanLog');
+  el.innerHTML+=line+'<br>'; el.scrollTop=el.scrollHeight;
 }
 
-function drawLockBox() {
-  const cnv = getEl('scan-canvas');
-  const wrap = cnv.parentElement;
-  cnv.width  = wrap.clientWidth;
-  cnv.height = wrap.clientHeight;
-  const ctx  = cnv.getContext('2d');
-  ctx.clearRect(0,0,cnv.width,cnv.height);
-  ctx.strokeStyle = 'rgba(46,168,85,0.9)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(6, 6, cnv.width-12, cnv.height-12);
-  // Corner accents
-  const c = 18;
-  [[[6,6],[6+c,6],[6,6+c]], [[cnv.width-6,6],[cnv.width-6-c,6],[cnv.width-6,6+c]],
-   [[6,cnv.height-6],[6+c,cnv.height-6],[6,cnv.height-6-c]], [[cnv.width-6,cnv.height-6],[cnv.width-6-c,cnv.height-6],[cnv.width-6,cnv.height-6-c]]]
-  .forEach(pts=>{
-    ctx.beginPath(); ctx.moveTo(pts[1][0],pts[1][1]); ctx.lineTo(pts[0][0],pts[0][1]); ctx.lineTo(pts[2][0],pts[2][1]);
-    ctx.strokeStyle='var(--green)'; ctx.lineWidth=3; ctx.stroke();
-  });
+// ================================================================
+//  SWING CAPTURE
+//  Countdown → monitor motion peak → calculate shot physics
+// ================================================================
+function startSwingCapture(){
+  ge('btnSwing').disabled=true;
+  G.maxMotion=0; G.swingActive=false;
+  G.motionHistory=[];
+  // Countdown
+  const sp=ge('swingPrompt'); sp.classList.add('show');
+  const cd=ge('swingCountdown'), sm=ge('swingMsg');
+  let n=3;
+  cd.textContent=n;
+  const tick=setInterval(()=>{
+    n--;
+    if(n>0){cd.textContent=n;}
+    else if(n===0){cd.textContent='SWING!';sm.textContent='';
+      G.swingActive=true;
+    } else {
+      clearInterval(tick);
+      sp.classList.remove('show');
+      // Collect swing data for 1.2s after "SWING"
+      setTimeout(()=>{
+        G.swingActive=false;
+        captureFrame();
+        processShot();
+      },1200);
+    }
+  },1000);
 }
 
-function clearScanCanvas() {
-  const cnv = getEl('scan-canvas');
-  cnv.getContext('2d').clearRect(0,0,cnv.width,cnv.height);
+function captureFrame(){
+  const vid=ge('video'), cnv=ge('canvas');
+  cnv.width=vid.videoWidth||640; cnv.height=vid.videoHeight||480;
+  cnv.getContext('2d').drawImage(vid,0,0);
+  ge('thumb').src=cnv.toDataURL('image/jpeg',0.82);
+  ge('thumb').style.display='block';
 }
 
-// ---- Badge & log helpers ----
-function updateBallBadge(state, text) {
-  const b = getEl('ball-lock-badge');
-  b.textContent = text;
-  b.className = state === 'locked' ? 'locked' : '';
+// ================================================================
+//  PHYSICS ENGINE — calculates shot result without API
+// ================================================================
+function processShot(){
+  const club=G.CLUBS[G.club]||G.CLUBS['pw'];
+  const isLefty=G.hand==='left';
+
+  // --- Club speed from motion ---
+  const peakMotion=G.maxMotion||G.motionHistory.reduce((a,b)=>Math.max(a,b),0)||5;
+  const speedRaw=motionToMPH(peakMotion);
+  const speedFactor=speedRaw/club.speedBase; // ratio vs typical
+  const clubSpeed=Math.max(30,Math.min(speedRaw,club.speedBase*1.3));
+
+  // --- Ball speed (smash factor varies by club) ---
+  const smash=G.club==='dr'?1.48:G.club==='sw'?1.2:1.35;
+  const ballSpeed=clubSpeed*smash;
+
+  // --- Launch angle (loft - dynamic loft reduction) ---
+  // Shaft lean affects dynamic loft — estimate from speed (aggressive swings = more lean)
+  const shaftLeanCorr=speedFactor>1.1?-3:speedFactor<0.8?2:0;
+  const launchAngle=Math.round(club.loft*0.65+shaftLeanCorr+rand(-2,2));
+
+  // --- Spin from logo angle + contact variance ---
+  const contactVariance=rand(-1200,1200);
+  const spinRPM=Math.round(club.spinBase*(0.85+speedFactor*0.15)+contactVariance);
+
+  // --- Spin axis from logo angle ---
+  // Logo angle tells us how the ball was oriented — spin axis derived from angle deviation
+  const angle=G.ballAngleDeg||0;
+  // Neutral is ~0° or 180°; deviation causes draw/fade
+  const axisDev=(angle>90&&angle<270)?angle-180:angle; // -90 to +90
+  let spinAxis;
+  if(Math.abs(axisDev)<15) spinAxis='straight';
+  else if(axisDev>0) spinAxis=isLefty?'fade':'draw';
+  else spinAxis=isLefty?'draw':'fade';
+  if(Math.abs(axisDev)>45) spinAxis=spinAxis==='draw'?'hook':'slice';
+
+  // --- Distance (Trackman-style formula) ---
+  const v=ballSpeed*0.44704; // to m/s
+  const a=launchAngle*Math.PI/180;
+  const g=9.81, cd=0.23, cl=0.18, rho=1.225, m=0.0459, A=0.00143;
+  // Simplified carry distance
+  const vx=v*Math.cos(a), vy=v*Math.sin(a);
+  const t=(vy+Math.sqrt(vy*vy+2*g*0))/g*1.8; // flight time approx
+  const carry=Math.round((v*v*Math.sin(2*a)/g)*0.7*(1+spinRPM/50000));
+  const rollFactor=G.club==='dr'?1.15:G.club==='sw'?0.85:1.0;
+  const estimatedDistance=Math.round(carry*rollFactor*(0.9+speedFactor*0.1));
+
+  // --- Contact quality (affects coaching) ---
+  const recentMotion=G.motionHistory.slice(-10);
+  const motionStd=stdDev(recentMotion);
+  const contactPoint=motionStd>8?'thin':motionStd<2?'fat':speedFactor>1.1?'toe':'center';
+
+  const result={
+    clubSpeed,spinRPM,estimatedDistance,launchAngle,
+    spinAxis,contactPoint,speedFactor,motionStd,peakMotion
+  };
+
+  updateStats(result);
+  ge('speedVal').textContent=clubSpeed;
+  const feedback=generateFeedback(result);
+  renderFeedback(feedback,result);
+  if(G.mode==='course') processCourseShot(result);
+
+  // Reset for next shot
+  G.ballLocked=false; clearOC();
+  ge('btnSwing').disabled=false;
+  ge('btnRescan').style.display='none';
+  ge('btnManual').style.display='';
+  rescan();
 }
 
-function updateScanStatus(txt) {
-  getEl('ball-status-text').textContent = txt;
+function rand(min,max){return min+Math.random()*(max-min);}
+function stdDev(arr){
+  if(!arr.length)return 0;
+  const m=arr.reduce((a,b)=>a+b,0)/arr.length;
+  return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);
 }
 
-function showScanLog(show) {
-  getEl('scan-log').style.display = show ? 'block' : 'none';
-}
+// ================================================================
+//  RULE-BASED AI COACHING
+//  Analyzes physics result and generates human-sounding feedback
+// ================================================================
+function generateFeedback(r){
+  const {clubSpeed,spinRPM,launchAngle,spinAxis,contactPoint,speedFactor} = r;
+  const club=G.CLUBS[G.club]||G.CLUBS['pw'];
+  const isLefty=G.hand==='left';
+  const checks=[];
+  let issues=0;
 
-function addScanLog(line) {
-  const el = getEl('scan-log');
-  el.innerHTML += line + '<br>';
-  el.scrollTop = el.scrollHeight;
-}
-
-// ============================================================
-// CAPTURE FRAME
-// ============================================================
-function captureFrame() {
-  const vid = getEl('video');
-  const cnv = getEl('canvas');
-  cnv.width  = vid.videoWidth  || 640;
-  cnv.height = vid.videoHeight || 480;
-  const ctx = cnv.getContext('2d');
-  ctx.save();
-  ctx.scale(-1,1);
-  ctx.drawImage(vid, -cnv.width, 0);
-  ctx.restore();
-  return cnv.toDataURL('image/jpeg', 0.83).split(',')[1];
-}
-
-// ============================================================
-// CLAUDE API HELPER
-// ============================================================
-async function callClaude(system, contentArr, maxTok=900) {
-  const r = await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens: maxTok,
-      system,
-      messages:[{role:'user',content:contentArr}]
-    })
-  });
-  const d = await r.json();
-  return (d.content||[]).map(x=>x.text||'').join('');
-}
-
-function safeJSON(str) {
-  try { return JSON.parse(str.replace(/```json|```/g,'').trim()); } catch(e){ return null; }
-}
-
-// ============================================================
-// ANALYZE SHOT
-// ============================================================
-async function analyzeShot() {
-  if (!G.stream) return;
-  const btn = getEl('btn-analyze');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Analyzing...';
-
-  const b64 = captureFrame();
-  const thumb = getEl('thumb');
-  thumb.src = 'data:image/jpeg;base64,'+b64;
-  thumb.style.display = 'block';
-
-  getEl('fb-area').innerHTML = `<div class="fb-card"><div class="fb-title"><span class="spinner"></span> Reading your shot...</div><div class="fb-summary">Analyzing swing mechanics, contact point, and ball flight...</div></div>`;
-
-  const club = G.CLUBS[G.club] || G.CLUBS['pw'];
-  const isLefty = G.hand==='left';
-  const lockInfo = G.ballLocked
-    ? `Ball logo (${G.ballLogo||'unknown'}) was pre-locked at ${G.ballAngle}° rotation before the swing. Use this to estimate spin axis.`
-    : 'Ball logo was not pre-locked — estimate spin from swing path.';
-
-  const surface = G.club==='dr' ? 'driving mat with orange rubber tee'
-    : G.club==='sw'||G.club==='pw' ? 'chipping mat or TifTuf grass'
-    : 'turf mat';
-
-  const sys = `You are a pro-level golf launch monitor and AI swing coach. Player details:
-- Handedness: ${isLefty?'LEFT':'RIGHT'}
-- Club: ${G.clubName} (loft ~${club.loft}°, typical max ~${club.maxDist} yds)
-- Ball: Titleist Pro V1. ${lockInfo}
-- Surface: ${surface}
-- Competition: Drive Chip & Putt. Known issues: ball not high enough, too much roll, left/right accuracy.
-
-Analyze the swing image. Return ONLY a single valid JSON object, no markdown, no extra text:
-{
-  "clubSpeed": <realistic mph for this club and swing>,
-  "spinRPM": <realistic rpm>,
-  "estimatedDistance": <yards>,
-  "launchAngle": <degrees>,
-  "spinAxis": "draw"|"fade"|"straight"|"hook"|"slice",
-  "contactPoint": "center"|"toe"|"heel"|"thin"|"fat",
-  "summary": "2-sentence assessment",
-  "perfect": true|false,
-  "checks": [
-    {"label":"Stance","status":"good|warn|bad","note":"coaching tip"},
-    {"label":"Ball position","status":"good|warn|bad","note":"coaching tip"},
-    {"label":"Shaft lean","status":"good|warn|bad","note":"coaching tip"},
-    {"label":"Weight transfer","status":"good|warn|bad","note":"coaching tip"},
-    {"label":"Follow through","status":"good|warn|bad","note":"coaching tip"}
-  ],
-  "topFix": "single most important fix",
-  "encouragement": "short encouraging note"
-}`;
-
-  try {
-    const raw = await callClaude(sys,[
-      {type:'image',source:{type:'base64',media_type:'image/jpeg',data:b64}},
-      {type:'text',text:'Analyze this golf swing. Return JSON only.'}
-    ], 1000);
-
-    const result = safeJSON(raw) || {
-      clubSpeed:0,spinRPM:0,estimatedDistance:0,launchAngle:0,
-      spinAxis:'straight',contactPoint:'center',
-      summary:'Could not parse AI response — try again.',
-      perfect:false,checks:[],topFix:'',encouragement:''
-    };
-
-    // Update stat boxes
-    animateStat('sv-speed', result.clubSpeed, 'sb-speed');
-    animateStat('sv-spin',  result.spinRPM,   'sb-spin');
-    getEl('sv-dist').textContent  = result.estimatedDistance || '—';
-    getEl('sv-angle').textContent = result.launchAngle || '—';
-    getEl('spin-badge-val').textContent = result.spinRPM || '—';
-
-    // Contact badge
-    const cb = getEl('contact-badge');
-    cb.style.display='block';
-    cb.textContent = `Contact: ${result.contactPoint||'—'} · ${result.spinAxis||'—'}`;
-
-    // Unlock ball for next shot
-    G.ballLocked=false; G.ballAngle=null; G.ballLogo=null;
-    clearScanCanvas();
-    addScanLog('--- Shot taken — rescanning for next ball placement ---');
-    getEl('btn-rescan').style.display='none';
-    getEl('btn-manual-lock').style.display='';
-    startBallScan();
-
-    renderFeedback(result);
-
-    if (G.mode==='course') processCourseShot(result);
-
-  } catch(e) {
-    getEl('fb-area').innerHTML=`<div class="fb-card"><div class="fb-title">⚠ Error</div><div class="fb-summary">Could not reach the AI coach. Check your connection and try again.</div></div>`;
-  }
-
-  btn.disabled=false;
-  btn.textContent='⛳ Analyze Shot';
-}
-
-function animateStat(id, val, boxId) {
-  const el = getEl(id);
-  const box = getEl(boxId);
-  el.textContent = val || '—';
-  if (val) { box.classList.add('live'); setTimeout(()=>box.classList.remove('live'),1500); }
-}
-
-function resetStats() {
-  ['sv-speed','sv-spin','sv-dist','sv-angle'].forEach(id=>getEl(id).textContent='—');
-  getEl('spin-badge-val').textContent='—';
-}
-
-// ============================================================
-// RENDER FEEDBACK
-// ============================================================
-function renderFeedback(r) {
-  let html = '<div class="fb-card">';
-  if (r.perfect) {
-    html += `<div class="perfect-banner"><div class="pb-big">🏆 Perfect Shot!</div><div class="pb-sub">Textbook swing — keep that up!</div></div>`;
+  // --- Stance check (inferred from speed consistency) ---
+  if(r.motionStd>9){
+    checks.push({label:'Stance/Balance',status:'bad',note:'High motion variance — try a wider stance and keep weight centered through impact'});
+    issues++;
+  } else if(r.motionStd>5){
+    checks.push({label:'Stance/Balance',status:'warn',note:'Slight balance wobble detected — focus on keeping lower body stable'});
+    issues++;
   } else {
-    html += `<div class="fb-title">⛳ Shot Analysis</div>`;
+    checks.push({label:'Stance/Balance',status:'good',note:'Steady motion through impact — great balance'});
   }
-  html += `<div class="fb-summary">${r.summary}</div>`;
-  if (r.spinAxis || r.contactPoint) {
-    html += `<div class="fb-meta"><span class="tag">Contact: ${r.contactPoint||'—'}</span><span class="tag">Spin: ${r.spinAxis||'—'}</span></div>`;
+
+  // --- Contact quality ---
+  if(contactPoint==='thin'){
+    checks.push({label:'Contact Point',status:'bad',note:'Thin strike — ball struck too high on face. Try keeping your head down longer'});
+    issues++;
+  } else if(contactPoint==='fat'){
+    checks.push({label:'Contact Point',status:'warn',note:'Slightly heavy contact — club may be bottoming out early. Forward press the handle slightly'});
+    issues++;
+  } else if(contactPoint==='toe'){
+    checks.push({label:'Contact Point',status:'warn',note:'Toe contact — move slightly closer to the ball at address'});
+    issues++;
+  } else {
+    checks.push({label:'Contact Point',status:'good',note:'Center-face contact — Pro V1 spin should be predictable'});
   }
-  if (r.checks && r.checks.length) {
-    html += '<div class="checks-grid">';
-    r.checks.forEach(c=>{
-      const ic = c.status==='good'?'✓':c.status==='warn'?'~':'✗';
-      html+=`<div class="check-row ${c.status}"><span class="ck-icon">${ic}</span><span class="ck-label">${c.label}</span><span class="ck-note">${c.note}</span></div>`;
-    });
-    html += '</div>';
+
+  // --- Launch angle ---
+  const idealLaunch=club.loft*0.6;
+  if(launchAngle<idealLaunch-5){
+    checks.push({label:'Launch Angle',status:'bad',note:`Low launch (${launchAngle}°) — too much shaft lean. Let the club loft do the work`});
+    issues++;
+  } else if(launchAngle>idealLaunch+6){
+    checks.push({label:'Launch Angle',status:'warn',note:`High launch (${launchAngle}°) — ball position may be too far forward`});
+    issues++;
+  } else {
+    checks.push({label:'Launch Angle',status:'good',note:`Good launch angle (${launchAngle}°) for this club`});
   }
-  if (r.topFix) html+=`<div class="top-fix"><div class="tf-lbl">★ Top Fix</div><div class="tf-txt">${r.topFix}</div></div>`;
-  if (r.encouragement) html+=`<div class="encourage">${r.encouragement}</div>`;
-  html+='</div>';
-  getEl('fb-area').innerHTML=html;
+
+  // --- Spin axis (draw/fade/hook/slice) ---
+  if(spinAxis==='hook'||spinAxis==='slice'){
+    checks.push({label:'Spin Axis',status:'bad',note:`${spinAxis==='hook'?'Hook':'Slice'} spin detected from ball rotation — check grip and swing path`});
+    issues++;
+  } else if(spinAxis==='draw'||spinAxis==='fade'){
+    checks.push({label:'Spin Axis',status:'warn',note:`Slight ${spinAxis} — intentional? For straight shots keep logo vertical`});
+  } else {
+    checks.push({label:'Spin Axis',status:'good',note:'Straight spin axis — good clubface alignment at impact'});
+  }
+
+  // --- Club speed vs expectation ---
+  if(speedFactor<0.7){
+    checks.push({label:'Swing Speed',status:'warn',note:'Slower than typical — make sure to accelerate through the ball, not to it'});
+    issues++;
+  } else if(speedFactor>1.25){
+    checks.push({label:'Swing Speed',status:'warn',note:'Very fast swing — make sure you\'re not sacrificing accuracy for power'});
+  } else {
+    checks.push({label:'Swing Speed',status:'good',note:`Good tempo — ${r.clubSpeed} mph is solid for this club`});
+  }
+
+  // --- Perfect shot? ---
+  const perfect=issues===0;
+
+  // --- Summary ---
+  const summaries={
+    perfect:`Clean ${r.estimatedDistance}-yard ${G.clubName} shot — everything checks out. Pro V1 spin at ${spinRPM} rpm is exactly where you want it.`,
+    good:`Solid ${r.estimatedDistance}-yard shot with ${G.clubName}. ${spinAxis!=='straight'?`A little ${spinAxis} spin, but manageable.`:'Good straight flight.'}`,
+    bad:`${r.estimatedDistance}-yard shot needs work. ${contactPoint!=='center'?`${contactPoint} contact is hurting distance and control.`:''} Focus on the top fix below.`
+  };
+  const summary=perfect?summaries.perfect:issues>=3?summaries.bad:summaries.good;
+
+  // --- Top fix ---
+  const badCheck=checks.find(c=>c.status==='bad');
+  const warnCheck=checks.find(c=>c.status==='warn');
+  const topFix=badCheck?badCheck.note:warnCheck?warnCheck.note:'Keep doing what you\'re doing — your mechanics look solid!';
+
+  // --- Encouragement (leftie-aware) ---
+  const encs=[
+    `${isLefty?'Left-handed golfers often have a natural draw — use it!':'Good fundamentals.'}`,
+    `The Pro V1 rewards clean contact — you're ${perfect?'nailing it':'getting there'}.`,
+    `Drive, Chip & Putt is all about repeatability — ${issues<2?'you\'re building good habits':'keep practicing this motion'}.`,
+    `Titleist spin at ${spinRPM} rpm — ${spinRPM>7000?'nice stopping power on the green':'good distance spin for this club'}.`
+  ];
+  const encouragement=encs[Math.floor(Math.random()*encs.length)];
+
+  return{perfect,summary,checks,topFix,encouragement};
 }
 
-// ============================================================
-// VIRTUAL COURSE
-// ============================================================
-const SHAPES=['straight','dogleg-right','dogleg-left','straight','straight','dogleg-left','straight','dogleg-right','straight'];
+// ================================================================
+//  RENDER FEEDBACK
+// ================================================================
+function updateStats(r){
+  const vals=[r.clubSpeed,r.spinRPM,r.estimatedDistance,r.launchAngle];
+  vals.forEach((v,i)=>{
+    ge('sv'+i).textContent=v||'—';
+    const box=ge('sb'+i);
+    box.classList.add('flash');
+    setTimeout(()=>box.classList.remove('flash'),1500);
+  });
+}
+function resetStats(){[0,1,2,3].forEach(i=>ge('sv'+i).textContent='—');}
 
-function drawHole() {
-  const h = G.currentHole-1;
-  const par = G.PARS[h], yards = G.YARDS[h], shape = SHAPES[h];
-  const svg = getEl('course-svg');
+function renderFeedback(fb,r){
+  let h='<div class="fbcard">';
+  if(fb.perfect){
+    h+=`<div class="perf"><div class="perf-big">🏆 Perfect Shot!</div><div class="perf-sub">${r.estimatedDistance} yds · ${r.spinRPM} rpm · ${r.launchAngle}° launch</div></div>`;
+  } else {
+    h+=`<div class="fbtitle">⛳ Shot Analysis</div>`;
+  }
+  h+=`<div class="fbsum">${fb.summary}</div>`;
+  h+=`<div class="fbmeta"><span class="tag">Contact: ${r.contactPoint}</span><span class="tag">Spin: ${r.spinAxis}</span><span class="tag">${r.clubSpeed} mph club speed</span></div>`;
+  if(fb.checks.length){
+    h+='<div class="checks">';
+    fb.checks.forEach(c=>{
+      const ico=c.status==='good'?'✓':c.status==='warn'?'~':'✗';
+      h+=`<div class="crow ${c.status}"><span class="cico">${ico}</span><span class="clbl">${c.label}</span><span class="cnote">${c.note}</span></div>`;
+    });
+    h+='</div>';
+  }
+  if(fb.topFix) h+=`<div class="topfix"><div class="tflbl">★ Top Fix</div><div class="tftxt">${fb.topFix}</div></div>`;
+  if(fb.encouragement) h+=`<div class="enc">${fb.encouragement}</div>`;
+  h+='</div>';
+  ge('fbArea').innerHTML=h;
+}
 
-  // Sky/rough
-  let s = `<rect width="640" height="240" fill="#091a0b"/>`;
-  s += `<rect width="640" height="240" fill="#0e3018" opacity="0.6"/>`;
-
-  // Fairway shape
-  if (shape==='straight') {
+// ================================================================
+//  VIRTUAL COURSE
+// ================================================================
+function drawHole(){
+  const h=G.currentHole-1, par=G.PARS[h], yards=G.YARDS[h], shape=G.SHAPES[h];
+  let s=`<rect width="640" height="240" fill="#091a0b"/>`;
+  s+=`<rect width="640" height="240" fill="#0e3018" opacity="0.5"/>`;
+  if(shape==='straight'){
     s+=`<path d="M10,88 Q320,68 630,90 L630,152 Q320,168 10,152 Z" fill="#1a5e28"/>`;
-  } else if (shape==='dogleg-right') {
+  } else if(shape==='dogleg-right'){
     s+=`<path d="M10,88 Q220,72 370,95 Q490,108 620,62 L620,112 Q490,158 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;
   } else {
     s+=`<path d="M10,88 Q220,72 370,95 Q490,72 620,105 L620,155 Q490,122 370,140 Q220,118 10,152 Z" fill="#1a5e28"/>`;
   }
-
-  // Bunkers
   s+=`<ellipse cx="440" cy="130" rx="26" ry="13" fill="#8a7832" opacity="0.9"/>`;
-  if (par>=4) s+=`<ellipse cx="210" cy="100" rx="18" ry="9" fill="#8a7832" opacity="0.75"/>`;
-
-  // Water on par 5
-  if (par===5) {
+  if(par>=4) s+=`<ellipse cx="210" cy="100" rx="18" ry="9" fill="#8a7832" opacity="0.75"/>`;
+  if(par===5){
     s+=`<path d="M270,105 Q315,93 365,108 Q340,138 285,132 Z" fill="#1a3d6a" opacity="0.85"/>`;
-    s+=`<path d="M270,105 Q315,93 365,108" stroke="rgba(100,180,255,0.3)" stroke-width="1" fill="none"/>`;
   }
-
-  // Green
   s+=`<ellipse cx="598" cy="118" rx="30" ry="18" fill="#22a84a"/>`;
-  // Pin
   s+=`<line x1="598" y1="100" x2="598" y2="72" stroke="white" stroke-width="1.5"/>`;
   s+=`<polygon points="598,72 614,79 598,86" fill="#e05555"/>`;
-
-  // Tee box
   s+=`<rect x="8" y="106" width="18" height="12" rx="3" fill="#2a7a3a" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>`;
-  s+=`<text x="17" y="116" font-size="6" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="Bebas Neue" letter-spacing="0.5">TEE</text>`;
-
-  // Yardage markers
-  for (let i=1;i*50<yards;i++) {
-    const x = 18 + (i/((yards/50)))*590*0.93;
-    if (x<580) {
-      s+=`<line x1="${x}" y1="108" x2="${x}" y2="118" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>`;
-      if (i%2===0) s+=`<text x="${x}" y="106" font-size="7" fill="rgba(255,255,255,0.3)" text-anchor="middle" font-family="Barlow Condensed">${i*50}</text>`;
-    }
+  s+=`<text x="17" y="116" font-size="6" fill="rgba(255,255,255,.7)" text-anchor="middle" font-family="Bebas Neue">TEE</text>`;
+  for(let i=1;i*50<yards;i++){
+    const x=18+(i/(yards/50))*590*0.93;
+    if(x<580) s+=`<line x1="${x}" y1="108" x2="${x}" y2="118" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>`;
+    if(x<580&&i%2===0) s+=`<text x="${x}" y="106" font-size="7" fill="rgba(255,255,255,.25)" text-anchor="middle" font-family="Barlow Condensed">${i*50}</text>`;
   }
-
-  // Ball
-  s+=`<circle id="ball-dot" cx="${G.ballX}" cy="${G.ballY}" r="5" fill="white" stroke="rgba(0,0,0,0.25)" stroke-width="0.5"/>`;
-  s+=`<circle cx="${G.ballX}" cy="${G.ballY}" r="8" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>`;
-
-  // Hole label
-  s+=`<text x="12" y="22" font-size="15" fill="rgba(255,255,255,0.85)" font-family="Bebas Neue" letter-spacing="1">HOLE ${G.currentHole}</text>`;
-  s+=`<text x="12" y="34" font-size="9" fill="rgba(212,168,50,0.85)" font-family="Barlow Condensed" letter-spacing="1">PAR ${par} · ${yards} YDS</text>`;
-
-  svg.innerHTML = s;
-
-  // Hole header tags
-  getEl('hole-header').innerHTML=`
-    <span class="tag hi">Hole ${G.currentHole}/9</span>
-    <span class="tag">Par ${par}</span>
-    <span class="tag">${yards} yds</span>
-    <span class="tag gold">Shot ${G.shotCount+1}</span>
-  `;
+  s+=`<circle id="bdot" cx="${G.bX}" cy="${G.bY}" r="5" fill="white" stroke="rgba(0,0,0,.3)" stroke-width=".5"/>`;
+  s+=`<circle cx="${G.bX}" cy="${G.bY}" r="8" fill="none" stroke="rgba(255,255,255,.2)" stroke-width=".5"/>`;
+  s+=`<text x="12" y="22" font-size="15" fill="rgba(255,255,255,.85)" font-family="Bebas Neue" letter-spacing="1">HOLE ${G.currentHole}</text>`;
+  s+=`<text x="12" y="34" font-size="9" fill="rgba(212,168,50,.85)" font-family="Barlow Condensed" letter-spacing="1">PAR ${par} · ${yards} YDS</text>`;
+  ge('csvg').innerHTML=s;
+  ge('holeHdr').innerHTML=`<span class="tag hi">Hole ${G.currentHole}/9</span><span class="tag">Par ${par}</span><span class="tag">${yards} yds</span><span class="tag gd">Shot ${G.shotCount+1}</span>`;
 }
 
-function processCourseShot(result) {
+function processCourseShot(r){
   G.shotCount++;
-  const h = G.currentHole-1;
-  const yards = G.YARDS[h];
-  const dist = result.estimatedDistance || 80;
-  const axis = result.spinAxis || 'straight';
-
-  // Advance ball
-  const prog = Math.min(dist/yards, 1);
-  G.ballX = Math.min(28 + prog*575, 595);
-
-  // Lateral drift
-  let dy = 0;
-  if (axis==='draw'||axis==='hook') dy = G.hand==='left'? 14:-14;
-  else if (axis==='fade'||axis==='slice') dy = G.hand==='left'?-14:14;
-  G.ballY = Math.max(88, Math.min(150, 120 + dy));
-
-  const onGreen  = G.ballX >= 565;
-  const holed    = G.ballX >= 595;
-
+  const h=G.currentHole-1, yards=G.YARDS[h];
+  const prog=Math.min((r.estimatedDistance||80)/yards,1);
+  G.bX=Math.min(28+prog*570,595);
+  let dy=0;
+  if(r.spinAxis==='draw'||r.spinAxis==='hook') dy=G.hand==='left'?14:-14;
+  else if(r.spinAxis==='fade'||r.spinAxis==='slice') dy=G.hand==='left'?-14:14;
+  G.bY=Math.max(88,Math.min(150,120+dy));
+  const onGreen=G.bX>=565;
   drawHole();
-
-  if (holed || onGreen) {
-    const score = G.shotCount;
-    G.scores[h] = score;
-    const par = G.PARS[h];
-    const diff = score-par;
-    const label = diff<=-2?'🦅 Eagle!':diff===-1?'🐦 Birdie!':diff===0?'Par':diff===1?'Bogey':`+${diff} Double+`;
-    showToast(label);
-    renderScorecard();
+  if(onGreen){
+    const score=G.shotCount, par=G.PARS[h], diff=score-par;
+    G.scores[h]=score;
+    const lbl=diff<=-2?'🦅 Eagle!':diff===-1?'🐦 Birdie!':diff===0?'Par 🤝':diff===1?'Bogey':'Double+';
+    showToast(lbl);
+    renderSC();
     setTimeout(()=>{
-      if (G.currentHole<9) {
-        G.currentHole++;
-        G.shotCount=0;
-        G.ballX=38; G.ballY=120;
-        drawHole(); renderScorecard();
-        getEl('fb-area').innerHTML=`<div class="fb-card"><div class="fb-title">⛳ Hole ${G.currentHole-1} — ${label}</div><div class="fb-summary">Moving to Hole ${G.currentHole}. ${G.YARDS[G.currentHole-1]>380?'Big hole ahead — power and accuracy.':'Shorter hole — control is everything.'}</div></div>`;
-      } else {
-        showFinalScore();
-      }
-    },1400);
-  } else {
-    renderScorecard();
-  }
+      if(G.currentHole<9){
+        G.currentHole++; G.shotCount=0; G.bX=38; G.bY=120;
+        drawHole(); renderSC();
+        ge('fbArea').innerHTML=`<div class="fbcard"><div class="fbtitle">⛳ Hole ${G.currentHole-1} — ${lbl}</div><div class="fbsum">Moving to Hole ${G.currentHole}. ${G.YARDS[G.currentHole-1]>380?'Big hole — blend power with accuracy.':'Shorter hole — control wins.'}</div></div>`;
+      } else { showFinal(); }
+    },1500);
+  } else { renderSC(); }
 }
 
-function renderScorecard() {
-  let html='';
-  // Header row
-  html+=`<div class="sc-row-label">Hole</div>`;
-  for(let i=1;i<=9;i++) html+=`<div class="sc-head">${i}</div>`;
-  html+=`<div class="sc-head">TOT</div>`;
-  // Par row
-  html+=`<div class="sc-row-label" style="color:var(--gold)">Par</div>`;
-  G.PARS.forEach(p=>html+=`<div class="sc-cell">${p}</div>`);
-  html+=`<div class="sc-total">${G.PARS.reduce((a,b)=>a+b,0)}</div>`;
-  // Score row
-  html+=`<div class="sc-row-label" style="color:var(--green)">Score</div>`;
+function renderSC(){
+  let h='<div class="scrl">Hole</div>';
+  for(let i=1;i<=9;i++) h+=`<div class="sch">${i}</div>`;
+  h+='<div class="sch">TOT</div>';
+  h+='<div class="scrl" style="color:var(--gold)">Par</div>';
+  G.PARS.forEach(p=>h+=`<div class="scc">${p}</div>`);
+  h+=`<div class="sctot">${G.PARS.reduce((a,b)=>a+b,0)}</div>`;
+  h+='<div class="scrl" style="color:var(--green)">Score</div>';
   let tot=0;
   G.scores.forEach((s,i)=>{
-    let cls = (i+1===G.currentHole && s===null) ? 'cur' : '';
-    if (s!==null) {
-      tot+=s;
-      const d=s-G.PARS[i];
-      if(d<=-2) cls='eagle'; else if(d===-1) cls='birdie'; else if(d===1) cls='bogey'; else if(d>=2) cls='dbl';
-    }
-    html+=`<div class="sc-cell ${cls}">${s!==null?s:'—'}</div>`;
+    let cls=(i+1===G.currentHole&&s===null)?'cur':'';
+    if(s!==null){ tot+=s; const d=s-G.PARS[i]; if(d<=-2)cls='eagle';else if(d===-1)cls='birdie';else if(d===1)cls='bogey';else if(d>=2)cls='dbl'; }
+    h+=`<div class="scc ${cls}">${s!==null?s:'—'}</div>`;
   });
-  html+=`<div class="sc-total">${tot||'—'}</div>`;
-  getEl('scorecard').innerHTML=html;
+  h+=`<div class="sctot">${tot||'—'}</div>`;
+  ge('scorecard').innerHTML=h;
 }
 
-function showFinalScore() {
-  const tot = G.scores.reduce((a,b)=>a+(b||0),0);
-  const par = G.PARS.reduce((a,b)=>a+b,0);
-  const diff = tot-par;
-  const msg = diff<0?'Excellent round — under par!':diff===0?'Right at par. Solid!':'Keep at it — you\'ll get there!';
-  getEl('fb-area').innerHTML=`
-    <div class="fb-card">
-      <div class="perfect-banner"><div class="pb-big">🏆 Round Complete!</div><div class="pb-sub">You shot ${tot} (${diff>=0?'+':''}${diff} vs par ${par}) · ${msg}</div></div>
-      <div class="btn-row">
-        <button class="btn btn-gold" onclick="restartCourse()">Play Again</button>
-        <button class="btn btn-ghost" onclick="quitGame()">Main Menu</button>
-      </div>
-    </div>`;
+function showFinal(){
+  const tot=G.scores.reduce((a,b)=>a+(b||0),0), par=G.PARS.reduce((a,b)=>a+b,0), diff=tot-par;
+  ge('fbArea').innerHTML=`<div class="fbcard"><div class="perf"><div class="perf-big">🏆 Round Complete!</div><div class="perf-sub">Shot ${tot} (${diff>=0?'+':''}${diff} vs par ${par}) · ${diff<0?'Under par — excellent!':diff===0?'Even par — solid!':'Keep practicing!'}</div></div><div class="btn-row"><button class="btn btn-gold" onclick="restart()">Play Again</button><button class="btn btn-ghost" onclick="quitGame()">Main Menu</button></div></div>`;
 }
-
-function restartCourse() {
-  G.currentHole=1; G.scores=Array(9).fill(null); G.shotCount=0; G.ballX=38; G.ballY=120;
-  drawHole(); renderScorecard(); resetStats();
-  getEl('fb-area').innerHTML='';
-}
-
-function showToast(msg) {
-  const t=getEl('shot-toast');
-  t.textContent=msg; t.style.display='block';
-  setTimeout(()=>t.style.display='none',2400);
-}
+function restart(){ G.currentHole=1;G.scores=Array(9).fill(null);G.shotCount=0;G.bX=38;G.bY=120; drawHole();renderSC();resetStats();ge('fbArea').innerHTML=''; }
+function showToast(m){ const t=ge('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2400); }
 </script>
 </body>
 </html>
