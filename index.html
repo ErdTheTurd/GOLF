@@ -237,8 +237,6 @@ html,body{min-height:100vh;background:var(--bg);color:var(--cr);font-family:var(
     <div class="cb" onclick="selClub('sw','Sand Wedge',this)"><div class="cbn">SW</div><div class="cbs">Sand</div></div>
     <div class="cb" onclick="selClub('3w','3 Wood',this)"><div class="cbn">3W</div><div class="cbs">Fairway</div></div>
     <div class="cb" onclick="selClub('5w','5 Wood',this)"><div class="cbn">5W</div><div class="cbs">Fairway</div></div>
-    <div class="cb" onclick="selClub('3w','3 Wood',this)"><div class="cbn">3W</div><div class="cbs">Fairway</div></div>
-    <div class="cb" onclick="selClub('5w','5 Wood',this)"><div class="cbn">5W</div><div class="cbs">Fairway</div></div>
     <div class="cb" onclick="selClub('dr','Driver',this)" style="grid-column:span 2"><div class="cbn">DR</div><div class="cbs">Driver</div></div>
     <div class="cb pb" onclick="selClub('pt','Putter',this)" style="grid-column:span 4"><div class="cbn">⛳ PT</div><div class="cbs">Putter — enables putting mode</div></div>
   </div>
@@ -330,10 +328,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--cr);font-family:var(
     <div id="gcsec" class="gcsec" style="display:none;">
       <div class="holehdr" id="holehdr" style="display:flex;gap:7px;margin-bottom:8px;flex-wrap:wrap;"></div>
       <div class="gcwrap" style="position:relative;">
-        <canvas id="gc"></canvas>
+        <canvas id="gc" style="width:100%;display:block;"></canvas>
         <svg id="trailSvg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></svg>
         <!-- FPV 3D ball-flight overlay -->
-        <canvas id="fpvCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:none;z-index:10;border-radius:12px;"></canvas>
+        <canvas id="fpvCanvas" style="position:absolute;inset:0;width:100%;height:100%;display:none;opacity:0;z-index:10;border-radius:12px;"></canvas>
         <div id="fpvHud" style="display:none;position:absolute;inset:0;z-index:11;pointer-events:none;">
           <div id="fpvInfo" style="position:absolute;top:10px;left:12px;font-family:var(--fc);font-size:11px;letter-spacing:1px;color:rgba(255,255,255,0.8);text-shadow:0 1px 4px rgba(0,0,0,.8);"></div>
           <div id="fpvAim" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.6);box-shadow:0 0 0 1px rgba(255,255,255,0.3),0 0 0 6px rgba(255,255,255,0.1);"></div>
@@ -601,74 +599,145 @@ document.addEventListener('keydown',e=>{
   if(!gameOn)return;
   if(e.code==='Space'){e.preventDefault();if(!ge('btnSwing').disabled)startSwing();}
   // Arrow keys for ball correct mode
-  if(G.correctMode&&G.ballLocked){
-    const step=1;
-    if(e.code==='ArrowLeft'){G.ballAngleDeg=((G.ballAngleDeg-step)+360)%360;}
-    if(e.code==='ArrowRight'){G.ballAngleDeg=(G.ballAngleDeg+step)%360;}
-    if(e.code==='ArrowUp'){G.correctBallY=clamp(G.correctBallY-step,0,100);}
-    if(e.code==='ArrowDown'){G.correctBallY=clamp(G.correctBallY+step,0,100);}
-    drawBallCorrectOverlay();
+  if(G.correctMode){
+    const step=e.shiftKey?5:1;
+    if(e.code==='ArrowLeft'){e.preventDefault();G.ballAngleDeg=((G.ballAngleDeg-step)+360)%360;drawBallCorrectOverlay();}
+    if(e.code==='ArrowRight'){e.preventDefault();G.ballAngleDeg=(G.ballAngleDeg+step)%360;drawBallCorrectOverlay();}
+    if(e.code==='ArrowUp'){e.preventDefault();G.ballR=clamp((G.ballR||18)+1,4,60);drawBallCorrectOverlay();}
+    if(e.code==='ArrowDown'){e.preventDefault();G.ballR=clamp((G.ballR||18)-1,4,60);drawBallCorrectOverlay();}
   }
   if(e.code==='Enter'&&G.correctMode){toggleBallCorrect();}
 });
 
 // ── BALL CORRECT MODE ─────────────────────────────────────────────
+// Draggable ball position + ←→ rotate angle + ↑↓ resize radius
+let _bcDragging=false,_bcDragOffX=0,_bcDragOffY=0;
+
 function toggleBallCorrect(){
   G.correctMode=!G.correctMode;
   const btn=ge('bcbtn');
   btn.classList.toggle('active',G.correctMode);
   btn.textContent=G.correctMode?'✓ Lock It':'◎ Correct';
+  const oc=ge('oc');
   if(G.correctMode){
-    // Show instruction on overlay canvas
+    if(!G.ballR||G.ballR<8)G.ballR=18;
     drawBallCorrectOverlay();
-    ge('oc').style.cursor='crosshair';
-    ge('oc').onclick=onCanvasClick;
-    addLog('Correct mode: click on ball, then use ← → to rotate logo angle. Enter or click button to lock.');
+    oc.style.cursor='move';
+    oc.style.pointerEvents='all';
+    oc.addEventListener('mousedown',_bcMouseDown);
+    oc.addEventListener('mousemove',_bcMouseMove);
+    oc.addEventListener('mouseup',_bcMouseUp);
+    oc.addEventListener('touchstart',_bcTouchStart,{passive:false});
+    oc.addEventListener('touchmove',_bcTouchMove,{passive:false});
+    oc.addEventListener('touchend',_bcMouseUp);
+    addLog('Correct mode: drag ball to position · ← → rotate logo · ↑ ↓ resize · Enter to lock');
   } else {
     G.ballLocked=true;
-    setBadge('lk',`✓ Corrected · ${G.ballAngleDeg}°`);
-    ge('oc').style.cursor='';
-    ge('oc').onclick=null;
+    setBadge('lk',`✓ Corrected · ${G.ballAngleDeg}° r=${G.ballR}`);
+    oc.style.cursor='';
+    oc.style.pointerEvents='none';
+    oc.removeEventListener('mousedown',_bcMouseDown);
+    oc.removeEventListener('mousemove',_bcMouseMove);
+    oc.removeEventListener('mouseup',_bcMouseUp);
+    oc.removeEventListener('touchstart',_bcTouchStart);
+    oc.removeEventListener('touchmove',_bcTouchMove);
+    oc.removeEventListener('touchend',_bcMouseUp);
+    _bcDragging=false;
     drawBallBox({cx:G.ballX,cy:G.ballY,r:G.ballR,angle:G.ballAngleDeg});
-    addLog(`Locked at (${G.ballX},${G.ballY}) angle=${G.ballAngleDeg}°`);
+    addLog(`Locked at (${G.ballX},${G.ballY}) r=${G.ballR} angle=${G.ballAngleDeg}°`);
   }
 }
-function onCanvasClick(e){
-  const oc=ge('oc');
+
+// Convert mouse/touch event coords → detection space (320×240, mirrored)
+function _ocEventToDetect(e,oc){
   const rect=oc.getBoundingClientRect();
-  // Map display coords to detection coords (320x240), accounting for CSS mirror flip
-  const relX=e.clientX-rect.left;
-  const relY=e.clientY-rect.top;
-  // un-mirror: video is displayed mirrored, so x = width - relX
+  const relX=e.clientX-rect.left, relY=e.clientY-rect.top;
+  // video is CSS-mirrored so un-flip X
   const mx=(rect.width-relX)/rect.width*320;
   const my=relY/rect.height*240;
-  G.ballX=Math.round(mx); G.ballY=Math.round(my); G.ballR=Math.max(G.ballR,10);
-  G.correctBallX=Math.round(mx); G.correctBallY=Math.round(my);
-  addLog(`Ball clicked at (${G.ballX},${G.ballY}) — now use ← → to set logo angle`);
-  drawBallCorrectOverlay();
+  return{mx,my};
 }
+function _bcMouseDown(e){
+  const oc=ge('oc');
+  const{mx,my}=_ocEventToDetect(e,oc);
+  // Only start drag if within ball radius (×2 for easy grab)
+  const sx=oc.clientWidth/320,sy=oc.clientHeight/240;
+  const bScreenX=(320-G.ballX)*sx, bScreenY=G.ballY*sy;
+  const clickX=(oc.clientWidth-(e.clientX-oc.getBoundingClientRect().left));
+  const clickY=e.clientY-oc.getBoundingClientRect().top;
+  const dist=Math.hypot(bScreenX-(oc.clientWidth-clickX*0+clickX*0+((oc.clientWidth-(e.clientX-oc.getBoundingClientRect().left)))),bScreenY-clickY);
+  // Always allow drag — just track offset
+  _bcDragging=true;
+  _bcDragOffX=mx-G.ballX;
+  _bcDragOffY=my-G.ballY;
+  e.preventDefault();
+}
+function _bcMouseMove(e){
+  if(!_bcDragging)return;
+  const oc=ge('oc');
+  const{mx,my}=_ocEventToDetect(e,oc);
+  G.ballX=Math.round(clamp(mx-_bcDragOffX,0,320));
+  G.ballY=Math.round(clamp(my-_bcDragOffY,0,240));
+  drawBallCorrectOverlay();
+  e.preventDefault();
+}
+function _bcMouseUp(e){_bcDragging=false;}
+function _bcTouchStart(e){
+  if(!e.touches.length)return;
+  const touch=e.touches[0];
+  const oc=ge('oc');
+  const{mx,my}=_ocEventToDetect(touch,oc);
+  _bcDragging=true;_bcDragOffX=mx-G.ballX;_bcDragOffY=my-G.ballY;
+  e.preventDefault();
+}
+function _bcTouchMove(e){
+  if(!_bcDragging||!e.touches.length)return;
+  const touch=e.touches[0];
+  const oc=ge('oc');
+  const{mx,my}=_ocEventToDetect(touch,oc);
+  G.ballX=Math.round(clamp(mx-_bcDragOffX,0,320));
+  G.ballY=Math.round(clamp(my-_bcDragOffY,0,240));
+  drawBallCorrectOverlay();
+  e.preventDefault();
+}
+
 function drawBallCorrectOverlay(){
   const oc=ge('oc'),vid=ge('video');
-  oc.width=vid.clientWidth; oc.height=vid.clientHeight;
+  oc.width=vid.clientWidth||320; oc.height=vid.clientHeight||240;
   const ctx=oc.getContext('2d');ctx.clearRect(0,0,oc.width,oc.height);
   if(!G.correctMode)return;
-  // Cross-hair and angle indicator
   const sx=oc.width/320,sy=oc.height/240;
-  const dx=(320-G.ballX)*sx,dy=G.ballY*sy,dr=(G.ballR||15)*sx*1.3;
-  // Circle
+  // Ball position in display space (mirrored)
+  const dx=(320-G.ballX)*sx, dy=G.ballY*sy;
+  const dr=Math.max(8,(G.ballR||18)*sx*1.3);
+  // Outer drag circle
   ctx.strokeStyle='rgba(212,168,50,0.9)';ctx.lineWidth=2;
+  ctx.setLineDash([]);
   ctx.beginPath();ctx.arc(dx,dy,dr,0,Math.PI*2);ctx.stroke();
-  // Angle line (logo direction)
+  // Inner circle
+  ctx.strokeStyle='rgba(212,168,50,0.4)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(dx,dy,dr*0.6,0,Math.PI*2);ctx.stroke();
+  // Grab handles (4 dots on circle)
+  [0,90,180,270].forEach(a=>{
+    const ar=a*Math.PI/180;
+    ctx.beginPath();ctx.arc(dx+Math.cos(ar)*dr,dy+Math.sin(ar)*dr,3,0,Math.PI*2);
+    ctx.fillStyle='rgba(212,168,50,0.9)';ctx.fill();
+  });
+  // Logo angle line
   const rad=G.ballAngleDeg*Math.PI/180;
-  ctx.beginPath();ctx.moveTo(dx-Math.cos(rad)*dr,dy-Math.sin(rad)*dr);ctx.lineTo(dx+Math.cos(rad)*dr,dy+Math.sin(rad)*dr);
-  ctx.strokeStyle='rgba(212,168,50,0.9)';ctx.lineWidth=2.5;ctx.stroke();
-  // Angle label
+  ctx.beginPath();ctx.moveTo(dx-Math.cos(rad)*dr,dy-Math.sin(rad)*dr);
+  ctx.lineTo(dx+Math.cos(rad)*dr,dy+Math.sin(rad)*dr);
+  ctx.strokeStyle='rgba(240,200,80,1)';ctx.lineWidth=2.5;ctx.setLineDash([]);ctx.stroke();
+  // Arrow tip on angle line
+  const ex=dx+Math.cos(rad)*dr,ey=dy+Math.sin(rad)*dr;
+  ctx.beginPath();ctx.arc(ex,ey,4,0,Math.PI*2);ctx.fillStyle='rgba(240,200,80,0.95)';ctx.fill();
+  // Labels
   ctx.font='bold 12px Barlow Condensed';ctx.fillStyle='rgba(212,168,50,0.95)';
-  ctx.fillText(`Logo: ${G.ballAngleDeg}° (← → to adjust)`,dx-dr,dy-dr-8);
-  // Instruction box
-  ctx.fillStyle='rgba(5,15,7,0.75)';ctx.fillRect(6,6,280,28);
-  ctx.font='11px Barlow Condensed';ctx.fillStyle='rgba(240,234,216,0.8)';
-  ctx.fillText('Click on ball · ← → to rotate logo · Enter to lock',12,24);
+  ctx.fillText(`Logo: ${G.ballAngleDeg}°  r=${G.ballR}px`,dx-dr,dy-dr-8);
+  // Instruction bar
+  ctx.fillStyle='rgba(5,15,7,0.8)';ctx.fillRect(0,0,oc.width,26);
+  ctx.font='11px Barlow Condensed';ctx.fillStyle='rgba(240,234,216,0.85)';
+  ctx.fillText('Drag ball to position · ← → rotate logo angle · ↑ ↓ resize circle · Enter to lock',8,17);
 }
 
 // ── CAMERA ───────────────────────────────────────────────────────
@@ -1023,7 +1092,11 @@ const CW=640,CH=260;
 function initHole(){
   G.shotCount=0;G.trail=[];
   const h=G.course.holes[G.holeIdx];
-  const gc=ge('gc');gc.width=CW;gc.height=CH;
+  const gc=ge('gc');
+  // Size canvas to its CSS display size for crisp rendering
+  const gcW=gc.clientWidth||gc.offsetWidth||CW;
+  const gcH=Math.round(gcW*(CH/CW));
+  gc.width=gcW||CW; gc.height=gcH||CH;
   // Calculate tee and green pixel positions
   G.teeX=Math.round(CW*0.05);G.teeY=Math.round(CH*0.5);
   const gd=h.green;
@@ -1034,9 +1107,9 @@ function initHole(){
 
 function drawHole(){
   const gc=ge('gc'),h=G.course.holes[G.holeIdx];
-  gc.width=CW;gc.height=CH;
+  const W=gc.width||CW, H=gc.height||CH;
   const ctx=gc.getContext('2d');
-  drawHoleToCtx(ctx,h,CW,CH);
+  drawHoleToCtx(ctx,h,W,H);
   // Draw ball
   ctx.beginPath();ctx.arc(G.bpx,G.bpy,6,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=.7;ctx.stroke();
   // Draw trail line
@@ -1375,10 +1448,16 @@ function initFPV(r, holeYds, onDone){
   if(!cnv) return;
   FPV.canvas = cnv;
   FPV.ctx = cnv.getContext('2d');
-  // Match display size
+  // Match display size — use offsetWidth/offsetHeight for reliability
   const wrap = cnv.parentElement;
-  cnv.width  = wrap.clientWidth  || 640;
-  cnv.height = wrap.clientHeight || 260;
+  const W0 = wrap.offsetWidth  || wrap.clientWidth  || 640;
+  const H0 = wrap.offsetHeight || wrap.clientHeight || (W0 * 260/640);
+  cnv.width  = W0;
+  cnv.height = H0;
+  // Also size the gc canvas so they match
+  const gcEl = ge('gc');
+  gcEl.width  = W0;
+  gcEl.height = H0;
 
   const cl = CLUBS[G.club]||CLUBS['pw'];
   // Convert to meters
@@ -1439,7 +1518,9 @@ function initFPV(r, holeYds, onDone){
     });
   }
 
-  // Show FPV
+  // Show FPV — use visibility so the element retains its layout size
+  cnv.style.visibility='visible';
+  cnv.style.opacity='1';
   cnv.style.display='block';
   ge('fpvHud').style.display='block';
   ge('gc').style.opacity='0';
@@ -1452,7 +1533,8 @@ function initFPV(r, holeYds, onDone){
 function stopFPV(){
   FPV.active=false;
   if(FPV.raf){cancelAnimationFrame(FPV.raf);FPV.raf=null;}
-  const cnv=ge('fpvCanvas');if(cnv)cnv.style.display='none';
+  const cnv=ge('fpvCanvas');
+  if(cnv){cnv.style.display='none';cnv.style.opacity='0';}
   ge('fpvHud').style.display='none';
   ge('gc').style.opacity='1';
   ge('trailSvg').style.opacity='1';
